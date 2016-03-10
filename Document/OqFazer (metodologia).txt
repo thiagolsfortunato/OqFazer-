@@ -1,0 +1,12 @@
+******** Divulgador de Eventos *************
+
+Thiago Luis Silva Fortunato
+William Cezar Penna de Oliveira
+
+Uma plataforma web onde esteja disponível eventos que ocorrerão na cidade de SJC. Funcionaria como o OLX, onde somente um usuário previamente cadastrado poderá realizar um cadastro de um evento, esse projeto tem o intuito de divulgar eventos que acontecem na cidade e ninguém tem o conhecimento, podendo ser desde um show quanto a uma inauguração de uma loja.
+
+- Qualquer usuário consegue vizualizar os eventos cadastrados
+- Um evento é composto por localização, nome, data, hora, descrição, categoria, telefone, imagem.
+- Um usuario é composto por Nome, endereço, telefone, sexo, cpf ...
+- Um usuario adm é composto tambem por Nome, endereço, telefone, sexo, cpf ...
+- Estrutura de entidade em arvore para criação de temas.
