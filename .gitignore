@@ -50,7 +50,6 @@ local.properties
 .recommenders/
 
 #Main
-
 *.class
 
 # Mobile Tools for Java (J2ME)
