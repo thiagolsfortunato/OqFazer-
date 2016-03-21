@@ -1,5 +1,17 @@
 package br.com.fatec.api.dao;
 
-public interface EventDAO {
+import java.util.List;
+import br.com.fatec.api.entity.Event;
 
+public interface EventDAO {
+	
+	Long inserEvent(Event event);
+	
+	Long deleteEvent(Long id);
+	
+	Event updateEvent(Event event);
+	
+	Event searchEventById(Long event);
+	
+	List<Event> searchAllEvents();
 }

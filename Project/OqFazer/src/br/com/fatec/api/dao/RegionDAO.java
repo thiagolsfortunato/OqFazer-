@@ -13,5 +13,5 @@ public interface RegionDAO {
 	
 	Region searchRegionById(Long id);
 	
-	List<Region> searchAllRegion();
+	List<Region> searchAllRegions();
 }
