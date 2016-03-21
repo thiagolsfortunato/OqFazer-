@@ -9,5 +9,5 @@ public interface EventCategory {
 	
 	void updateCategory(Long eventId, List<Category> category);
 	
-	List<Category> searchCategory(Long eventId);
+	List<Long> searchCategory(Long eventId);
 }
