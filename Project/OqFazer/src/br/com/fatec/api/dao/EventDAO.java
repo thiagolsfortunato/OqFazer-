@@ -9,7 +9,7 @@ public interface EventDAO {
 	
 	Long deleteEvent(Long id);
 	
-	Event updateEvent(Event event);
+	void updateEvent(Event event);
 	
 	Event searchEventById(Long event);
 	
