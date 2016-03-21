@@ -3170,7 +3170,7 @@
 								"$ref": "AAAAAAFTd4FUMY41aeQ="
 							},
 							"name": "rgn_city",
-							"type": "City",
+							"type": "int",
 							"length": 0,
 							"primaryKey": false,
 							"foreignKey": true,
