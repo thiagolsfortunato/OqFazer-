@@ -1,5 +1,5 @@
 package br.com.fatec.api.entity;
 
-public class City {
+public enum City {
 
 }
