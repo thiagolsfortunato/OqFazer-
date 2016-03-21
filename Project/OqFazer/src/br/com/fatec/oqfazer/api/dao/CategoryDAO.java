@@ -1,7 +1,8 @@
 package br.com.fatec.oqfazer.api.dao;
 
 import java.util.List;
-import br.com.fatec.api.entity.Category;
+import br.com.fatec.oqfazer.api.entity.Category;
+
 
 public interface CategoryDAO {
 	

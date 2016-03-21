@@ -1,7 +1,7 @@
 package br.com.fatec.oqfazer.api.dao;
 
 import java.util.List;
-import br.com.fatec.api.entity.Region;
+import br.com.fatec.oqfazer.api.entity.Region;
 
 public interface RegionDAO {
 	
