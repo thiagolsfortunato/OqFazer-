@@ -6,13 +6,13 @@ import com.google.common.collect.Lists;
 
 public class User {
 	
-	public static final String TABLE = "";
-	public static final String COL_ID = "";
-	public static final String COL_NAME = "";
-	public static final String COL_PASSWORD = "";
-	public static final String COL_EMAIL = "";
-	public static final String COL_SEX = "";
-	public static final String COL_PHONE = "";
+	public static final String TABLE = "USER";
+	public static final String COL_ID = "USR_ID";
+	public static final String COL_NAME = "USR_NAME";
+	public static final String COL_PASSWORD = "USR_PASSWORD";
+	public static final String COL_EMAIL = "USR_EMAIL";
+	public static final String COL_SEX = "USR_SEX";
+	public static final String COL_PHONE = "USR_TELEPHONE";
 	
 	private Long id;
 	private String name;

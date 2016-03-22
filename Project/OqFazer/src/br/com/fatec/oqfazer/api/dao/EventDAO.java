@@ -7,7 +7,7 @@ public interface EventDAO {
 	
 	Long inserEvent(Event event);
 	
-	Long deleteEvent(Long id);
+	void deleteEvent(Long id);
 	
 	void updateEvent(Event event);
 	

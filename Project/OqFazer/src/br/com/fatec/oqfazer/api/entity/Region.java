@@ -6,10 +6,10 @@ import com.google.common.collect.Lists;
 
 public class Region {
 	
-	public static final String TABLE = "";
-	public static final String COL_ID = "";
-	public static final String COL_NAME = "";
-	public static final String COL_ID_CITY = "";
+	public static final String TABLE = "REGION";
+	public static final String COL_ID = "RGN_ID";
+	public static final String COL_NAME = "RGN_NAME";
+	public static final String COL_ID_CITY = "RGN_CITY";
 	
 	private Long id;
 	private String name;

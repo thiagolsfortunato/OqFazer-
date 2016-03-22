@@ -7,7 +7,7 @@ public interface UserDAO {
 	
 	Long insertUser(User user);
 	
-	Long deleteUser(Long id);
+	void deleteUser(Long id);
 	
 	void updateUser(User user);
 	

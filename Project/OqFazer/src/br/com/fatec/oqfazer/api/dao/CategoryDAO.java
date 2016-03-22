@@ -8,7 +8,7 @@ public interface CategoryDAO {
 	
 	Long insertCategory(Category category);
 	
-	Long deleteCategory(Long id);
+	void deleteCategory(Long id);
 	
 	void updateCategory(Category category);
 	
