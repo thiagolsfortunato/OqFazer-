@@ -3117,7 +3117,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4FUMY41aeQ="
 							},
-							"name": "rgn_code",
+							"name": "rgn_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,
@@ -3407,7 +3407,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4xBa5gRswc="
 							},
-							"name": "evnc_code",
+							"name": "evnc_id",
 							"type": "long",
 							"length": 0,
 							"primaryKey": true,
