@@ -12,7 +12,7 @@ public class TestBase {
 	
 	@BeforeClass
 	public static void setUp() {
-		ContextSpecifier.setContext("br.com.fatec.projetoweb");
+		ContextSpecifier.setContext("br.com.fatec.oqfazer");
 		ConfigDBMapper.setDefaultConnectionName("test");
 		LiquibaseRunnerService.run();
 	}
