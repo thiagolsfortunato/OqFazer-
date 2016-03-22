@@ -7,17 +7,17 @@ import com.google.common.collect.Lists;
 
 public class Event {
 	
-	public static final String TABLE = "";
-	public static final String COL_ID = "";
-	public static final String COL_NAME = "";
-	public static final String COL_DESCRIPTION = "";
-	public static final String COL_REGISTRATION_DATE = "";
-	public static final String COL_EVENT_DATE = "";
-	public static final String COL_LOCAL = "";
-	public static final String COL_IMAGEURL = "";
-	public static final String COL_ID_REGION = "";
-	public static final String COL_ID_USER = "";
-	public static final String COL_ID_CATEGORY = "";
+	public static final String TABLE = "EVENT";
+	public static final String COL_ID = "EVN_ID";
+	public static final String COL_NAME = "EVN_NAME";
+	public static final String COL_DESCRIPTION = "EVN_DESCRIPTION";
+	public static final String COL_REGISTRATION_DATE = "EVN_REGISTRATION_DATE";
+	public static final String COL_EVENT_DATE = "EVN_DATE";
+	public static final String COL_LOCAL = "EVN_LOCAL";
+	public static final String COL_IMAGEURL = "EVN_IMAGE_URL";
+	public static final String COL_REGION_ID = "EVN_REGION_ID";
+	public static final String COL_USER_ID = "EVN_USER_ID";
+	public static final String COL_CATEGORY_ID = "EVN_CATEGORY_ID";
 		
 	private Long id;
 	private String name;
@@ -107,11 +107,11 @@ public class Event {
 	}
 	
 	public static List<String> getColumns() {
-		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_ID_REGION, COL_ID_USER, COL_ID_CATEGORY);
+		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_REGION_ID, COL_USER_ID, COL_CATEGORY_ID);
 	}
 
 	public static String[] getColumnsArray() {
-		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_ID_REGION, COL_ID_USER, COL_ID_CATEGORY };
+		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_REGION_ID, COL_USER_ID, COL_CATEGORY_ID };
 	}
 	
 }

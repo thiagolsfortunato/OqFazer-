@@ -6,10 +6,10 @@ import com.google.common.collect.Lists;
 
 public class Category {
 	
-	public static final String TABLE = "";
-	public static final String COL_ID = "";
-	public static final String COL_NAME = "";
-	public static final String COL_ID_CATEGORY = "";
+	public static final String TABLE = "CATEGORY";
+	public static final String COL_ID = "CTG_ID";
+	public static final String COL_NAME = "CTG_NAME";
+	public static final String COL_ID_CATEGORY = "CTG_CODE_NAME";
 	
 	private Long id;
 	private String name;
