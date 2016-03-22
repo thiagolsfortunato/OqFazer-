@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
+import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.Participation;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
@@ -28,6 +29,7 @@ public class EventDAOTest extends TestBase {
 	private CategoryDAO categoryDAO;
 	private RegionDAO regionDAO;
 	private Participation participation;
+	private EventCategory eventCategory;
 	
 	private User user, user2, user3;
 	private Category category, category2;
@@ -130,9 +132,8 @@ public class EventDAOTest extends TestBase {
 		event.setImageURL(null);
 		event.setRegion(region);
 		event.setOwner(user);
-		event.setCategory(category);
-		
-			
+		//event.setCategory(category);
+					
 		Long id = this.eventDAO.inserEvent(event);
 		Event savedEvent = this.eventDAO.searchEventById(id);
 		
@@ -140,6 +141,7 @@ public class EventDAOTest extends TestBase {
 		users.add(user2);
 		users.add(user3);
 		this.participation.updateListParticipation(id, users);
+		this.eventCategory.updateCategory(id, category);
 		
 		Assert.assertNotNull(savedEvent);
 		Assert.assertEquals(String.valueOf(1), savedEvent.getId());
@@ -151,7 +153,7 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(null, savedEvent.getImageURL());
 		Assert.assertEquals(this.region, savedEvent.getRegion());
 		Assert.assertEquals(this.user, savedEvent.getOwner());
-		Assert.assertEquals(this.category, savedEvent.getCategory());
+		//Assert.assertEquals(this.category, savedEvent.getCategory());
 	}
 	
 	@Test
@@ -173,7 +175,7 @@ public class EventDAOTest extends TestBase {
 		event.setImageURL(null);
 		event.setRegion(region);
 		event.setOwner(user);
-		event.setCategory(category);
+		//event.setCategory(category);
 		
 		Long id = this.eventDAO.inserEvent(event);
 		Event updateEvent = this.eventDAO.searchEventById(id);
@@ -191,7 +193,7 @@ public class EventDAOTest extends TestBase {
 		updateEvent.setImageURL(null);
 		updateEvent.setRegion(region2);
 		updateEvent.setOwner(user2);
-		updateEvent.setCategory(category2);
+		//updateEvent.setCategory(category2);
 		
 		this.eventDAO.updateEvent(updateEvent);
 		
@@ -205,7 +207,7 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(null, updateEvent.getImageURL());
 		Assert.assertEquals(this.region2, updateEvent.getRegion());
 		Assert.assertEquals(this.user2, updateEvent.getOwner());
-		Assert.assertEquals(this.category2, updateEvent.getCategory());		
+		//Assert.assertEquals(this.category2, updateEvent.getCategory());		
 	}
 	
 	@Test
@@ -227,7 +229,7 @@ public class EventDAOTest extends TestBase {
 		event.setImageURL(null);
 		event.setRegion(region);
 		event.setOwner(user);
-		event.setCategory(category);
+		//event.setCategory(category);
 		
 		Long id = this.eventDAO.inserEvent(event);
 		Event deletedEvent = this.eventDAO.searchEventById(id);
@@ -261,7 +263,7 @@ public class EventDAOTest extends TestBase {
 		event.setImageURL(null);
 		event.setRegion(region);
 		event.setOwner(user);
-		event.setCategory(category);
+		//event.setCategory(category);
 		
 		Long idEvent = this.eventDAO.inserEvent(event);
 		
@@ -280,7 +282,7 @@ public class EventDAOTest extends TestBase {
 		event.setImageURL(null);
 		event.setRegion(region2);
 		event.setOwner(user2);
-		event.setCategory(category2);
+		//event.setCategory(category2);
 		
 		Long idEvent2 = this.eventDAO.inserEvent(event);
 		
@@ -301,7 +303,7 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(null, listEvent.get(0).getImageURL());
 		Assert.assertEquals(this.region, listEvent.get(0).getRegion());
 		Assert.assertEquals(this.user, listEvent.get(0).getOwner());
-		Assert.assertEquals(this.category, listEvent.get(0).getCategory());
+		//Assert.assertEquals(this.category, listEvent.get(0).getCategory());
 		
 		Assert.assertEquals(2, listEvent.size());
 		Assert.assertEquals(String.valueOf(1), listEvent.get(1).getId());
@@ -313,7 +315,7 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(null, listEvent.get(1).getImageURL());
 		Assert.assertEquals(this.region2, listEvent.get(1).getRegion());
 		Assert.assertEquals(this.user2, listEvent.get(1).getOwner());
-		Assert.assertEquals(this.category2, listEvent.get(1).getCategory());
+		//Assert.assertEquals(this.category2, listEvent.get(1).getCategory());
 	}
 	
 }
