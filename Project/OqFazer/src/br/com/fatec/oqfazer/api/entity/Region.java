@@ -9,7 +9,6 @@ public class Region {
 	public static final String TABLE = "REGION";
 	public static final String COL_ID = "RGN_ID";
 	public static final String COL_NAME = "RGN_NAME";
-	public static final String COL_ID_CITY = "RGN_CITY";
 	
 	private Long id;
 	private String name;
@@ -42,10 +41,10 @@ public class Region {
 	}
 	
 	public static List<String> getColumns() {
-		return Lists.newArrayList(COL_ID, COL_NAME, COL_ID_CITY);
+		return Lists.newArrayList(COL_ID, COL_NAME);
 	}
 
 	public static String[] getColumnsArray() {
-		return new String[] {COL_ID, COL_NAME, COL_ID_CITY};
+		return new String[] {COL_ID, COL_NAME};
 	}
 }

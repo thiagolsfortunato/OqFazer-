@@ -10,5 +10,5 @@ public interface Participation {
 	
 	void updateListParticipation(Long eventId, User user);
 	
-	List<Long> searchUsers(Long eventId);
+	List<User> searchUsers(Long eventId);
 }
