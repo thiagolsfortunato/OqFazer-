@@ -27,27 +27,28 @@ public class UserDAOTest extends TestBase{
 		saveUser.setName("william");
 		saveUser.setEmail("williamcezart@gmail.com");
 		saveUser.setPassword("facebook");
-		saveUser.setSex('M');
 		saveUser.setPhone(36535959);
 		
 		Long id = this.dao.insertUser(saveUser);
-		User savedUser = new User();
+		User savedUser = this.dao.searchUserById(id);
 		
 		Assert.assertNotNull(savedUser);
-		Assert.assertEquals(String.valueOf(id), savedUser.getId());
+		Assert.assertEquals(String.valueOf(1), savedUser.getId());
 		Assert.assertEquals("William", savedUser.getName());
 		Assert.assertEquals("williamcezart@gmail.com", savedUser.getEmail());
-		Assert.assertEquals("080486", savedUser.getPassword());
-		Assert.assertEquals('M', savedUser.getSex());
-		Assert.assertEquals("988598345", savedUser.getPhone());
+		Assert.assertEquals("facebook", savedUser.getPassword());
+		Assert.assertEquals(36535959, savedUser.getPhone());
 	}
 	
 	@Test
 	public void testUpdate() {
 		User user = new User();
+		user.setId((long)1);
 		user.setName("william");
-		user.setPassword("senha_william");
-
+		user.setEmail("williamcezart@gmail.com");
+		user.setPassword("facebook");
+		user.setPhone(36535959);
+		
 		Long id = this.dao.insertUser(user);
 		User atualizeUser = this.dao.searchUserById(id);
 
@@ -58,15 +59,21 @@ public class UserDAOTest extends TestBase{
 		User atualizedUser = this.dao.searchUserById(id);
 
 		Assert.assertNotNull(atualizedUser);
+		Assert.assertEquals(String.valueOf(1), atualizedUser.getId());
 		Assert.assertEquals("william penna", atualizedUser.getName());
+		Assert.assertEquals("williamcezart@gmail.com", atualizedUser.getEmail());
 		Assert.assertEquals("nova_senha", atualizedUser.getPassword());
+		Assert.assertEquals(36535959, atualizedUser.getPhone());
 	}
 	
 	@Test
 	public void testDelete() {
 		User user = new User();
+		user.setId((long)1);
 		user.setName("william");
-		user.setPassword("senha_william");
+		user.setEmail("williamcezart@gmail.com");
+		user.setPassword("facebook");
+		user.setPhone(36535959);
 
 		Long id = this.dao.insertUser(user);
 		this.dao.deleteUser(id);;
@@ -79,11 +86,18 @@ public class UserDAOTest extends TestBase{
 	@Test
 	public void testFindAll() {
 		User user1 = new User();
-		user1.setName("user 1");
-		user1.setPassword("password_1");
+		user1.setId((long)1);
+		user1.setName("william");
+		user1.setEmail("williamcezart@gmail.com");
+		user1.setPassword("facebook");
+		user1.setPhone(36535959);
+		
 		User user2 = new User();
-		user2.setName("user 2");
-		user2.setPassword("password_2");
+		user2.setId((long)1);
+		user2.setName("thiago");
+		user2.setEmail("thiago@test");
+		user2.setPassword("teste");
+		user2.setPhone(111111);
 
 		this.dao.insertUser(user1);
 		this.dao.insertUser(user2);
@@ -91,10 +105,17 @@ public class UserDAOTest extends TestBase{
 		List<User> listUsers = this.dao.searchAllUsers();
 
 		Assert.assertEquals(2, listUsers.size());
-		Assert.assertEquals("user 1", listUsers.get(0).getName());
-		Assert.assertEquals("password_1", listUsers.get(0).getPassword());
-		Assert.assertEquals("user 2", listUsers.get(1).getName());
-		Assert.assertEquals("password_2", listUsers.get(1).getPassword());
+		Assert.assertEquals(String.valueOf(1), listUsers.get(0).getId());
+		Assert.assertEquals("william penna", listUsers.get(0).getName());
+		Assert.assertEquals("williamcezart@gmail.com", listUsers.get(0).getEmail());
+		Assert.assertEquals("nova_senha", listUsers.get(0).getPassword());
+		Assert.assertEquals(36535959, listUsers.get(0).getPhone());
+		
+		Assert.assertEquals(String.valueOf(2), listUsers.get(1).getId());
+		Assert.assertEquals("thiago", listUsers.get(1).getName());
+		Assert.assertEquals("thiago@test", listUsers.get(1).getEmail());
+		Assert.assertEquals("test", listUsers.get(1).getPassword());
+		Assert.assertEquals(111111, listUsers.get(1).getPhone());
 	}
 		
 }

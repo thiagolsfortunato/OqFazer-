@@ -92,15 +92,13 @@ public class UserDAOImpl implements UserDAO{
 		 try{
 			 conn = ConfigDBMapper.getDefaultConnection();
 			 update = conn.prepareStatement("UPDATE " + user.TABLE + " SET " + user.COL_ID + " = ?," + user.COL_EMAIL + " = ?," 
-			 + user.COL_NAME + " = ?," + user.COL_PASSWORD + " = ?," + user.COL_SEX + " = ?," 
-			 + user.COL_PHONE + " = ?," + " WHERE " + user.COL_ID + " = ?");
+			 + user.COL_NAME + " = ?," + user.COL_PASSWORD + " = ?,"+ user.COL_PHONE + " = ?," + " WHERE " + user.COL_ID + " = ?");
 			 update.setString(1, String.valueOf(user.getId()));
 			 update.setString(2, user.getEmail());
 			 update.setString(3, user.getName());
 			 update.setString(4, user.getPassword());
-			 update.setString(5, String.valueOf(user.getSex()));
-			 update.setString(6, String.valueOf(user.getPhone()));
-			 update.setString(7, String.valueOf(user.getId()));
+			 update.setString(5, String.valueOf(user.getPhone()));
+			 update.setString(6, String.valueOf(user.getId()));
 			 update.execute();
 		 } catch (Exception e) {
 				throw new RuntimeException(e);

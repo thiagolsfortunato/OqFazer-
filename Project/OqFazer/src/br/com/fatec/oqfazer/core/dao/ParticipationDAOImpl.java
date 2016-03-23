@@ -19,7 +19,7 @@ public class ParticipationDAOImpl implements Participation {
 	}
 
 	@Override
-	public List<Long> searchUsers(Long eventId) {
+	public List<User> searchUsers(Long eventId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

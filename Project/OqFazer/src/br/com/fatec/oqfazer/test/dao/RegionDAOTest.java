@@ -24,8 +24,9 @@ public class RegionDAOTest extends TestBase{
 	@Test
 	public void testSave(){
 		List<City> cities = null;
-		cities.add(City.CACAPAVA);
-		cities.add(City.JACAREI);
+		for (City city : City.values()) {
+			cities.add(city);
+		}
 		
 		Region saveRegion = new Region();		
 		saveRegion.setId((long) 1);
@@ -38,8 +39,8 @@ public class RegionDAOTest extends TestBase{
 		Assert.assertNotNull(savedRegion);
 		Assert.assertEquals(String.valueOf(1), savedRegion.getId());
 		Assert.assertEquals("Vale do Paraiba", savedRegion.getName());
-		Assert.assertEquals(City.CACAPAVA, savedRegion.getCity().get(0));
-		Assert.assertEquals(City.JACAREI, savedRegion.getCity().get(1));
+		Assert.assertEquals(City.SAO_JOSE_DOS_CAMPOS, savedRegion.getCity().get(0));
+		Assert.assertEquals(City.TAUBATE.getNome(), savedRegion.getCity().get(1).getNome());
 		
 	}
 	
@@ -61,7 +62,7 @@ public class RegionDAOTest extends TestBase{
 		cities2.add(City.SAO_JOSE_DOS_CAMPOS);
 		cities2.add(City.JACAREI);
 				
-		updateRegion.setId((long)1);
+		updateRegion.setId((long) 1);
 		updateRegion.setName("Sentido Sao Paulo");
 		updateRegion.setCity(cities2);		
 
@@ -72,7 +73,7 @@ public class RegionDAOTest extends TestBase{
 		Assert.assertEquals(String.valueOf(1), updatedRegion.getId());
 		Assert.assertEquals("Sentido Sao Paulo", updatedRegion.getName());
 		Assert.assertEquals(City.SAO_JOSE_DOS_CAMPOS, updateRegion.getCity().get(0));
-		Assert.assertEquals(City.TAUBATE, updateRegion.getCity().get(1));
+		Assert.assertEquals(City.TAUBATE.getNome(), updateRegion.getCity().get(1).getNome());
 	}
 	
 	@Test
@@ -123,12 +124,12 @@ public class RegionDAOTest extends TestBase{
 		Assert.assertEquals(String.valueOf(1), listRegions.get(0).getId());
 		Assert.assertEquals("Sentido Rio", listRegions.get(0).getName());
 		Assert.assertEquals(City.CACAPAVA, listRegions.get(0).getCity().get(0));
-		Assert.assertEquals(City.TAUBATE, listRegions.get(0).getCity().get(1));
+		Assert.assertEquals(City.TAUBATE.getNome(), listRegions.get(0).getCity().get(1).getNome());
 		
 		Assert.assertEquals(String.valueOf(2), listRegions.get(1).getId());
 		Assert.assertEquals("Sentido Sao Paulo", listRegions.get(1).getName());
 		Assert.assertEquals(City.SAO_JOSE_DOS_CAMPOS, listRegions.get(1).getCity().get(0));
-		Assert.assertEquals(City.JACAREI, listRegions.get(1).getCity().get(1));
+		Assert.assertEquals(City.JACAREI.getNome(), listRegions.get(1).getCity().get(1).getNome());
 	}
 	
 }

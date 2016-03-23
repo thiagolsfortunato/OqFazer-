@@ -7,7 +7,7 @@ import br.com.fatec.oqfazer.api.entity.Category;
 public class EventCategoryDAOImpl implements EventCategory {
 
 	@Override
-	public void updateCategory(Long eventId, List<Category> category) {
+	public void updateCategory(Long eventId, List<Category> categories) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -19,9 +19,10 @@ public class EventCategoryDAOImpl implements EventCategory {
 	}
 
 	@Override
-	public List<Long> searchCategory(Long eventId) {
+	public List<Category> searchCategory(Long eventId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

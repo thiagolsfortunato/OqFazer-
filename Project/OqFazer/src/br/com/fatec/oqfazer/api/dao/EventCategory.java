@@ -7,9 +7,9 @@ import br.com.fatec.oqfazer.api.entity.Category;
 
 public interface EventCategory {
 	
-	void updateCategory(Long eventId, List<Category> category);
+	void updateCategory(Long eventId, List<Category> categories);
 	
 	void updateCategory(Long eventId, Category category);
 	
-	List<Long> searchCategory(Long eventId);
+	List<Category> searchCategory(Long eventId);
 }
