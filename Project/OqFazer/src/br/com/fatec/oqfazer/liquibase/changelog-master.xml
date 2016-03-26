@@ -5,71 +5,105 @@
 	dbchangelog-3.4.xsd
 	http://www.liquibase.org/xml/ns/dbchangelog-ext
 	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-
-	<changeSet id="001" author="carlos.oliveira">
-		<createTable tableName="PROJETO_USUARIO" >
-			<column name="ID" type="BIGINT" />
-			<column name="NOME" type="VARCHAR(255)" />
-			<column name="SENHA" type="VARCHAR(50)" />
+	
+	<changeSet id="001" author="william.penna">
+		<createTable tableName="USER">
+			<column name="USR_ID" type="BIGINT"/>
+			<column name="USR_NAME" type="VARCHAR(50)"/>
+			<column name="USR_PASSWORD" type="VARCHAR(30)"/>
+			<column name="USR_EMAIL" type="VARCHAR(30)"/>
+			<column name="USR_PHONE" type="BIGINT"/>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="002" author="william.penna">
+		<createTable tableName="EVENT" >
+			<column name="EVN_ID" type="BIGINT" />
+			<column name="EVN_NAME" type="VARCHAR(50)" />
+			<column name="EVN_DESCRIPTION" type="VARCHAR(255)" />
+			<column name="EVN_REGISTRATION_DATE" type="VARCHAR(30)" />
+			<column name="EVN_EVENT_DATE" type="VARCHAR(30)" />
+			<column name="EVN_LOCAL" type="VARCHAR(100)" />
+			<column name="EVN_IMAGEURL" type="VARCHAR(50)" />
+			<column name="EVN_REGION" type="VARCHAR(50)" />
+			<column name="EVN_OWNER_ID" type="VARCHAR(30)" />
 		</createTable>
 	</changeSet>
 
-	<changeSet id="002" author="carlos.oliveira">
-		<createTable tableName="PROJETO_GRUPO_PAPEL" >
-			<column name="ID" type="BIGINT" />
-			<column name="NOME" type="VARCHAR(255)" />
-			<column name="DESCRICAO" type="VARCHAR(255)" />
+	<changeSet id="003" author="william.penna">
+		<createTable tableName="CATEGORY" >
+			<column name="CTG_ID" type="BIGINT" />
+			<column name="CTG_NAME" type="VARCHAR(50)" />
+			<column name="CTG_ID_CATEGORY" type="VARCHAR(30)" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="004" author="william.penna">
+		<createTable tableName="REGION" >
+			<column name="RGN_ID" type="BIGINT" />
+			<column name="RGN_NAME" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="005" author="william.penna">
+		<createTable tableName="CITY" >
+			<column name="CTY_ID_REGION" type="BIGINT" />
+			<column name="CTY_NAME" type="VARCHAR(50)" />
 		</createTable>
 	</changeSet>
 
-	<changeSet id="003" author="carlos.oliveira">
-		<createTable tableName="PROJETO_PAPEL" >
-			<column name="ID" type="BIGINT" />
-			<column name="NOME" type="VARCHAR(255)" />
-			<column name="DESCRICAO" type="VARCHAR(255)" />
-			<column name="GRUPO_ID" type="BIGINT" />
-		</createTable>
+	<changeSet id="006" author="william.penna">
+		<addPrimaryKey columnNames="USR_ID" tableName="USER" />
+		<addPrimaryKey columnNames="EVN_ID" tableName="EVENT" />
+		<addPrimaryKey columnNames="CTG_ID" tableName="CATEGORY" />
+		<addPrimaryKey columnNames="RGN_ID" tableName="REGION" />
+		<addPrimaryKey columnNames="CTY_ID_REGION" tableName="CITY" />
 	</changeSet>
 
-	<changeSet id="004" author="carlos.oliveira">
-		<addPrimaryKey columnNames="ID" tableName="PROJETO_USUARIO" />
-		<addPrimaryKey columnNames="ID" tableName="PROJETO_GRUPO_PAPEL" />
-		<addPrimaryKey columnNames="ID" tableName="PROJETO_PAPEL" />
-	</changeSet>
-
-	<changeSet author="carlos.oliveira" id="005" dbms="oracle, hsqldb, postgresql">
+	<changeSet author="william.penna" id="007" dbms="oracle, hsqldb, postgresql">
     	<createSequence 
             incrementBy="1"
-            sequenceName="SEQ_PROJETO_PAPEL"
+            sequenceName="SEQ_USER"
             startValue="1" />
             
    		<createSequence 
             incrementBy="1"
-            sequenceName="SEQ_PROJETO_GRUPO_PAPEL"
+            sequenceName="SEQ_EVENT"
             startValue="1" />
             
    		<createSequence 
             incrementBy="1"
-            sequenceName="SEQ_PROJETO_USUARIO"
+            sequenceName="SEQ_CATEGORY"
             startValue="1" />
+            
+        <createSequence 
+            incrementBy="1"
+            sequenceName="SEQ_REGION"
+            startValue="1" />
+         
 	</changeSet>
 
-	<changeSet author="carlos.oliveira" id="006" dbms="mysql">
-    	<addAutoIncrement tableName="PROJETO_PAPEL" columnName="ID"
-    		columnDataType="bigint" />
+	<changeSet author="william.penna" id="008" dbms="mysql">
+    	<addAutoIncrement tableName="USER" columnName="USR_ID"
+    		columnDataType="BIGINT" />
 	</changeSet>
 	
-	<changeSet author="carlos.oliveira" id="006.1" dbms="mysql">
-    	<addAutoIncrement tableName="PROJETO_GRUPO_PAPEL" columnName="ID"
-    		columnDataType="bigint" />
+	<changeSet author="william.penna" id="008.1" dbms="mysql">
+    	<addAutoIncrement tableName="EVENT" columnName="EVN_ID"
+    		columnDataType="BIGINT" />
 	</changeSet>
 	
-	<changeSet author="carlos.oliveira" id="006.2" dbms="mysql">
-    	<addAutoIncrement tableName="PROJETO_USUARIO" columnName="ID"
-    		columnDataType="bigint" />
+	<changeSet author="william.penna" id="008.2" dbms="mysql">
+    	<addAutoIncrement tableName="CATEGORY" columnName="CTG_ID"
+    		columnDataType="BIGINT" />
+	</changeSet>
+	
+	<changeSet author="william.penna" id="008.3" dbms="mysql">
+    	<addAutoIncrement tableName="REGION" columnName="RGN_ID"
+    		columnDataType="BIGINT" />
 	</changeSet>
 
-	<changeSet id="007" author="carlos.oliveira">
+	<changeSet id="009" author="william.penna">
 		<addForeignKeyConstraint constraintName="FK_PAPELGRUPO_PAPEL_GRUPO"
 			referencedTableName="PROJETO_GRUPO_PAPEL"
 			referencedColumnNames="ID" baseTableName="PROJETO_PAPEL"
