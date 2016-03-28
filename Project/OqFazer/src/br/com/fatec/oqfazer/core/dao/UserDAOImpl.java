@@ -16,8 +16,8 @@ import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
-public class UserDAOImpl implements UserDAO{
-	
+public class UserDAOImpl implements UserDAO {
+
 	private List<User> buildUsers(ResultSet rs) throws SQLException {
 		List<User> usuarios = Lists.newArrayList();
 		while (rs.next()) {
@@ -25,7 +25,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		return usuarios;
 	}
-	
+
 	private User buildUser(ResultSet rs) throws SQLException {
 		User user = new User();
 		user.setId(rs.getLong(user.COL_ID));
@@ -42,21 +42,22 @@ public class UserDAOImpl implements UserDAO{
 		PreparedStatement insert = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			
+
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), user.getColumns());
-			
-			String values =  DAOUtils.completeClauseValues(getDefaultConnectionType(), user.getColumns().size(), "SEQ_USER");
-			
+
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), user.getColumns().size(),
+					"SEQ_USER");
+
 			String sql = "INSERT INTO" + user.TABLE + columns + " VALUES " + values;
-			
+
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), user.getColumnsArray());
-			
+
 			insert.setString(1, user.getName());
 			insert.setString(2, user.getPassword());
 			insert.execute();
-			
+
 			ResultSet generatedKeys = insert.getGeneratedKeys();
-			if(generatedKeys.next()){
+			if (generatedKeys.next()) {
 				return generatedKeys.getLong(1);
 			}
 			return null;
@@ -89,24 +90,25 @@ public class UserDAOImpl implements UserDAO{
 	@Override
 	public void updateUser(User user) {
 		Connection conn = null;
-		 PreparedStatement update = null;
-		 try{
-			 conn = ConfigDBMapper.getDefaultConnection();
-			 update = conn.prepareStatement("UPDATE " + user.TABLE + " SET " + user.COL_ID + " = ?," + user.COL_EMAIL + " = ?," 
-			 + user.COL_NAME + " = ?," + user.COL_PASSWORD + " = ?,"+ user.COL_PHONE + " = ?," + " WHERE " + user.COL_ID + " = ?");
-			 update.setString(1, String.valueOf(user.getId()));
-			 update.setString(2, user.getEmail());
-			 update.setString(3, user.getName());
-			 update.setString(4, user.getPassword());
-			 update.setString(5, String.valueOf(user.getPhone()));
-			 update.setString(6, String.valueOf(user.getId()));
-			 update.execute();
-		 } catch (Exception e) {
-				throw new RuntimeException(e);
-		 } finally {
-				DbUtils.closeQuietly(update);
-				DbUtils.closeQuietly(conn);
-		 }
+		PreparedStatement update = null;
+		try {
+			conn = ConfigDBMapper.getDefaultConnection();
+			update = conn.prepareStatement("UPDATE " + user.TABLE + " SET " + user.COL_ID + " = ?," + user.COL_EMAIL
+					+ " = ?," + user.COL_NAME + " = ?," + user.COL_PASSWORD + " = ?," + user.COL_PHONE + " = ?,"
+					+ " WHERE " + user.COL_ID + " = ?");
+			update.setString(1, String.valueOf(user.getId()));
+			update.setString(2, user.getEmail());
+			update.setString(3, user.getName());
+			update.setString(4, user.getPassword());
+			update.setString(5, String.valueOf(user.getPhone()));
+			update.setString(6, String.valueOf(user.getId()));
+			update.execute();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(update);
+			DbUtils.closeQuietly(conn);
+		}
 	}
 
 	@Override
@@ -116,11 +118,11 @@ public class UserDAOImpl implements UserDAO{
 		User user = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "SELECT * FROM "+ user.TABLE + " WHERE " + user.COL_ID + " =?;";
+			String sql = "SELECT * FROM " + user.TABLE + " WHERE " + user.COL_ID + " =?;";
 			find = conn.prepareStatement(sql);
 			find.setLong(1, id);
 			ResultSet rs = find.executeQuery();
-			if(rs.next()){
+			if (rs.next()) {
 				user = this.buildUser(rs);
 			}
 			return user;
@@ -148,5 +150,5 @@ public class UserDAOImpl implements UserDAO{
 			DbUtils.closeQuietly(conn);
 		}
 	}
-	
+
 }
