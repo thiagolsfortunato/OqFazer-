@@ -11,8 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class DAOUtils {
 
-	public static String completarClausulaValues(Class driverClass, int qtdParametros,
-			String sequence) {
+	public static String completeClauseValues(Class driverClass, int numberParameters,String sequence) {
 		String classname = driverClass.getName();
 		StringBuilder clause = new StringBuilder();
 		switch (classname) {
@@ -28,12 +27,12 @@ public class DAOUtils {
 				break;
 		}
 
-		clause.append(StringUtils.repeat("?", ", ", qtdParametros));
+		clause.append(StringUtils.repeat("?", ", ", numberParameters));
 
 		return "(" + clause.toString() + ")";
 	}
 
-	public static String getColunas(Class dbClass, List<String> columnNames) {
+	public static String getColumns(Class dbClass, List<String> columnNames) {
 		String classname = dbClass.getName();
 		String columns = null;
 		switch (classname) {
@@ -50,8 +49,7 @@ public class DAOUtils {
 		return "(" + columns + ")";
 	}
 
-	public static PreparedStatement criarStatment(String sql, Connection conn,
-			Class dbClass, String[] columns) throws SQLException {
+	public static PreparedStatement buildStatment(String sql, Connection conn,Class dbClass, String[] columns) throws SQLException {
 		String classname = dbClass.getName();
 		switch (classname) {
 			case "org.postgresql.Driver":

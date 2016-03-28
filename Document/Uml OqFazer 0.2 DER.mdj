@@ -1494,7 +1494,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 687,
-									"top": 117,
+									"top": 177,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -1554,7 +1554,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 643,
-									"top": 116,
+									"top": 176,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -1585,7 +1585,7 @@
 								"$ref": "AAAAAAFTd4FUMY43Xm0="
 							},
 							"lineStyle": 2,
-							"points": "688:288;688:108;618:108",
+							"points": "688:288;688:168;618:168",
 							"nameLabel": {
 								"$ref": "AAAAAAFTd45Ks5jlrG4="
 							},
@@ -2785,7 +2785,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4Eleo4brNA="
 							},
-							"name": "evn_date",
+							"name": "evn_event_date",
 							"type": "Date",
 							"length": 0,
 							"primaryKey": false,
@@ -2955,7 +2955,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4E+AY4oDU0="
 							},
-							"name": "ctg_id_category",
+							"name": "ctg_category_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": false,
@@ -3171,7 +3171,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4i2h5dDM7Y="
 							},
-							"name": "ptc_id_user",
+							"name": "ptc_user_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,
@@ -3185,7 +3185,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4i2h5dDM7Y="
 							},
-							"name": "ptc_id_event",
+							"name": "ptc_event_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,
@@ -3331,7 +3331,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4xBa5gRswc="
 							},
-							"name": "evn_id",
+							"name": "ect_event_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,
@@ -3345,7 +3345,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTd4xBa5gRswc="
 							},
-							"name": "ctg_id",
+							"name": "ect_category_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,
@@ -3369,7 +3369,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFTmaP2FI5dlD8="
 							},
-							"name": "cty_id_region",
+							"name": "cty_region_id",
 							"type": "int",
 							"length": 0,
 							"primaryKey": true,

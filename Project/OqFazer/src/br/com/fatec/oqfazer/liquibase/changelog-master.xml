@@ -24,8 +24,8 @@
 			<column name="EVN_REGISTRATION_DATE" type="VARCHAR(30)" />
 			<column name="EVN_EVENT_DATE" type="VARCHAR(30)" />
 			<column name="EVN_LOCAL" type="VARCHAR(100)" />
-			<column name="EVN_IMAGEURL" type="VARCHAR(50)" />
-			<column name="EVN_REGION" type="VARCHAR(50)" />
+			<column name="EVN_IMAGE_URL" type="VARCHAR(50)" />
+			<column name="EVN_REGION_ID" type="VARCHAR(50)" />
 			<column name="EVN_OWNER_ID" type="VARCHAR(30)" />
 		</createTable>
 	</changeSet>
@@ -34,7 +34,7 @@
 		<createTable tableName="CATEGORY" >
 			<column name="CTG_ID" type="BIGINT" />
 			<column name="CTG_NAME" type="VARCHAR(50)" />
-			<column name="CTG_ID_CATEGORY" type="VARCHAR(30)" />
+			<column name="CTG_CATEGORY_ID" type="VARCHAR(30)" />
 		</createTable>
 	</changeSet>
 	
@@ -47,7 +47,7 @@
 	
 	<changeSet id="005" author="thiago.william">
 		<createTable tableName="CITY" >
-			<column name="CTY_ID_REGION" type="BIGINT" />
+			<column name="CTY_REGION_ID" type="BIGINT" />
 			<column name="CTY_NAME" type="VARCHAR(50)" />
 		</createTable>
 	</changeSet>
@@ -57,15 +57,15 @@
 		<addPrimaryKey columnNames="EVN_ID" tableName="EVENT" />
 		<addPrimaryKey columnNames="CTG_ID" tableName="CATEGORY" />
 		<addPrimaryKey columnNames="RGN_ID" tableName="REGION" />
-		<addPrimaryKey columnNames="CTY_ID_REGION" tableName="CITY" />
+		<addPrimaryKey columnNames="CTY_REGION_ID" tableName="CITY" />
 	</changeSet>
 
 	<changeSet author="thiago.william" id="007" dbms="oracle, hsqldb, postgresql">
     	<createSequence 
-            incrementBy="1"
-            sequenceName="SEQ_USER"
-            startValue="1" />
-            
+    		incrementBy="1"
+    		sequenceName="SEQ_USER"
+    		startValue="1" />            
+   		
    		<createSequence 
             incrementBy="1"
             sequenceName="SEQ_EVENT"
@@ -105,68 +105,71 @@
 	
 	<changeSet id="009" author="thiago.william">
 		<addForeignKeyConstraint constraintName="FK_EVN_OWNER_ID"
-			referencedTableName="EVENT"
-			referencedColumnNames="EVN_OWNER_ID"
-			baseTableName="USER"
-			baseColumnNames="USR_ID" />
+								 referencedTableName="USER"
+								 referencedColumnNames="USR_ID"
+								 baseTableName="EVENT"
+								 baseColumnNames="EVN_OWNER_ID" />
 			
 		<addForeignKeyConstraint constraintName="FK_EVN_REGION_ID"
-			referencedTableName="EVENT"
-			referencedColumnNames="EVN_REGION_ID"
-			baseTableName="REGION"
-			baseColumnNames="RGN_ID" />	
+								 referencedTableName="REGION"
+								 referencedColumnNames="RGN_ID"
+								 baseTableName="EVENT"
+								 baseColumnNames="EVN_REGION_ID" />	
 	</changeSet>
 	
 	<changeSet id="010" author="thiago.william">
-		<addForeignKeyConstraint constraintName="FK_CTY_ID_REGION"
-			referencedTableName="CITY"
-			referencedColumnNames="CTY_ID_REGION"
-			baseTableName="REGION"
-			baseColumnNames="RGN_ID" />
+		<addForeignKeyConstraint constraintName="FK_CTY_REGION_ID"
+								 referencedTableName="REGION"
+								 referencedColumnNames="RGN_ID"
+								 baseTableName="CITY"
+								 baseColumnNames="CTY_REGION_ID" />
+								 
+		<addForeignKeyConstraint constraintName="FK_CTG_CATEGORY_ID" 
+								 referencedTableName="CATEGORY" 
+								 referencedColumnNames="CTG_ID"
+								 baseTableName="CATEGORY"
+								 baseColumnNames="CTG_CATEGORY_ID" />
 	</changeSet>
 	
 	<changeSet id="011" author="thiago.william">
 		<createTable tableName="PARTICIPATION" >
-			<column name="PTC_ID_USER" type="BIGINT" />
-			<column name="PTC_ID_EVENT" type="BIGINT" />
+			<column name="PTC_USER_ID" type="BIGINT" />
+			<column name="PTC_EVENT_ID" type="BIGINT" />
 		</createTable>
 	</changeSet>
 
 	<changeSet id="012" author="thiago.william">
-		<addForeignKeyConstraint constraintName="FK_PARTICIPATION_PTC_ID_USER"
-			referencedTableName="PARTICIPATION"
-			referencedColumnNames="PTC_ID_USER"
-			baseTableName="USER"
-			baseColumnNames="USR_ID" />
+		<addForeignKeyConstraint constraintName="FK_PARTICIPATION_USER_ID"
+								 referencedTableName="USER"
+								 referencedColumnNames="USR_ID"
+								 baseTableName="PARTICIPATION"
+								 baseColumnNames="PTC_USER_ID" />
 			
-			<addForeignKeyConstraint constraintName="FK_PARTICIPATION_PTC_ID_EVENT"
-			referencedTableName="PARTICIPATION"
-			referencedColumnNames="PTC_ID_EVENT"
-			baseTableName="EVENT"
-			baseColumnNames="EVN_ID" />
+		<addForeignKeyConstraint constraintName="FK_PARTICIPATION_PTC_ID_EVENT"
+								 referencedTableName="EVENT"
+								 referencedColumnNames="EVN_ID"
+								 baseTableName="PARTICIPATION"
+								 baseColumnNames="PTC_EVENT_ID" />
 	</changeSet>
 
 	<changeSet id="013" author="thiago.william">
 		<createTable tableName="EVENT_CATEGORY" >
-			<column name="EVN_ID" type="BIGINT" />
-			<column name="CTG_ID" type="BIGINT" />
+			<column name="ECT_EVENT_ID" type="BIGINT" />
+			<column name="ECT_CATEGORY_ID" type="BIGINT" />
 		</createTable>
 	</changeSet>
 
 	<changeSet id="014" author="thiago.william">
-		<addForeignKeyConstraint
-			constraintName="FK_EVN_ID"
-			referencedTableName="EVENT_CATEGORY"
-			referencedColumnNames="EVN_ID" 
-			baseTableName="EVENT"
-			baseColumnNames="EVN_ID" />
+		<addForeignKeyConstraint constraintName="FK_EVN_ID"
+								 referencedTableName="EVENT"
+			 					 referencedColumnNames="EVN_ID" 
+								 baseTableName="EVENT_CATEGORY"
+			   					 baseColumnNames="ECT_EVENT_ID" />
 			
-		<addForeignKeyConstraint
-			constraintName="FK_CTG_ID"
-			referencedTableName="EVENT_CATEGORY"
-			referencedColumnNames="CTG_ID" 
-			baseTableName="CATEGORY"
-			baseColumnNames="CTG_ID" />
+		<addForeignKeyConstraint constraintName="FK_CTG_ID"
+			  	   				 referencedTableName="CATEGORY"
+								 referencedColumnNames="CTG_ID" 
+								 baseTableName="EVENT_CATEGORY"
+			   					 baseColumnNames="ECT_CATEGORY_ID" />
 	</changeSet>
-	
 </databaseChangeLog>

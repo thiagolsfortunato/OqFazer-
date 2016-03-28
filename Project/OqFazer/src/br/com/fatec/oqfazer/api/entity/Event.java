@@ -12,7 +12,7 @@ public class Event {
 	public static final String COL_NAME = "EVN_NAME";
 	public static final String COL_DESCRIPTION = "EVN_DESCRIPTION";
 	public static final String COL_REGISTRATION_DATE = "EVN_REGISTRATION_DATE";
-	public static final String COL_EVENT_DATE = "EVN_DATE";
+	public static final String COL_EVENT_DATE = "EVN_EVENT_DATE";
 	public static final String COL_LOCAL = "EVN_LOCAL";
 	public static final String COL_IMAGEURL = "EVN_IMAGE_URL";
 	public static final String COL_REGION_ID = "EVN_REGION_ID";
