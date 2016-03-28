@@ -30,8 +30,9 @@ public class UserDAOImpl implements UserDAO{
 		User user = new User();
 		user.setId(rs.getLong(user.COL_ID));
 		user.setName(rs.getString(user.COL_NAME));
-		user.setPassword(rs.getString(user.COL_EMAIL));
-		user.setPassword(rs.getString(user.COL_EMAIL));
+		user.setPassword(rs.getString(user.COL_PASSWORD));
+		user.setEmail(rs.getString(user.COL_EMAIL));
+		user.setPhone(rs.getInt(user.COL_PHONE));
 		return user;
 	}
 
@@ -42,13 +43,13 @@ public class UserDAOImpl implements UserDAO{
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
 			
-			String columns = DAOUtils.getColunas(getDefaultConnectionType(), user.getColumns());
+			String columns = DAOUtils.getColumns(getDefaultConnectionType(), user.getColumns());
 			
-			String values =  DAOUtils.completarClausulaValues(getDefaultConnectionType(), 2, "SEQ_USER_PROJECT");
+			String values =  DAOUtils.completeClauseValues(getDefaultConnectionType(), user.getColumns().size(), "SEQ_USER");
 			
 			String sql = "INSERT INTO" + user.TABLE + columns + " VALUES " + values;
 			
-			insert = DAOUtils.criarStatment(sql, conn, getDefaultConnectionType(), user.getColumnsArray());
+			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), user.getColumnsArray());
 			
 			insert.setString(1, user.getName());
 			insert.setString(2, user.getPassword());
