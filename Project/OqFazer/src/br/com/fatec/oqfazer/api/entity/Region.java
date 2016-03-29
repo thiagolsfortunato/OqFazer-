@@ -12,14 +12,14 @@ public class Region {
 	
 	private Long id;
 	private String name;
-	//private List<City> city;
+	private List<City> city;
 		
 	public Region(){};
 	
 	public Region(Long id, String name, List<City> city) {
 		this.id = id;
 		this.name = name;
-		//this.city = city;
+		this.city = city;
 	}
 	public Long getId() {
 		return id;
@@ -33,13 +33,12 @@ public class Region {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	/*public List<City> getCity() {
+	public List<City> getCity() {
 		return city;
 	}
 	public void setCity(List<City> city) {
 		this.city = city;
-	}*/
+	}
 	
 	public static List<String> getColumns() {
 		return Lists.newArrayList(COL_ID, COL_NAME);
