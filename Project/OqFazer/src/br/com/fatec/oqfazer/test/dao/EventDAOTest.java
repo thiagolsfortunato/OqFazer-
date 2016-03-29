@@ -83,16 +83,16 @@ public class EventDAOTest extends TestBase {
 		Region region1 = new Region();
 		region1.setId((long) 1);
 		region1.setName("Sentido Rio");
-		region1.setCity(citiesRio);
+		//region1.setCity(citiesRio);
 		
-		List<City> citiesSaoPaulo = null;
+		/*List<City> citiesSaoPaulo = null;
 		citiesSaoPaulo.add(City.SAO_JOSE_DOS_CAMPOS);
-		citiesSaoPaulo.add(City.JACAREI);
+		citiesSaoPaulo.add(City.JACAREI);*/
 		
 		Region region2 = new Region();
 		region1.setId((long) 1);
 		region1.setName("Sentido Sao Paulo");
-		region1.setCity(citiesSaoPaulo);
+		//region1.setCity(citiesSaoPaulo);
 		
 		//INSERTS
 		Long idUser1 = this.userDAO.insertUser(user);
