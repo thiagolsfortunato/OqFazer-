@@ -10,16 +10,23 @@ import com.google.common.collect.Lists;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Types;
 
 import static br.com.spektro.minispring.core.dbmapper.ConfigDBMapper.getDefaultConnectionType;
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
+import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
 
 public class CategoryDAOImpl implements CategoryDAO{
 
+	private CategoryDAO categoryDao;
+	
+	public CategoryDAOImpl(){
+		this.categoryDao = ImplFinder.getImpl(CategoryDAO.class);
+	}
 	@Override
 	public Long insertCategory(Category category) {
 		Connection conn = null;
@@ -93,20 +100,65 @@ public class CategoryDAOImpl implements CategoryDAO{
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
-			DbUtils.closeQuietly(conn);
 			DbUtils.closeQuietly(update);
+			DbUtils.closeQuietly(conn);			
 		}		
 	}
 
 	@Override
 	public Category searchCategoryById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement search = null;
+		Category category = null;
+		try{
+			conn = ConfigDBMapper.getDefaultConnection();
+			String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
+			search = conn.prepareStatement(sql);
+			search.setLong(1, id);
+			ResultSet rs = search.executeQuery();
+			if(rs.next()){
+				category = buildCategory(rs);
+			}
+			return category;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}		
 	}
 
 	@Override
 	public List<Category> searchAllCategory() {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = null;
+		PreparedStatement search = null;
+		try{
+			conn = ConfigDBMapper.getDefaultConnection();
+			String sql = "SELECT * FROM "+ Category.TABLE + " ORDER BY " + Category.COL_ID;
+			ResultSet rs = search.executeQuery();
+			return buildCategories(rs);
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}
 	}
+	
+	public Category buildCategory(ResultSet rs) throws SQLException{
+		Category category = new Category();
+		category.setId(rs.getLong(Category.COL_ID));
+		category.setName(rs.getString(Category.COL_NAME));
+		category.setCategory(this.categoryDao.searchCategoryById(rs.getLong(Category.COL_ID_CATEGORY)));
+		return category;
+	}
+	
+	public List<Category> buildCategories(ResultSet rs) throws SQLException{
+		List<Category> categories = Lists.newArrayList();
+		while(rs.next()){
+			categories.add(this.buildCategory(rs));
+		}
+		return categories;
+	}
+	
 }
