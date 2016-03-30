@@ -18,24 +18,6 @@ import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
 public class UserDAOImpl implements UserDAO {
 
-	private List<User> buildUsers(ResultSet rs) throws SQLException {
-		List<User> usuarios = Lists.newArrayList();
-		while (rs.next()) {
-			usuarios.add(this.buildUser(rs));
-		}
-		return usuarios;
-	}
-
-	private User buildUser(ResultSet rs) throws SQLException {
-		User user = new User();
-		user.setId(rs.getLong(user.COL_ID));
-		user.setName(rs.getString(user.COL_NAME));
-		user.setPassword(rs.getString(user.COL_PASSWORD));
-		user.setEmail(rs.getString(user.COL_EMAIL));
-		user.setPhone(rs.getInt(user.COL_PHONE));
-		return user;
-	}
-
 	@Override
 	public Long insertUser(User user) {
 		Connection conn = null;
@@ -43,14 +25,14 @@ public class UserDAOImpl implements UserDAO {
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
 
-			String columns = DAOUtils.getColumns(getDefaultConnectionType(), user.getColumns());
+			String columns = DAOUtils.getColumns(getDefaultConnectionType(), User.getColumns());
 
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), user.getColumns().size(),
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size(),
 					"SEQ_USER");
 
-			String sql = "INSERT INTO" + user.TABLE + columns + " VALUES " + values;
+			String sql = "INSERT INTO" + User.TABLE + columns + " VALUES " + values;
 
-			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), user.getColumnsArray());
+			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), User.getColumnsArray());
 
 			insert.setString(1, user.getName());
 			insert.setString(2, user.getPassword());
@@ -93,9 +75,9 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement update = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			update = conn.prepareStatement("UPDATE " + user.TABLE + " SET " + user.COL_ID + " = ?," + user.COL_EMAIL
-					+ " = ?," + user.COL_NAME + " = ?," + user.COL_PASSWORD + " = ?," + user.COL_PHONE + " = ?,"
-					+ " WHERE " + user.COL_ID + " = ?");
+			update = conn.prepareStatement("UPDATE " + User.TABLE + " SET " + User.COL_ID + " = ?," + User.COL_EMAIL
+					+ " = ?," + User.COL_NAME + " = ?," + User.COL_PASSWORD + " = ?," + User.COL_PHONE + " = ?,"
+					+ " WHERE " + User.COL_ID + " = ?");
 			update.setString(1, String.valueOf(user.getId()));
 			update.setString(2, user.getEmail());
 			update.setString(3, user.getName());
@@ -118,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
 		User user = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "SELECT * FROM " + user.TABLE + " WHERE " + user.COL_ID + " =?;";
+			String sql = "SELECT * FROM " + User.TABLE + " WHERE " + User.COL_ID + " =?;";
 			find = conn.prepareStatement(sql);
 			find.setLong(1, id);
 			ResultSet rs = find.executeQuery();
@@ -149,6 +131,24 @@ public class UserDAOImpl implements UserDAO {
 			DbUtils.closeQuietly(findAll);
 			DbUtils.closeQuietly(conn);
 		}
+	}
+
+	private User buildUser(ResultSet rs) throws SQLException {
+		User user = new User();
+		user.setId(rs.getLong(User.COL_ID));
+		user.setName(rs.getString(User.COL_NAME));
+		user.setPassword(rs.getString(User.COL_PASSWORD));
+		user.setEmail(rs.getString(User.COL_EMAIL));
+		user.setPhone(rs.getInt(User.COL_PHONE));
+		return user;
+	}
+	
+	private List<User> buildUsers(ResultSet rs) throws SQLException {
+		List<User> usuarios = Lists.newArrayList();
+		while (rs.next()) {
+			usuarios.add(this.buildUser(rs));
+		}
+		return usuarios;
 	}
 
 }
