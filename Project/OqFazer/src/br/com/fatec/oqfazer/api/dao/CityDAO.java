@@ -9,7 +9,7 @@ public interface CityDAO {
 
 	Long insertCity(Region region, List<City> cities);
 	
-	void deleteCity(Long idRegion);
+	void deleteCity(Region region);
 	
 	void updateCity(Region region, List<City> cities);
 	
