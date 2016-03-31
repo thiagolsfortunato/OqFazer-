@@ -6,9 +6,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
-import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.fatec.oqfazer.test.common.TestBase;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
