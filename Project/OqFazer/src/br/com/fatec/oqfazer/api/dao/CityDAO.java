@@ -7,15 +7,13 @@ import br.com.fatec.oqfazer.api.entity.Region;
 
 public interface CityDAO {
 
-	Long insertCity(Region region, List<City> cities);
+	void insertCity(Region region, List<City> cities);
 	
-	void deleteCity(Region region);
+	public void deleteCity(Long idRegion, List<City> cities);
 	
-	void updateCity(Region region, List<City> cities);
+	List<String> searchCityByRegionId(Long regionId);
 	
-	void updateCity(Region region, City city);
+	List<String> searchCityByRegionName(String regionName);
 	
-	City searchCityById(Long id);
-	
-	List<City> searchAllCity();
+	List<String> searchAllCity();
 }

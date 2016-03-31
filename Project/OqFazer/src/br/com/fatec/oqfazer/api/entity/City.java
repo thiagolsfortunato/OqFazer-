@@ -6,7 +6,9 @@ import com.google.common.collect.Lists;
 
 public enum City {
 	
-	SAO_JOSE_DOS_CAMPOS("São José dos Campos"), TAUBATE("Taubaté"), CACAPAVA("Caçapava"), JACAREI("Jacareí");
+	SAO_JOSE_DOS_CAMPOS("São José dos Campos"), TAUBATE("Taubaté"), CACAPAVA("Caçapava"), JACAREI("Jacareí"),
+	SAO_PAULO("São Paulo"), GUARULHOS("Guarulhos"), ARUJA("Arujá"), 
+	CARAGUATATUBA("Caraguatatuba"), UBATUBA("Ubatuba"), ILHA_BELA("Ilha Bela"), SAO_SEBASTIAO("São Sebastião");
 	
 	public static final String TABLE = "CITY";
 	public static final String COL_ID = "CTY_REGION_ID";
