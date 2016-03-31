@@ -15,10 +15,9 @@ public class Region {
 		
 	public Region(){};
 	
-	public Region(Long id, String name, List<City> city) {
+	public Region(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.city = city;
 	}
 	public Long getId() {
 		return id;
