@@ -7,7 +7,7 @@ import br.com.fatec.oqfazer.api.entity.Region;
 
 public interface CityDAO {
 
-	void insertCity(Region region, List<City> cities);
+	Long insertCity(Region region, List<City> cities);
 	
 	public void deleteCity(Long idRegion, List<City> cities);
 	
