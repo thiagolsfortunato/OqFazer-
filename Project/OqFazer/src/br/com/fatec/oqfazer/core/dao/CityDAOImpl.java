@@ -5,6 +5,7 @@ import static br.com.spektro.minispring.core.dbmapper.ConfigDBMapper.getDefaultC
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.dbutils.DbUtils;
@@ -17,9 +18,9 @@ import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
 public class CityDAOImpl implements CityDAO{
-	
+		
 	@Override
-	public Long insertCity(Region region, List<City> cities) {
+	public Long insertCity(Long idRegion, List<City> cities) {
 		Connection conn = null;
 		PreparedStatement insert = null;
 		try{
@@ -28,11 +29,11 @@ public class CityDAOImpl implements CityDAO{
 			for(City city : cities){
 				String sql = "INSERT INTO "+ City.TABLE + columns + " VALUES (?,?)";
 				insert = conn.prepareStatement(sql);
-				insert.setLong(1, region.getId());
+				insert.setLong(1, idRegion);
 				insert.setString(2, city.getNome());
 				insert.execute();
 			}
-			return region.getId();
+			return idRegion;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -61,6 +62,37 @@ public class CityDAOImpl implements CityDAO{
 			DbUtils.closeQuietly(conn);
 		}
 		
+	}
+	
+	@Override
+	public void updateCity(Long regionId, List<City> cities){
+		if(cities != null){
+			cities.removeAll(Collections.singleton(null));
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement delete = null;
+			PreparedStatement insert = null;
+			try{
+				String sqlDelete = "DELETE * FROM "+ City.TABLE +" WHERE "+ City.COL_ID +" = ?";
+				delete = conn.prepareStatement(sqlDelete);
+				delete.setLong(1, regionId);
+				delete.execute();
+				delete.close();
+				
+				for(City city : cities){
+					String sqlInsert = "INSERT INTO "+ City.TABLE + " VALUES (?,?)";
+					insert = conn.prepareStatement(sqlInsert);
+					insert.setLong(1, regionId);
+					insert.setString(2, city.getNome());
+					insert.execute();
+				}
+			}catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(insert);
+				DbUtils.closeQuietly(delete);
+				DbUtils.closeQuietly(conn);
+			}
+		}
 	}
 
 	@Override
