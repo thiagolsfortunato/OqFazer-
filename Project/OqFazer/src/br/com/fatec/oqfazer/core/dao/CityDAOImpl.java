@@ -19,7 +19,7 @@ import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 public class CityDAOImpl implements CityDAO{
 	
 	@Override
-	public void insertCity(Region region, List<City> cities) {
+	public Long insertCity(Region region, List<City> cities) {
 		Connection conn = null;
 		PreparedStatement insert = null;
 		try{
@@ -31,8 +31,8 @@ public class CityDAOImpl implements CityDAO{
 				insert.setLong(1, region.getId());
 				insert.setString(2, city.getNome());
 				insert.execute();
-				
 			}
+			return region.getId();
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
