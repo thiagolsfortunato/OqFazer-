@@ -4,12 +4,15 @@ import java.util.List;
 
 import br.com.fatec.oqfazer.api.entity.Category;
 
-
 public interface EventCategory {
 	
-	void updateCategory(Long eventId, List<Category> categories);
+	Long insertEventCategory(Long idEvent, Category category);
 	
-	void updateCategory(Long eventId, Category category);
+	Long insertEventCategory(Long idEvent, List<Category> categories);
 	
-	List<Category> searchCategory(Long eventId);
+	void updateEventCategory(Long idEvent, List<Category> categories);
+	
+	void deleteEventCategory(Long idEvent, Long idCategory);
+	
+	List<Long> searchCategories(Long idEvent);
 }
