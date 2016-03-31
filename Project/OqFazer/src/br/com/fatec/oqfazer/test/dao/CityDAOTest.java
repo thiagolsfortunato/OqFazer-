@@ -46,7 +46,7 @@ public class CityDAOTest extends TestBase {
 		cities.add(City.SAO_JOSE_DOS_CAMPOS);
 		cities.add(City.CACAPAVA);
 		
-		Long idRegion = this.cityDAO.insertCity(region1, cities);
+		Long idRegion = this.cityDAO.insertCity(region1.getId(), cities);
 		
 		List<String> citiesSaved = this.cityDAO.searchCityByRegionId(idRegion);
 		
@@ -61,7 +61,7 @@ public class CityDAOTest extends TestBase {
 		cities.add(City.CARAGUATATUBA);
 		cities.add(City.UBATUBA);
 		
-		Long idRegion = this.cityDAO.insertCity(region2, cities);
+		Long idRegion = this.cityDAO.insertCity(region2.getId(), cities);
 		this.cityDAO.deleteCity(idRegion, cities);
 		
 		List<String> citiesDelete = this.cityDAO.searchCityByRegionId(idRegion);
@@ -75,7 +75,7 @@ public class CityDAOTest extends TestBase {
 		cities.add(City.TAUBATE);
 		cities.add(City.JACAREI);
 		
-		this.cityDAO.insertCity(region1, cities);
+		this.cityDAO.insertCity(region1.getId(), cities);
 		
 		List<String> citiesSearchByName = this.cityDAO.searchCityByRegionName(region1.getName());
 		
@@ -91,7 +91,7 @@ public class CityDAOTest extends TestBase {
 		cities.add(City.ILHA_BELA);
 		cities.add(City.SAO_SEBASTIAO);
 		
-		this.cityDAO.insertCity(region2, cities);
+		this.cityDAO.insertCity(region2.getId(), cities);
 		
 		List<String> citiesSearchAll = this.cityDAO.searchAllCity();
 		
