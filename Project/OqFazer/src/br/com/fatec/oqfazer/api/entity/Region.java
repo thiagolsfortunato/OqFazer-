@@ -12,7 +12,6 @@ public class Region {
 	
 	private Long id;
 	private String name;
-	private List<City> city;
 		
 	public Region(){};
 	
@@ -32,12 +31,6 @@ public class Region {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public List<City> getCity() {
-		return city;
-	}
-	public void setCity(List<City> city) {
-		this.city = city;
 	}
 	
 	public static List<String> getColumns() {
