@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
+import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.Participation;
@@ -28,6 +29,7 @@ public class EventDAOTest extends TestBase {
 	private UserDAO userDAO;
 	private CategoryDAO categoryDAO;
 	private RegionDAO regionDAO;
+	private CityDAO cityDAO;
 	private Participation participation;
 	private EventCategory eventCategory;
 	
@@ -40,7 +42,8 @@ public class EventDAOTest extends TestBase {
 		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
 		this.userDAO = ImplFinder.getImpl(UserDAO.class);
 		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
-		this.regionDAO = ImplFinder.getFinalImpl(RegionDAO.class);
+		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
+		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
 		
 		//USERS
 		User user = new User();
@@ -83,7 +86,6 @@ public class EventDAOTest extends TestBase {
 		Region region1 = new Region();
 		region1.setId((long) 1);
 		region1.setName("Sentido Rio");
-		region1.setCity(citiesRio);
 		
 		List<City> citiesSaoPaulo = null;
 		citiesSaoPaulo.add(City.SAO_JOSE_DOS_CAMPOS);
@@ -92,7 +94,6 @@ public class EventDAOTest extends TestBase {
 		Region region2 = new Region();
 		region1.setId((long) 1);
 		region1.setName("Sentido Sao Paulo");
-		region1.setCity(citiesSaoPaulo);
 		
 		//INSERTS
 		Long idUser1 = this.userDAO.insertUser(user);
@@ -102,6 +103,9 @@ public class EventDAOTest extends TestBase {
 		Long idCategory2 = this.categoryDAO.insertCategory(category2);
 		Long idRegion1 = this.regionDAO.insertRegion(region1);
 		Long idRegion2 = this.regionDAO.insertRegion(region2);
+		this.cityDAO.insertCity(idRegion1, citiesRio);
+		this.cityDAO.insertCity(idRegion2, citiesSaoPaulo);
+		
 		
 				
 		this.user1 = this.userDAO.searchUserById(idUser1);
@@ -137,7 +141,7 @@ public class EventDAOTest extends TestBase {
 		categories.add(category2);
 		
 		this.participation.updateListParticipation(id, users);
-		this.eventCategory.updateCategory(id, categories);
+		this.eventCategory.updateEventCategory(id, categories);
 		
 		Event savedEvent = this.eventDAO.searchEventById(id);
 		
@@ -177,7 +181,7 @@ public class EventDAOTest extends TestBase {
 		categories.add(category2);
 		
 		this.participation.updateListParticipation(id, users);
-		this.eventCategory.updateCategory(id, categories);
+		this.eventCategory.updateEventCategory(id, categories);
 		
 		Event updateEvent = this.eventDAO.searchEventById(id);		
 		
@@ -228,7 +232,7 @@ public class EventDAOTest extends TestBase {
 		categories.add(category2);
 		
 		this.participation.updateListParticipation(id, users);
-		this.eventCategory.updateCategory(id, categories);
+		this.eventCategory.updateEventCategory(id, categories);
 		
 		Event deletedEvent = this.eventDAO.searchEventById(id);
 		
