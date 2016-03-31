@@ -16,12 +16,10 @@ import br.com.spektro.minispring.core.implfinder.ImplFinder;
 public class RegionDAOTest extends TestBase{
 	
 	private RegionDAO regionDAO;
-	private CityDAO cityDAO;
 	
 	@Before
 	public void config(){
 		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
-		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
 	}
 	
 	@Test
