@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+	dbchangelog-3.4.xsd
+	http://www.liquibase.org/xml/ns/dbchangelog-ext
+	http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+	
+	<changeSet id="001" author="thiago.william">
+		<createTable tableName="USER">
+			<column name="USR_ID" type="BIGINT"/>
+			<column name="USR_NAME" type="VARCHAR(50)"/>
+			<column name="USR_PASSWORD" type="VARCHAR(30)"/>
+			<column name="USR_EMAIL" type="VARCHAR(30)"/>
+			<column name="USR_PHONE" type="BIGINT"/>
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="002" author="thiago.william">
+		<createTable tableName="EVENT" >
+			<column name="EVN_ID" type="BIGINT" />
+			<column name="EVN_NAME" type="VARCHAR(50)" />
+			<column name="EVN_DESCRIPTION" type="VARCHAR(255)" />
+			<column name="EVN_REGISTRATION_DATE" type="VARCHAR(30)" />
+			<column name="EVN_EVENT_DATE" type="VARCHAR(30)" />
+			<column name="EVN_LOCAL" type="VARCHAR(100)" />
+			<column name="EVN_IMAGE_URL" type="VARCHAR(50)" />
+			<column name="EVN_REGION_ID" type="VARCHAR(50)" />
+			<column name="EVN_OWNER_ID" type="VARCHAR(30)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="003" author="thiago.william">
+		<createTable tableName="CATEGORY" >
+			<column name="CTG_ID" type="BIGINT" />
+			<column name="CTG_NAME" type="VARCHAR(50)" />
+			<column name="CTG_CATEGORY_ID" type="VARCHAR(30)" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="004" author="thiago.william">
+		<createTable tableName="REGION" >
+			<column name="RGN_ID" type="BIGINT" />
+			<column name="RGN_NAME" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+	
+	<changeSet id="005" author="thiago.william">
+		<createTable tableName="CITY" >
+			<column name="CTY_REGION_ID" type="BIGINT" />
+			<column name="CTY_NAME" type="VARCHAR(50)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="006" author="thiago.william">
+		<addPrimaryKey columnNames="USR_ID" tableName="USER" />
+		<addPrimaryKey columnNames="EVN_ID" tableName="EVENT" />
+		<addPrimaryKey columnNames="CTG_ID" tableName="CATEGORY" />
+		<addPrimaryKey columnNames="RGN_ID" tableName="REGION" />
+		<addPrimaryKey columnNames="CTY_REGION_ID" tableName="CITY" />
+	</changeSet>
+
+	<changeSet author="thiago.william" id="007" dbms="oracle, hsqldb, postgresql">
+    	<createSequence 
+    		incrementBy="1"
+    		sequenceName="SEQ_USER"
+    		startValue="1" />            
+   		
+   		<createSequence 
+            incrementBy="1"
+            sequenceName="SEQ_EVENT"
+            startValue="1" />
+            
+   		<createSequence 
+            incrementBy="1"
+            sequenceName="SEQ_CATEGORY"
+            startValue="1" />
+            
+        <createSequence 
+            incrementBy="1"
+            sequenceName="SEQ_REGION"
+            startValue="1" />
+         
+	</changeSet>
+
+	<changeSet author="thiago.william" id="008" dbms="mysql">
+    	<addAutoIncrement tableName="USER" columnName="USR_ID"
+    		columnDataType="BIGINT" />
+	</changeSet>
+	
+	<changeSet author="thiago.william" id="008.1" dbms="mysql">
+    	<addAutoIncrement tableName="EVENT" columnName="EVN_ID"
+    		columnDataType="BIGINT" />
+	</changeSet>
+	
+	<changeSet author="thiago.william" id="008.2" dbms="mysql">
+    	<addAutoIncrement tableName="CATEGORY" columnName="CTG_ID"
+    		columnDataType="BIGINT" />
+	</changeSet>
+	
+	<changeSet author="thiago.william" id="008.3" dbms="mysql">
+    	<addAutoIncrement tableName="REGION" columnName="RGN_ID"
+    		columnDataType="BIGINT" />
+	</changeSet>
+	
+	<changeSet id="009" author="thiago.william">
+		<addForeignKeyConstraint constraintName="FK_EVN_OWNER_ID"
+								 referencedTableName="USER"
+								 referencedColumnNames="USR_ID"
+								 baseTableName="EVENT"
+								 baseColumnNames="EVN_OWNER_ID" />
+			
+		<addForeignKeyConstraint constraintName="FK_EVN_REGION_ID"
+								 referencedTableName="REGION"
+								 referencedColumnNames="RGN_ID"
+								 baseTableName="EVENT"
+								 baseColumnNames="EVN_REGION_ID" />	
+	</changeSet>
+	
+	<changeSet id="010" author="thiago.william">
+		<addForeignKeyConstraint constraintName="FK_CTY_REGION_ID"
+								 referencedTableName="REGION"
+								 referencedColumnNames="RGN_ID"
+								 baseTableName="CITY"
+								 baseColumnNames="CTY_REGION_ID" />
+								 
+		<addForeignKeyConstraint constraintName="FK_CTG_CATEGORY_ID" 
+								 referencedTableName="CATEGORY" 
+								 referencedColumnNames="CTG_ID"
+								 baseTableName="CATEGORY"
+								 baseColumnNames="CTG_CATEGORY_ID" />
+	</changeSet>
+	
+	<changeSet id="011" author="thiago.william">
+		<createTable tableName="PARTICIPATION" >
+			<column name="PTC_USER_ID" type="BIGINT" />
+			<column name="PTC_EVENT_ID" type="BIGINT" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="012" author="thiago.william">
+		<addForeignKeyConstraint constraintName="FK_PARTICIPATION_USER_ID"
+								 referencedTableName="USER"
+								 referencedColumnNames="USR_ID"
+								 baseTableName="PARTICIPATION"
+								 baseColumnNames="PTC_USER_ID" />
+			
+		<addForeignKeyConstraint constraintName="FK_PARTICIPATION_PTC_ID_EVENT"
+								 referencedTableName="EVENT"
+								 referencedColumnNames="EVN_ID"
+								 baseTableName="PARTICIPATION"
+								 baseColumnNames="PTC_EVENT_ID" />
+	</changeSet>
+
+	<changeSet id="013" author="thiago.william">
+		<createTable tableName="EVENT_CATEGORY" >
+			<column name="ECT_EVENT_ID" type="BIGINT" />
+			<column name="ECT_CATEGORY_ID" type="BIGINT" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="014" author="thiago.william">
+		<addForeignKeyConstraint constraintName="FK_EVN_ID"
+								 referencedTableName="EVENT"
+			 					 referencedColumnNames="EVN_ID" 
+								 baseTableName="EVENT_CATEGORY"
+			   					 baseColumnNames="ECT_EVENT_ID" />
+			
+		<addForeignKeyConstraint constraintName="FK_CTG_ID"
+			  	   				 referencedTableName="CATEGORY"
+								 referencedColumnNames="CTG_ID" 
+								 baseTableName="EVENT_CATEGORY"
+			   					 baseColumnNames="ECT_CATEGORY_ID" />
+	</changeSet>
+</databaseChangeLog>
