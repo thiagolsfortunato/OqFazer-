@@ -25,8 +25,8 @@
 			<column name="EVN_EVENT_DATE" type="VARCHAR(30)" />
 			<column name="EVN_LOCAL" type="VARCHAR(100)" />
 			<column name="EVN_IMAGE_URL" type="VARCHAR(50)" />
-			<column name="EVN_REGION_ID" type="VARCHAR(50)" />
-			<column name="EVN_OWNER_ID" type="VARCHAR(30)" />
+			<column name="EVN_REGION_ID" type="BIGINT" />
+			<column name="EVN_OWNER_ID" type="BIGINT" />
 		</createTable>
 	</changeSet>
 
@@ -34,7 +34,7 @@
 		<createTable tableName="CATEGORY" >
 			<column name="CTG_ID" type="BIGINT" />
 			<column name="CTG_NAME" type="VARCHAR(50)" />
-			<column name="CTG_CATEGORY_ID" type="VARCHAR(30)" />
+			<column name="CTG_CATEGORY_ID" type="BIGINT" />
 		</createTable>
 	</changeSet>
 	

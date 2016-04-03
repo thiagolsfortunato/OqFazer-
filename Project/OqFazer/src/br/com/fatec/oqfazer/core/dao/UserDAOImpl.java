@@ -30,7 +30,7 @@ public class UserDAOImpl implements UserDAO {
 			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size(),
 					"SEQ_USER");
 
-			String sql = "INSERT INTO" + User.TABLE + columns + " VALUES " + values;
+			String sql = "INSERT INTO " + User.TABLE + columns + " VALUES " + values;
 
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), User.getColumnsArray());
 
