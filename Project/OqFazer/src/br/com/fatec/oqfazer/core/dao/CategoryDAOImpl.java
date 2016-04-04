@@ -23,10 +23,8 @@ import br.com.spektro.minispring.core.implfinder.ImplFinder;
 public class CategoryDAOImpl implements CategoryDAO{
 
 	private CategoryDAO categoryDao;
+
 	
-	public CategoryDAOImpl(){
-		this.categoryDao = ImplFinder.getImpl(CategoryDAO.class);
-	}
 	@Override
 	public Long insertCategory(Category category) {
 		Connection conn = null;
@@ -36,9 +34,9 @@ public class CategoryDAOImpl implements CategoryDAO{
 			
 			String columns = DAOUtils.getColumns(ConfigDBMapper.getDefaultConnectionType(), Category.getColumns());
 			
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Category.getColumns().size(), "SEQ_CATEGORY");
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Category.getColumns().size()-1, "SEQ_CATEGORY");
 			
-			String sql = "INSERT INTO" + Category.TABLE + columns + " VALUES " + values;
+			String sql = "INSERT INTO " + Category.TABLE + columns + " VALUES " + values;
 			
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Category.getColumnsArray());
 			
@@ -49,6 +47,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 			}else{
 				insert.setNull(2, Types.BIGINT);
 			}
+			insert.execute();
 			ResultSet generatedKeys = insert.getGeneratedKeys();
 			if (generatedKeys.next()) {
 				return generatedKeys.getLong(1);
@@ -68,7 +67,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 		PreparedStatement delete = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "DELETE FROM " + Category.TABLE + " WHERE ID = ?;";
+			String sql = "DELETE FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
 			delete = conn.prepareStatement(sql);
 			delete.setLong(1, id);
 			delete.execute();
@@ -87,14 +86,19 @@ public class CategoryDAOImpl implements CategoryDAO{
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			List<String> sets = Lists.newArrayList();
-			sets.add(Category.COL_NAME + "= ?");
-			sets.add(Category.COL_ID_CATEGORY + "= ?");
+			sets.add(Category.COL_NAME + " = ?");
+			sets.add(Category.COL_ID_CATEGORY + " = ?");
 			
 			String sql = "UPDATE "+ Category.TABLE +" SET "+ StringUtils.join(sets, ", ")+" WHERE "+ Category.COL_ID +" = ?";
 			
 			update = conn.prepareStatement(sql);
 			update.setString(1, category.getName());
-			update.setLong(2, category.getCategory().getId());
+			if(category.getCategory() != null){
+				update.setLong(2, category.getCategory().getId());
+			}else{
+				update.setNull(2, Types.BIGINT);
+			}
+			
 			update.setLong(3, category.getId());
 			update.execute();			
 		}catch (Exception e) {
@@ -135,6 +139,7 @@ public class CategoryDAOImpl implements CategoryDAO{
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "SELECT * FROM "+ Category.TABLE + " ORDER BY " + Category.COL_ID;
+			search = conn.prepareStatement(sql);
 			ResultSet rs = search.executeQuery();
 			return buildCategories(rs);
 		}catch (Exception e) {
@@ -149,7 +154,8 @@ public class CategoryDAOImpl implements CategoryDAO{
 		Category category = new Category();
 		category.setId(rs.getLong(Category.COL_ID));
 		category.setName(rs.getString(Category.COL_NAME));
-		category.setCategory(this.categoryDao.searchCategoryById(rs.getLong(Category.COL_ID_CATEGORY)));
+		Long idCategory = rs.getLong(Category.COL_ID_CATEGORY);
+		category.setCategory(idCategory != 0 ? this.searchCategoryById(idCategory) : null);
 		return category;
 	}
 	

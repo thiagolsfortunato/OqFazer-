@@ -116,6 +116,5 @@ public class UserDAOTest extends TestBase{
 		Assert.assertEquals("thiago@test", listUsers.get(1).getEmail());
 		Assert.assertEquals("teste", listUsers.get(1).getPassword());
 		Assert.assertEquals(111111, listUsers.get(1).getPhone());
-	}
-		
+	}		
 }
