@@ -61,7 +61,7 @@
 		<addPrimaryKey columnNames="EVN_ID" tableName="EVENT" />
 		<addPrimaryKey columnNames="CTG_ID" tableName="CATEGORY" />
 		<addPrimaryKey columnNames="RGN_ID" tableName="REGION" />
-		<addPrimaryKey columnNames="CTY_REGION_ID" tableName="CITY" />
+		<addPrimaryKey columnNames="CTY_NAME" tableName="CITY" />
 	</changeSet>
 
 	<changeSet author="thiago.william" id="007" dbms="oracle, hsqldb, postgresql">

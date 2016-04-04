@@ -32,6 +32,7 @@ public class CityDAOImpl implements CityDAO{
 				insert.setLong(1, idRegion);
 				insert.setString(2, city.getNome());
 				insert.execute();
+				insert.clearParameters();
 			}
 			return idRegion;
 		}catch (Exception e) {
@@ -54,6 +55,7 @@ public class CityDAOImpl implements CityDAO{
 				delete.setLong(1, regionId);
 				delete.setString(2, city.getNome());
 				delete.execute();
+				delete.clearParameters();
 			}
 		}catch (Exception e) {
 			throw new RuntimeException(e);

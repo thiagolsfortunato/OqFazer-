@@ -48,8 +48,6 @@ public class CityDAOTest extends TestBase {
 		cities.add(City.SAO_JOSE_DOS_CAMPOS);
 		cities.add(City.CACAPAVA);
 		
-		System.out.println(region1.getId());
-		
 		Long idRegion = this.cityDAO.insertCity(region1.getId(), cities);
 		
 		List<String> citiesSaved = this.cityDAO.searchCityByRegionId(idRegion);
@@ -59,7 +57,7 @@ public class CityDAOTest extends TestBase {
 		Assert.assertEquals("Caçapava", citiesSaved.get(1));
 	}
 	
-	//@Test
+	@Test
 	public void testDelete(){
 		List<City> cities = Lists.newArrayList();
 		cities.add(City.CARAGUATATUBA);
@@ -70,24 +68,25 @@ public class CityDAOTest extends TestBase {
 		
 		List<String> citiesDelete = this.cityDAO.searchCityByRegionId(idRegion);
 		
-		Assert.assertNull(citiesDelete);
+		Assert.assertEquals(true, citiesDelete.isEmpty());
 	}
 	
-	//@Test
+	@Test
 	public void testSearchByRegionName(){
 		List<City> cities = Lists.newArrayList();
-		cities.add(City.TAUBATE);
 		cities.add(City.JACAREI);
+		cities.add(City.TAUBATE);
+		
 		
 		this.cityDAO.insertCity(region1.getId(), cities);
 		
 		List<String> citiesSearchByName = this.cityDAO.searchCityByRegionName(region1.getName());
 		
-		Assert.assertEquals("Taubaté", citiesSearchByName.get(0));
-		Assert.assertEquals("Caçapava", citiesSearchByName.get(1));		
+		Assert.assertEquals("Jacareí", citiesSearchByName.get(0));
+		Assert.assertEquals("Taubaté", citiesSearchByName.get(1));		
 	}
 	
-	//@Test
+	@Test
 	public void testSearchAll(){
 		List<City> cities = Lists.newArrayList();
 		cities.add(City.CARAGUATATUBA);
