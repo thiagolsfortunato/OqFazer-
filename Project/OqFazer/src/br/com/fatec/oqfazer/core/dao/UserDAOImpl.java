@@ -27,7 +27,7 @@ public class UserDAOImpl implements UserDAO {
 
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), User.getColumns());
 
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size(),
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size()-1,
 					"SEQ_USER");
 
 			String sql = "INSERT INTO " + User.TABLE + columns + " VALUES " + values;
@@ -36,6 +36,8 @@ public class UserDAOImpl implements UserDAO {
 
 			insert.setString(1, user.getName());
 			insert.setString(2, user.getPassword());
+			insert.setString(3, user.getEmail());
+			insert.setLong(4, user.getPhone());
 			insert.execute();
 
 			ResultSet generatedKeys = insert.getGeneratedKeys();
@@ -57,7 +59,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement delete = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "DELETE FROM " + User.TABLE + " WHERE ID = ?;";
+			String sql = "DELETE FROM " + User.TABLE + " WHERE USR_ID = ?;";
 			delete = conn.prepareStatement(sql);
 			delete.setLong(1, id);
 			delete.execute();
@@ -75,15 +77,16 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement update = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			update = conn.prepareStatement("UPDATE " + User.TABLE + " SET " + User.COL_ID + " = ?," + User.COL_EMAIL
-					+ " = ?," + User.COL_NAME + " = ?," + User.COL_PASSWORD + " = ?," + User.COL_PHONE + " = ?,"
-					+ " WHERE " + User.COL_ID + " = ?");
-			update.setString(1, String.valueOf(user.getId()));
+			update = conn.prepareStatement("UPDATE " + User.TABLE + " SET " + User.COL_NAME + " = ?," 
+																			+ User.COL_EMAIL + " = ?," 
+																			+ User.COL_PASSWORD + " = ?," 
+																			+ User.COL_PHONE + " = ?"
+																			+ " WHERE " + User.COL_ID + " = ?");
+			update.setString(1, user.getName());
 			update.setString(2, user.getEmail());
-			update.setString(3, user.getName());
-			update.setString(4, user.getPassword());
-			update.setString(5, String.valueOf(user.getPhone()));
-			update.setString(6, String.valueOf(user.getId()));
+			update.setString(3, user.getPassword());
+			update.setInt(4, user.getPhone());
+			update.setLong(5, user.getId());
 			update.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

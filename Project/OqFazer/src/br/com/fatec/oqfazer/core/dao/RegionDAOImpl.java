@@ -25,14 +25,13 @@ public class RegionDAOImpl implements RegionDAO{
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), Region.getColumns());
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Region.getColumns().size(), "SEQ_REGION");
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Region.getColumns().size()-1 , "SEQ_REGION");
 			
 			String sql = "INSERT INTO "+ Region.TABLE + columns + " VALUES " + values;
 			
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Region.getColumnsArray());
 			
-			insert.setLong(1, region.getId());
-			insert.setString(2, region.getName());
+			insert.setString(1, region.getName());
 			insert.execute();
 			
 			ResultSet generatedKeys = insert.getGeneratedKeys();
@@ -93,8 +92,12 @@ public class RegionDAOImpl implements RegionDAO{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "SELECT * FROM "+ Region.TABLE +" WHERE "+ Region.COL_ID +" = ?";
 			find = conn.prepareStatement(sql);
+			find.setLong(1, id);
 			ResultSet rs = find.executeQuery();
-			return buildRegion(rs);
+			if(rs.next()){
+				return buildRegion(rs);
+			}
+			return null;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

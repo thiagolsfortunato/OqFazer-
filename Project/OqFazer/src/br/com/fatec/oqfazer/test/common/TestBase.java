@@ -34,7 +34,7 @@ public class TestBase {
 		QueryExecutorService.executeQuery("DELETE FROM EVENT_CATEGORY");
 
 		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_CATEGORY RESTART WITH 1");
-		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_CITY RESTART WITH 1");
+		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_REGION RESTART WITH 1");
 		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_EVENT RESTART WITH 1");
 		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_USER RESTART WITH 1");
 	}
