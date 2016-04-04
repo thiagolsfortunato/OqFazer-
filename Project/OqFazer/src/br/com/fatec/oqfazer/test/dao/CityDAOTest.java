@@ -50,11 +50,11 @@ public class CityDAOTest extends TestBase {
 		
 		Long idRegion = this.cityDAO.insertCity(region1.getId(), cities);
 		
-		List<String> citiesSaved = this.cityDAO.searchCityByRegionId(idRegion);
+		List<City> citiesSaved = this.cityDAO.searchCityByRegionId(idRegion);
 		
 		Assert.assertNotNull(citiesSaved);
-		Assert.assertEquals("São José dos Campos", citiesSaved.get(0));
-		Assert.assertEquals("Caçapava", citiesSaved.get(1));
+		Assert.assertEquals("São José dos Campos", citiesSaved.get(0).getNome());
+		Assert.assertEquals("Caçapava", citiesSaved.get(1).getNome());
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class CityDAOTest extends TestBase {
 		Long idRegion = this.cityDAO.insertCity(region2.getId(), cities);
 		this.cityDAO.deleteCity(idRegion, cities);
 		
-		List<String> citiesDelete = this.cityDAO.searchCityByRegionId(idRegion);
+		List<City> citiesDelete = this.cityDAO.searchCityByRegionId(idRegion);
 		
 		Assert.assertEquals(true, citiesDelete.isEmpty());
 	}
@@ -80,10 +80,10 @@ public class CityDAOTest extends TestBase {
 		
 		this.cityDAO.insertCity(region1.getId(), cities);
 		
-		List<String> citiesSearchByName = this.cityDAO.searchCityByRegionName(region1.getName());
+		List<City> citiesSearchByName = this.cityDAO.searchCityByRegionName(region1.getName());
 		
-		Assert.assertEquals("Jacareí", citiesSearchByName.get(0));
-		Assert.assertEquals("Taubaté", citiesSearchByName.get(1));		
+		Assert.assertEquals("Jacareí", citiesSearchByName.get(0).getNome());
+		Assert.assertEquals("Taubaté", citiesSearchByName.get(1).getNome());		
 	}
 	
 	@Test
@@ -96,12 +96,12 @@ public class CityDAOTest extends TestBase {
 		
 		this.cityDAO.insertCity(region2.getId(), cities);
 		
-		List<String> citiesSearchAll = this.cityDAO.searchAllCity();
+		List<City> citiesSearchAll = this.cityDAO.searchAllCity();
 		
 		Assert.assertEquals(4, cities.size());
-		Assert.assertEquals("Caraguatatuba", citiesSearchAll.get(0));
-		Assert.assertEquals("Ubatuba", citiesSearchAll.get(1));
-		Assert.assertEquals("Ilha Bela", citiesSearchAll.get(2));
-		Assert.assertEquals("São Sebastião", citiesSearchAll.get(3));
+		Assert.assertEquals("Caraguatatuba", citiesSearchAll.get(0).getNome());
+		Assert.assertEquals("Ubatuba", citiesSearchAll.get(1).getNome());
+		Assert.assertEquals("Ilha Bela", citiesSearchAll.get(2).getNome());
+		Assert.assertEquals("São Sebastião", citiesSearchAll.get(3).getNome());
 	}
 }
