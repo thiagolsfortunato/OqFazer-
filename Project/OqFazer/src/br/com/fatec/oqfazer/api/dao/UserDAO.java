@@ -14,4 +14,6 @@ public interface UserDAO {
 	User searchUserById(Long id);
 	
 	List<User> searchAllUsers();
+	
+	List<User> searchUsersByIds(List<Long> idsUser);
 }
