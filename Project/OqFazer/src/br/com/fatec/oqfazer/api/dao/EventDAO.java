@@ -14,4 +14,6 @@ public interface EventDAO {
 	Event searchEventById(Long event);
 	
 	List<Event> searchAllEvents();
+	
+	List<Event> searchEventsByListIds(List<Long> idsEvent);
 }
