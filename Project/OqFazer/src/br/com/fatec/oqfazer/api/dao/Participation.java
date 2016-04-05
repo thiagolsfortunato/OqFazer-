@@ -6,9 +6,11 @@ import br.com.fatec.oqfazer.api.entity.User;
 
 public interface Participation {
 	
-	void updateListParticipation(Long eventId, List<User> user);
+	Long insertParticipation(Long eventId, Long userId);
 	
-	void updateListParticipation(Long eventId, User user);
+	void deleteParticipation(Long eventId, Long userId);
 	
-	List<User> searchUsers(Long eventId);
+	List<Long> searchUsers(Long eventId);
+	
+	List<Long> searchEvents(Long userId);
 }

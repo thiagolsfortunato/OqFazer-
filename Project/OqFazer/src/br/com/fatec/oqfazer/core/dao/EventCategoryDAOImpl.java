@@ -134,4 +134,28 @@ public class EventCategoryDAOImpl implements EventCategory {
 		}
 		return idsCategories;
 	}
+	
+	@Override
+	public List<Long> searchEvents(Long idCategory) {
+		List<Long> idsEvents = Lists.newArrayList();
+		if(idCategory != null){
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement search = null;
+			try{
+				String sql = "SELECT "+ COL_ID_EVENT +" FROM "+ TABLE + " WHERE "+ COL_ID_CATEGORY +" = ?";
+				search = conn.prepareStatement(sql);
+				search.setLong(1, idCategory);
+				ResultSet rs = search.executeQuery();
+				while(rs.next()){
+					idsEvents.add(rs.getLong(COL_ID_EVENT));
+				}				
+			}catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}			
+		}
+		return idsEvents;
+	}
 }

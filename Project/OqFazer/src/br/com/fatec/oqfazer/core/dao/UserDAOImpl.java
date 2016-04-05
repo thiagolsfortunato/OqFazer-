@@ -13,6 +13,7 @@ import org.apache.commons.dbutils.DbUtils;
 import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.UserDAO;
+import br.com.fatec.oqfazer.api.entity.Category;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
@@ -27,8 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), User.getColumns());
 
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size()-1,
-					"SEQ_USER");
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size()-1,"SEQ_USER");
 
 			String sql = "INSERT INTO " + User.TABLE + columns + " VALUES " + values;
 
@@ -135,6 +135,29 @@ public class UserDAOImpl implements UserDAO {
 			DbUtils.closeQuietly(conn);
 		}
 	}
+	
+	@Override
+	public List<User> searchUsersByIds(List<Long> idsUser) {
+		List<User> users = Lists.newArrayList();
+		if(idsUser != null){
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement search = null;
+			try{
+				String args = DAOUtils.preparePlaceHolders(idsUser.size());
+				String sql = "SELECT * FROM " + User.TABLE + " WHERE " + User.COL_ID + " IN ("+ args +") ORDER BY "+ User.COL_ID;
+				search = conn.prepareStatement(sql);
+				DAOUtils.setValues(search, idsUser);
+				ResultSet rs = search.executeQuery();
+				users = buildUsers(rs);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}
+		}
+		return users;
+	}
 
 	private User buildUser(ResultSet rs) throws SQLException {
 		User user = new User();
@@ -153,5 +176,4 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return usuarios;
 	}
-
 }

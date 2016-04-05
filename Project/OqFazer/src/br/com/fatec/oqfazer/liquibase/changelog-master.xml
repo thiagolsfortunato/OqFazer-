@@ -137,8 +137,8 @@
 	
 	<changeSet id="011" author="thiago.william">
 		<createTable tableName="PARTICIPATION" >
-			<column name="PTC_USER_ID" type="BIGINT" />
 			<column name="PTC_EVENT_ID" type="BIGINT" />
+			<column name="PTC_USER_ID" type="BIGINT" />			
 		</createTable>
 	</changeSet>
 
