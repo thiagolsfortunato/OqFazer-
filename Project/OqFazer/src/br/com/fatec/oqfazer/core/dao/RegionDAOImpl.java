@@ -25,14 +25,14 @@ public class RegionDAOImpl implements RegionDAO{
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), Region.getColumns());
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Region.getColumns().size(), "SEQ_REGION");
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), Region.getColumns().size()-1, "SEQ_REGION");
 			
 			String sql = "INSERT INTO "+ Region.TABLE + columns + " VALUES " + values;
 			
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Region.getColumnsArray());
 			
-			insert.setLong(1, region.getId());
-			insert.setString(2, region.getName());
+			//insert.setLong(1, region.getId());
+			insert.setString(1, region.getName());
 			insert.execute();
 			
 			ResultSet generatedKeys = insert.getGeneratedKeys();
@@ -54,7 +54,7 @@ public class RegionDAOImpl implements RegionDAO{
 		PreparedStatement delete = null;
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "DELETE FROM "+ Region.TABLE + " WHERE "+ Region.COL_ID +" = ?";
+			String sql = "DELETE FROM "+ Region.TABLE + " WHERE RGN_ID = ?;";
 			delete = conn.prepareStatement(sql);
 			delete.setLong(1, id);
 			delete.execute();
@@ -89,12 +89,17 @@ public class RegionDAOImpl implements RegionDAO{
 	public Region searchRegionById(Long id) {
 		Connection conn = null;
 		PreparedStatement find = null;
+		Region region = null;
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "SELECT * FROM "+ Region.TABLE +" WHERE "+ Region.COL_ID +" = ?";
 			find = conn.prepareStatement(sql);
+			find.setLong(1, id);
 			ResultSet rs = find.executeQuery();
-			return buildRegion(rs);
+			if(rs.next()){
+				region = this.buildRegion(rs);
+			}
+			return region;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {
@@ -131,7 +136,7 @@ public class RegionDAOImpl implements RegionDAO{
 	public List<Region> buildRegions(ResultSet rs) throws SQLException{
 		List<Region> regions = Lists.newArrayList();
 		while(rs.next()){
-			regions.add(buildRegion(rs));
+			regions.add(this.buildRegion(rs));
 		}
 		return regions;
 	}

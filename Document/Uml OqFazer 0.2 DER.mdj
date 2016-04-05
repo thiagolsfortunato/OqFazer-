@@ -3372,10 +3372,10 @@
 							"name": "cty_region_id",
 							"type": "int",
 							"length": 0,
-							"primaryKey": true,
+							"primaryKey": false,
 							"foreignKey": false,
 							"nullable": false,
-							"unique": false
+							"unique": true
 						},
 						{
 							"_type": "ERDColumn",
@@ -3386,10 +3386,10 @@
 							"name": "cty_name",
 							"type": "vatchar",
 							"length": 0,
-							"primaryKey": false,
+							"primaryKey": true,
 							"foreignKey": false,
 							"nullable": false,
-							"unique": false
+							"unique": true
 						}
 					]
 				}

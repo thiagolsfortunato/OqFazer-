@@ -25,8 +25,8 @@
 			<column name="EVN_EVENT_DATE" type="VARCHAR(30)" />
 			<column name="EVN_LOCAL" type="VARCHAR(100)" />
 			<column name="EVN_IMAGE_URL" type="VARCHAR(50)" />
-			<column name="EVN_REGION_ID" type="VARCHAR(50)" />
-			<column name="EVN_OWNER_ID" type="VARCHAR(30)" />
+			<column name="EVN_REGION_ID" type="BIGINT" />
+			<column name="EVN_OWNER_ID" type="BIGINT" />
 		</createTable>
 	</changeSet>
 
@@ -34,8 +34,12 @@
 		<createTable tableName="CATEGORY" >
 			<column name="CTG_ID" type="BIGINT" />
 			<column name="CTG_NAME" type="VARCHAR(50)" />
-			<column name="CTG_CATEGORY_ID" type="VARCHAR(30)" />
+			<column name="CTG_CATEGORY_ID" type="BIGINT" />
 		</createTable>
+	</changeSet>
+	
+	<changeSet id="003.1" author="thiago.william">
+		<addUniqueConstraint columnNames="CTG_NAME" tableName="CATEGORY"/>
 	</changeSet>
 	
 	<changeSet id="004" author="thiago.william">
@@ -51,13 +55,13 @@
 			<column name="CTY_NAME" type="VARCHAR(50)" />
 		</createTable>
 	</changeSet>
-
+		
 	<changeSet id="006" author="thiago.william">
 		<addPrimaryKey columnNames="USR_ID" tableName="USER" />
 		<addPrimaryKey columnNames="EVN_ID" tableName="EVENT" />
 		<addPrimaryKey columnNames="CTG_ID" tableName="CATEGORY" />
 		<addPrimaryKey columnNames="RGN_ID" tableName="REGION" />
-		<addPrimaryKey columnNames="CTY_REGION_ID" tableName="CITY" />
+		<addPrimaryKey columnNames="CTY_NAME" tableName="CITY" />
 	</changeSet>
 
 	<changeSet author="thiago.william" id="007" dbms="oracle, hsqldb, postgresql">
