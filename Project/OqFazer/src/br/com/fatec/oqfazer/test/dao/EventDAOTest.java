@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.EventCategory;
@@ -79,7 +81,7 @@ public class EventDAOTest extends TestBase {
 		category2.setCategory(category1);
 		
 		//LIST DE CITIES AND REGIONS
-		List<City> citiesRio = null;
+		List<City> citiesRio = Lists.newArrayList();
 		citiesRio.add(City.CACAPAVA);
 		citiesRio.add(City.TAUBATE);		
 		
@@ -87,7 +89,7 @@ public class EventDAOTest extends TestBase {
 		region1.setId((long) 1);
 		region1.setName("Sentido Rio");
 		
-		List<City> citiesSaoPaulo = null;
+		List<City> citiesSaoPaulo = Lists.newArrayList();
 		citiesSaoPaulo.add(City.SAO_JOSE_DOS_CAMPOS);
 		citiesSaoPaulo.add(City.JACAREI);
 		
@@ -105,9 +107,7 @@ public class EventDAOTest extends TestBase {
 		Long idRegion2 = this.regionDAO.insertRegion(region2);
 		this.cityDAO.insertCity(idRegion1, citiesRio);
 		this.cityDAO.insertCity(idRegion2, citiesSaoPaulo);
-		
-		
-				
+			
 		this.user1 = this.userDAO.searchUserById(idUser1);
 		this.user2 = this.userDAO.searchUserById(idUser2);
 		this.user3 = this.userDAO.searchUserById(idUser3);
@@ -132,11 +132,11 @@ public class EventDAOTest extends TestBase {
 					
 		Long id = this.eventDAO.inserEvent(event);
 		
-		List<User> users = null;
+		List<User> users = Lists.newArrayList();
 		users.add(user2);
 		users.add(user3);
 		
-		List<Category> categories = null;
+		List<Category> categories = Lists.newArrayList();
 		categories.add(category1);
 		categories.add(category2);
 		
@@ -172,11 +172,11 @@ public class EventDAOTest extends TestBase {
 		
 		Long id = this.eventDAO.inserEvent(event);
 		
-		List<User> users = null;
+		List<User> users = Lists.newArrayList();
 		users.add(user1);
 		users.add(user3);
 		
-		List<Category> categories = null;
+		List<Category> categories = Lists.newArrayList();
 		categories.add(category1);
 		categories.add(category2);
 		
@@ -223,11 +223,11 @@ public class EventDAOTest extends TestBase {
 		
 		Long id = this.eventDAO.inserEvent(event);
 			
-		List<User> users = null;
+		List<User> users = Lists.newArrayList();
 		users.add(user2);
 		users.add(user3);
 		
-		List<Category> categories = null;
+		List<Category> categories = Lists.newArrayList();
 		categories.add(category1);
 		categories.add(category2);
 		
@@ -254,7 +254,7 @@ public class EventDAOTest extends TestBase {
 		
 		Long idEvent = this.eventDAO.inserEvent(event);
 		
-		List<User> users = null;
+		List<User> users = Lists.newArrayList();
 		users.add(user2);
 		users.add(user3);
 		this.participation.updateListParticipation(idEvent, users);
@@ -272,7 +272,7 @@ public class EventDAOTest extends TestBase {
 		
 		Long idEvent2 = this.eventDAO.inserEvent(event2);
 		
-		List<User> users2 = null;
+		List<User> users2 = Lists.newArrayList();
 		users2.add(user1);
 		users2.add(user3);
 		this.participation.updateListParticipation(idEvent2, users2);
