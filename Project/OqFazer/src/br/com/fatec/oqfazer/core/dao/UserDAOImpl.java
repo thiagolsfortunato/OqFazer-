@@ -28,8 +28,7 @@ public class UserDAOImpl implements UserDAO {
 
 			String columns = DAOUtils.getColumns(getDefaultConnectionType(), User.getColumns());
 
-			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size()-1,
-					"SEQ_USER");
+			String values = DAOUtils.completeClauseValues(getDefaultConnectionType(), User.getColumns().size()-1,"SEQ_USER");
 
 			String sql = "INSERT INTO " + User.TABLE + columns + " VALUES " + values;
 
