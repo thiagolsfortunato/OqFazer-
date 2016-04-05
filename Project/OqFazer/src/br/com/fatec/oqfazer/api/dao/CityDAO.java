@@ -13,9 +13,9 @@ public interface CityDAO {
 	
 	public void updateCity(Long idRegion, List<City> cities);
 	
-	List<String> searchCityByRegionId(Long regionId);
+	List<City> searchCityByRegionId(Long regionId);
 	
-	List<String> searchCityByRegionName(String regionName);
+	List<City> searchCityByRegionName(String regionName);
 	
-	List<String> searchAllCity();
+	List<City> searchAllCity();
 }
