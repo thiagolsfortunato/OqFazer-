@@ -126,14 +126,12 @@ public class EventDAOTest extends TestBase {
 		this.region2 = this.regionDAO.searchRegionById(idRegion2);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testSave() {	
 		Event event = new Event();
 		event.setId((long) 1);
 		event.setName("Show da Banda");
 		event.setDescription("Show da banda fulana");
-		System.out.println(new Date());
 		event.setRegistration_date(new Date());
 		event.setEvent_date(new Date());
 		event.setLocal("Rua José");
@@ -157,23 +155,23 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(new Long(1), savedEvent.getId());
 		Assert.assertEquals("Show da Banda", savedEvent.getName());
 		Assert.assertEquals("Show da banda fulana", savedEvent.getDescription());
-		Assert.assertEquals(df.format(new Date()), savedEvent.getRegistration_date().toString());
-		Assert.assertEquals(df.format(new Date()), savedEvent.getEvent_date().toString());
+		Assert.assertEquals(df.format(new Date()), df.format(savedEvent.getRegistration_date()));
+		Assert.assertEquals(df.format(new Date()), df.format(savedEvent.getEvent_date()));
 		Assert.assertEquals("Rua José", savedEvent.getLocal());
 		Assert.assertEquals(null, savedEvent.getImageURL());
 		Assert.assertEquals(this.region1.getName(), savedEvent.getRegion().getName());
 		Assert.assertEquals(this.user1.getName(), savedEvent.getOwner().getName());
 	}
 	
-	//@Test
+	@Test
 	public void testUpdate() {
 		Event event = new Event();
 		event.setId((long) 1);
 		event.setName("Show da Banda");
 		event.setDescription("Show da banda fulana");
 		event.setRegistration_date(new Date());
-		event.setEvent_date(new Date(2016,03,30));
-		event.setLocal("Rua josé");
+		event.setEvent_date(new Date());
+		event.setLocal("Rua José");
 		event.setImageURL(null);
 		event.setRegion(region1);
 		event.setOwner(user1);
@@ -191,10 +189,10 @@ public class EventDAOTest extends TestBase {
 		Event updateEvent = this.eventDAO.searchEventById(id);		
 		
 		updateEvent.setName("Show da Banda de Musica");
-		updateEvent.setDescription("Show da banda fulana de musica");
+		updateEvent.setDescription("Show da banda fulana de Musica");
 		updateEvent.setRegistration_date(new Date());
-		updateEvent.setEvent_date(new Date(2017,03,20));
-		updateEvent.setLocal("Rua joao");
+		updateEvent.setEvent_date(new Date());
+		updateEvent.setLocal("Rua Joao");
 		updateEvent.setImageURL(null);
 		updateEvent.setRegion(region2);
 		updateEvent.setOwner(user2);
@@ -202,47 +200,19 @@ public class EventDAOTest extends TestBase {
 		this.eventDAO.updateEvent(updateEvent);
 		
 		Assert.assertNotNull(updateEvent);
-		Assert.assertEquals(String.valueOf(1), updateEvent.getId());
-		Assert.assertEquals("Show da Banda de musica", updateEvent.getName());
-		Assert.assertEquals("Show da banda fulana de musica", updateEvent.getDescription());
-		Assert.assertEquals(df.format(new Date()), updateEvent.getRegistration_date().toString());
-		Assert.assertEquals(df.format(new Date()), updateEvent.getEvent_date().toString());
-		Assert.assertEquals("Rua joao", updateEvent.getLocal());
+		Assert.assertEquals(new Long(1), updateEvent.getId());
+		Assert.assertEquals("Show da Banda de Musica", updateEvent.getName());
+		Assert.assertEquals("Show da banda fulana de Musica", updateEvent.getDescription());
+		Assert.assertEquals(df.format(new Date()), df.format(updateEvent.getRegistration_date()));
+		Assert.assertEquals(df.format(new Date()), df.format(updateEvent.getEvent_date()));
+		Assert.assertEquals("Rua Joao", updateEvent.getLocal());
 		Assert.assertEquals(null, updateEvent.getImageURL());
-		Assert.assertEquals(this.region2, updateEvent.getRegion());
-		Assert.assertEquals(this.user2, updateEvent.getOwner());		
+		Assert.assertEquals(this.region2.getName(), updateEvent.getRegion().getName());
+		Assert.assertEquals(this.user2.getName(), updateEvent.getOwner().getName());		
 	}
 	
-	//@Test
+	@Test
 	public void testDelete() {
-		Event event = new Event();
-		event.setId((long) 1);
-		event.setName("Show da Banda");
-		event.setDescription("Show da banda fulana");
-		event.setRegistration_date(new Date());
-		event.setEvent_date(new Date(2016,03,30));
-		event.setLocal("Rua josé");
-		event.setImageURL(null);
-		event.setRegion(region1);
-		event.setOwner(user1);
-		
-		Long id = this.eventDAO.inserEvent(event);
-			
-		List<Category> categories = Lists.newArrayList();
-		categories.add(category1);
-		categories.add(category2);
-		
-		this.participation.insertParticipation(id, user2.getId());
-		this.participation.insertParticipation(id, user3.getId());
-		this.eventCategory.updateEventCategory(id, categories);
-		
-		Event deletedEvent = this.eventDAO.searchEventById(id);
-		
-		Assert.assertNull(deletedEvent);
-	}
-	
-	//@Test
-	public void testsearchAll() {
 		Event event = new Event();
 		event.setId((long) 1);
 		event.setName("Show da Banda");
@@ -255,9 +225,43 @@ public class EventDAOTest extends TestBase {
 		event.setOwner(user1);
 		
 		Long id = this.eventDAO.inserEvent(event);
+			
+		List<Category> categories = Lists.newArrayList();
+		categories.add(category1);
+		categories.add(category2);
+		
+		//this.participation.insertParticipation(id, user2.getId());
+		//this.participation.insertParticipation(id, user3.getId());
+		//this.eventCategory.updateEventCategory(id, categories);
+		
+		this.eventDAO.deleteEvent(id);
+		
+		Event deletedEvent = this.eventDAO.searchEventById(id);
+		
+		Assert.assertNull(deletedEvent);
+	}
+	
+	@Test
+	public void testsearchAll() {
+		Event event = new Event();
+		event.setId((long) 1);
+		event.setName("Show da Banda");
+		event.setDescription("Show da banda fulana");
+		event.setRegistration_date(new Date());
+		event.setEvent_date(new Date());
+		event.setLocal("Rua josé");
+		event.setImageURL(null);
+		event.setRegion(region1);
+		event.setOwner(user1);
+		
+		Long idEvent = this.eventDAO.inserEvent(event);
 
-		this.participation.insertParticipation(id, user2.getId());
-		this.participation.insertParticipation(id, user3.getId());
+		List<Category> categories = Lists.newArrayList();
+		categories.add(category1);
+		
+		this.eventCategory.updateEventCategory(idEvent, categories);
+		this.participation.insertParticipation(idEvent, user2.getId());
+		this.participation.insertParticipation(idEvent, user3.getId());
 		
 		Event event2 = new Event();
 		event2.setId((long) 1);
@@ -272,30 +276,34 @@ public class EventDAOTest extends TestBase {
 		
 		Long idEvent2 = this.eventDAO.inserEvent(event2);
 		
+		List<Category> categories2 = Lists.newArrayList();
+		categories2.add(category2);
+		
+		this.eventCategory.updateEventCategory(idEvent2, categories2);		
 		this.participation.insertParticipation(idEvent2, user1.getId());
 		this.participation.insertParticipation(idEvent2, user3.getId());
 		
 		List<Event> listEvent = this.eventDAO.searchAllEvents();
 		
 		Assert.assertEquals(2, listEvent.size());
-		Assert.assertEquals(String.valueOf(1), listEvent.get(0).getId());
+		Assert.assertEquals(new Long(1), listEvent.get(0).getId());
 		Assert.assertEquals("Show da Banda", listEvent.get(0).getName());
 		Assert.assertEquals("Show da banda fulana", listEvent.get(0).getDescription());
 		Assert.assertEquals(df.format(new Date()), listEvent.get(0).getRegistration_date().toString());
 		Assert.assertEquals(df.format(new Date()), listEvent.get(0).getEvent_date().toString());
 		Assert.assertEquals("Rua josé", listEvent.get(0).getLocal());
 		Assert.assertEquals(null, listEvent.get(0).getImageURL());
-		Assert.assertEquals(this.region1, listEvent.get(0).getRegion());
-		Assert.assertEquals(this.user1, listEvent.get(0).getOwner());
+		Assert.assertEquals(this.region1.getName(), listEvent.get(0).getRegion().getName());
+		Assert.assertEquals(this.user1.getName(), listEvent.get(0).getOwner().getName());
 		
-		Assert.assertEquals(String.valueOf(1), listEvent.get(1).getId());
+		Assert.assertEquals(new Long(2), listEvent.get(1).getId());
 		Assert.assertEquals("Show da Banda2", listEvent.get(1).getName());
 		Assert.assertEquals("Show da banda fulana2", listEvent.get(1).getDescription());
-		Assert.assertEquals(new Date(), listEvent.get(1).getRegistration_date());
-		Assert.assertEquals(new Date(2017,04,10), listEvent.get(1).getEvent_date());
+		Assert.assertEquals(df.format(new Date()), listEvent.get(1).getRegistration_date().toString());
+		Assert.assertEquals(df.format(new Date()), listEvent.get(1).getEvent_date().toString());
 		Assert.assertEquals("Rua joão", listEvent.get(1).getLocal());
 		Assert.assertEquals(null, listEvent.get(1).getImageURL());
-		Assert.assertEquals(this.region2, listEvent.get(1).getRegion());
-		Assert.assertEquals(this.user2, listEvent.get(1).getOwner());
+		Assert.assertEquals(this.region2.getName(), listEvent.get(1).getRegion().getName());
+		Assert.assertEquals(this.user2.getName(), listEvent.get(1).getOwner().getName());
 	}	
 }
