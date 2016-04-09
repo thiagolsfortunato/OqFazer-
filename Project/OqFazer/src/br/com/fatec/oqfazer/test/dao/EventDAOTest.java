@@ -3,6 +3,9 @@ package br.com.fatec.oqfazer.test.dao;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
+import org.apache.commons.dbutils.DbUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +25,7 @@ import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.fatec.oqfazer.api.entity.User;
+import br.com.fatec.oqfazer.core.dao.DAOUtils;
 import br.com.fatec.oqfazer.test.common.TestBase;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
@@ -46,6 +50,8 @@ public class EventDAOTest extends TestBase {
 		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
 		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
+		this.participation = ImplFinder.getImpl(Participation.class);
+		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
 		
 		//USERS
 		User user = new User();
@@ -117,14 +123,16 @@ public class EventDAOTest extends TestBase {
 		this.region2 = this.regionDAO.searchRegionById(idRegion2);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSave() {	
 		Event event = new Event();
 		event.setId((long) 1);
 		event.setName("Show da Banda");
 		event.setDescription("Show da banda fulana");
+		System.out.println(new Date());
 		event.setRegistration_date(new Date());
-		event.setEvent_date(new Date(2016,03,30));
+		event.setEvent_date(new Date());
 		event.setLocal("Rua josé");
 		event.setImageURL(null);
 		event.setRegion(region1);
@@ -143,11 +151,11 @@ public class EventDAOTest extends TestBase {
 		Event savedEvent = this.eventDAO.searchEventById(id);
 		
 		Assert.assertNotNull(savedEvent);
-		Assert.assertEquals(String.valueOf(1), savedEvent.getId());
+		Assert.assertEquals(new Long(1), savedEvent.getId());
 		Assert.assertEquals("Show da Banda", savedEvent.getName());
 		Assert.assertEquals("Show da banda fulana", savedEvent.getDescription());
-		Assert.assertEquals(new Date(), savedEvent.getRegistration_date());
-		Assert.assertEquals(new Date(2016,03,30), savedEvent.getEvent_date());
+		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), savedEvent.getRegistration_date());
+		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), savedEvent.getEvent_date());
 		Assert.assertEquals("Rua José", savedEvent.getLocal());
 		Assert.assertEquals(null, savedEvent.getImageURL());
 		Assert.assertEquals(this.region1, savedEvent.getRegion());
@@ -194,8 +202,8 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(String.valueOf(1), updateEvent.getId());
 		Assert.assertEquals("Show da Banda de musica", updateEvent.getName());
 		Assert.assertEquals("Show da banda fulana de musica", updateEvent.getDescription());
-		Assert.assertEquals(new Date(), updateEvent.getRegistration_date());
-		Assert.assertEquals(new Date(2017,03,20), updateEvent.getEvent_date());
+		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), updateEvent.getRegistration_date());
+		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()).getTime(), updateEvent.getEvent_date());
 		Assert.assertEquals("Rua joao", updateEvent.getLocal());
 		Assert.assertEquals(null, updateEvent.getImageURL());
 		Assert.assertEquals(this.region2, updateEvent.getRegion());

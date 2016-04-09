@@ -2,7 +2,6 @@ package br.com.fatec.oqfazer.api.entity;
 
 import java.util.Date;
 import java.util.List;
-
 import com.google.common.collect.Lists;
 
 public class Event {
@@ -99,11 +98,11 @@ public class Event {
 	}
 	
 	public static List<String> getColumns() {
-		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID);
+		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_REGISTRATION_DATE, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID);
 	}
 
 	public static String[] getColumnsArray() {
-		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID};
+		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_REGISTRATION_DATE, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID};
 	}
 	
 }
