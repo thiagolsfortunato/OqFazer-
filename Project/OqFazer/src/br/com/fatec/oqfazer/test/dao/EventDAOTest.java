@@ -1,5 +1,6 @@
 package br.com.fatec.oqfazer.test.dao;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class EventDAOTest extends TestBase {
 	private User user1, user2, user3;
 	private Category category1, category2;
 	private Region region1, region2;
+	
+	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Before
 	public void config() {
@@ -133,7 +136,7 @@ public class EventDAOTest extends TestBase {
 		System.out.println(new Date());
 		event.setRegistration_date(new Date());
 		event.setEvent_date(new Date());
-		event.setLocal("Rua josé");
+		event.setLocal("Rua José");
 		event.setImageURL(null);
 		event.setRegion(region1);
 		event.setOwner(user1);
@@ -154,12 +157,12 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(new Long(1), savedEvent.getId());
 		Assert.assertEquals("Show da Banda", savedEvent.getName());
 		Assert.assertEquals("Show da banda fulana", savedEvent.getDescription());
-		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), savedEvent.getRegistration_date());
-		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), savedEvent.getEvent_date());
+		Assert.assertEquals(df.format(new Date()), savedEvent.getRegistration_date().toString());
+		Assert.assertEquals(df.format(new Date()), savedEvent.getEvent_date().toString());
 		Assert.assertEquals("Rua José", savedEvent.getLocal());
 		Assert.assertEquals(null, savedEvent.getImageURL());
-		Assert.assertEquals(this.region1, savedEvent.getRegion());
-		Assert.assertEquals(this.user1, savedEvent.getOwner());
+		Assert.assertEquals(this.region1.getName(), savedEvent.getRegion().getName());
+		Assert.assertEquals(this.user1.getName(), savedEvent.getOwner().getName());
 	}
 	
 	//@Test
@@ -202,8 +205,8 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(String.valueOf(1), updateEvent.getId());
 		Assert.assertEquals("Show da Banda de musica", updateEvent.getName());
 		Assert.assertEquals("Show da banda fulana de musica", updateEvent.getDescription());
-		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()), updateEvent.getRegistration_date());
-		Assert.assertEquals(DAOUtils.convertDateToSqlDate(new Date()).getTime(), updateEvent.getEvent_date());
+		Assert.assertEquals(df.format(new Date()), updateEvent.getRegistration_date().toString());
+		Assert.assertEquals(df.format(new Date()), updateEvent.getEvent_date().toString());
 		Assert.assertEquals("Rua joao", updateEvent.getLocal());
 		Assert.assertEquals(null, updateEvent.getImageURL());
 		Assert.assertEquals(this.region2, updateEvent.getRegion());
@@ -245,7 +248,7 @@ public class EventDAOTest extends TestBase {
 		event.setName("Show da Banda");
 		event.setDescription("Show da banda fulana");
 		event.setRegistration_date(new Date());
-		event.setEvent_date(new Date(2016,03,30));
+		event.setEvent_date(new Date());
 		event.setLocal("Rua josé");
 		event.setImageURL(null);
 		event.setRegion(region1);
@@ -261,7 +264,7 @@ public class EventDAOTest extends TestBase {
 		event2.setName("Show da Banda2");
 		event2.setDescription("Show da banda fulana2");
 		event2.setRegistration_date(new Date());
-		event2.setEvent_date(new Date(2017,04,10));
+		event2.setEvent_date(new Date());
 		event2.setLocal("Rua joão");
 		event2.setImageURL(null);
 		event2.setRegion(region2);
@@ -278,8 +281,8 @@ public class EventDAOTest extends TestBase {
 		Assert.assertEquals(String.valueOf(1), listEvent.get(0).getId());
 		Assert.assertEquals("Show da Banda", listEvent.get(0).getName());
 		Assert.assertEquals("Show da banda fulana", listEvent.get(0).getDescription());
-		Assert.assertEquals(new Date(), listEvent.get(0).getRegistration_date());
-		Assert.assertEquals(new Date(2016,03,30), listEvent.get(0).getEvent_date());
+		Assert.assertEquals(df.format(new Date()), listEvent.get(0).getRegistration_date().toString());
+		Assert.assertEquals(df.format(new Date()), listEvent.get(0).getEvent_date().toString());
 		Assert.assertEquals("Rua josé", listEvent.get(0).getLocal());
 		Assert.assertEquals(null, listEvent.get(0).getImageURL());
 		Assert.assertEquals(this.region1, listEvent.get(0).getRegion());
