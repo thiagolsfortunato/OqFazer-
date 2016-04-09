@@ -16,12 +16,19 @@ import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
+import br.com.spektro.minispring.core.implfinder.ImplFinder;
+
 import static br.com.spektro.minispring.core.dbmapper.ConfigDBMapper.getDefaultConnectionType;
 
 public class EventDAOImpl implements EventDAO{
 
 	private RegionDAO daoRegion;
 	private UserDAO daoUser;
+	
+	public EventDAOImpl() {
+		this.daoRegion = ImplFinder.getImpl(RegionDAO.class);
+		this.daoUser = ImplFinder.getImpl(UserDAO.class);
+	}
 	
 	@Override
 	public Long inserEvent(Event event) {
@@ -35,7 +42,7 @@ public class EventDAOImpl implements EventDAO{
 			
 			String sql = "INSERT INTO "+ Event.TABLE + columns +" VALUES "+ values;
 			
-			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), User.getColumnsArray());
+			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Event.getColumnsArray());
 			
 			insert.setString(1, event.getName());
 			insert.setString(2, event.getDescription());
@@ -115,13 +122,17 @@ public class EventDAOImpl implements EventDAO{
 	public Event searchEventById(Long id) {
 		Connection conn = null;
 		PreparedStatement search = null;
+		Event event = null;
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "SELECT * FROM "+ Event.TABLE +" WHERE "+ Event.COL_ID +" = ?";
 			search = conn.prepareStatement(sql);
 			search.setLong(1,id);
 			ResultSet rs = search.executeQuery();
-			return this.buildEvent(rs);
+			if(rs.next()){
+				event =  this.buildEvent(rs);
+			}
+			return event;
 		}catch(Exception e){
 			throw new RuntimeException(e);
 		}finally{
@@ -160,7 +171,7 @@ public class EventDAOImpl implements EventDAO{
 				search = conn.prepareStatement(sql);
 				DAOUtils.setValues(search, idsEvent);
 				ResultSet rs = search.executeQuery();
-				events = this.builEvents(rs);
+				if(rs != null) events = this.builEvents(rs);
 			}catch(Exception e){
 				throw new RuntimeException(e);
 			}finally{
@@ -180,8 +191,10 @@ public class EventDAOImpl implements EventDAO{
 		event.setEvent_date(rs.getDate(Event.COL_EVENT_DATE));
 		event.setLocal(rs.getString(Event.COL_LOCAL));
 		event.setImageURL(rs.getString(Event.COL_IMAGE_URL));
-		event.setRegion(this.daoRegion.searchRegionById(rs.getLong(Event.COL_REGION_ID)));
-		event.setOwner(this.daoUser.searchUserById(rs.getLong(Event.COL_OWNER_ID)));		
+		Long idRegion = rs.getLong(Event.COL_REGION_ID);
+		Long idUser = rs.getLong(Event.COL_OWNER_ID);
+		event.setRegion(this.daoRegion.searchRegionById(idRegion));
+		event.setOwner(this.daoUser.searchUserById(idUser));		
 		return event;
 	}
 	
