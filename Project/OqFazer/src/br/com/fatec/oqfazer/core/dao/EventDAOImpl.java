@@ -5,11 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import org.apache.commons.dbutils.DbUtils;
-
 import com.google.common.collect.Lists;
-
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
@@ -17,7 +14,6 @@ import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
-
 import static br.com.spektro.minispring.core.dbmapper.ConfigDBMapper.getDefaultConnectionType;
 
 public class EventDAOImpl implements EventDAO{
@@ -73,7 +69,7 @@ public class EventDAOImpl implements EventDAO{
 		PreparedStatement delete = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "DELETE FROM " + Event.TABLE + " WHERE USR_ID = ?;";
+			String sql = "DELETE FROM " + Event.TABLE + " WHERE EVN_ID = ?;";
 			delete = conn.prepareStatement(sql);
 			delete.setLong(1, id);
 			delete.execute();
@@ -83,7 +79,6 @@ public class EventDAOImpl implements EventDAO{
 			DbUtils.closeQuietly(delete);
 			DbUtils.closeQuietly(conn);
 		}
-
 	}
 
 	@Override
@@ -99,7 +94,7 @@ public class EventDAOImpl implements EventDAO{
 																			 + Event.COL_LOCAL + " = ?,"
 																			 + Event.COL_IMAGE_URL + " = ?,"
 																			 + Event.COL_REGION_ID + " = ?,"
-																			 + Event.COL_OWNER_ID + " = ?,"
+																			 + Event.COL_OWNER_ID + " = ? "
 																			 + " WHERE " + Event.COL_ID + " = ?");
 			update.setString(1, event.getName());
 			update.setString(2, event.getDescription());
@@ -109,6 +104,7 @@ public class EventDAOImpl implements EventDAO{
 			update.setString(6,event.getImageURL());
 			update.setLong(7, event.getRegion().getId());
 			update.setLong(8, event.getOwner().getId());
+			update.setLong(9, event.getId());
 			update.execute();
 		} catch (Exception e) {
 			throw new RuntimeException(e);

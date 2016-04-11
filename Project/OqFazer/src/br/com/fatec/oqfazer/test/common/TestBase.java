@@ -25,13 +25,13 @@ public class TestBase {
 	
 	@After
 	public void setDown() {
+		QueryExecutorService.executeQuery("DELETE FROM EVENT_CATEGORY");
+		QueryExecutorService.executeQuery("DELETE FROM PARTICIPATION");
+		QueryExecutorService.executeQuery("DELETE FROM "+Event.TABLE);
 		QueryExecutorService.executeQuery("DELETE FROM "+Category.TABLE);
 		QueryExecutorService.executeQuery("DELETE FROM "+City.TABLE);
-		QueryExecutorService.executeQuery("DELETE FROM "+Event.TABLE);
-		QueryExecutorService.executeQuery("DELETE FROM "+Region.TABLE);
+		QueryExecutorService.executeQuery("DELETE FROM "+Region.TABLE);		
 		QueryExecutorService.executeQuery("DELETE FROM "+User.TABLE);
-		QueryExecutorService.executeQuery("DELETE FROM PARTICIPATION");
-		QueryExecutorService.executeQuery("DELETE FROM EVENT_CATEGORY");
 
 		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_CATEGORY RESTART WITH 1");
 		QueryExecutorService.executeQuery("ALTER SEQUENCE SEQ_REGION RESTART WITH 1");

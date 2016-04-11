@@ -79,4 +79,11 @@ public class DAOUtils {
 		}
 		return null;
 	}
+	
+	public static java.util.Date convertDateToUtilDate(java.sql.Date data){
+		if(data != null){
+			return new java.util.Date(data.getTime());
+		}
+		return null;
+	}
 }
