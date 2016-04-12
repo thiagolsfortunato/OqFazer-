@@ -1,8 +1,10 @@
 package br.com.fatec.oqfazer.api.dto;
 
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 public class UserDTO {
 	
@@ -12,8 +14,9 @@ public class UserDTO {
 	private String email;
 	private int phone;
 	private List<EventDTO> eventos = Lists.newArrayList();
+	private Set<EventDTO> eventsUsers = Sets.newHashSet();
 	
-	private Boolean isAdmin;
+	private Boolean isOwner;
 	private Long startSession;
 	
 	public UserDTO (){
@@ -79,12 +82,19 @@ public class UserDTO {
 		return "User[" + this.id + " - " + this.name + "]";
 	}
 
-	public Boolean getIsAdmin() {
-		return isAdmin;
+	public Boolean getIsOwner() {
+		return isOwner;
 	}
 
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
+	public void setIsOwner(Boolean isOwner) {
+		this.isOwner = isOwner;
+	}
+	
+	public boolean isOwner(String UserName){
+		for (EventDTO event: this.getEventsUsers()){
+			if (event.getName().equals(UserName)) return true;
+		}
+		return false;
 	}
 
 	public Long getStartSession() {
@@ -93,6 +103,14 @@ public class UserDTO {
 
 	public void setStartSession(Long startSession) {
 		this.startSession = startSession;
+	}
+
+	public Set<EventDTO> getEventsUsers() {
+		return eventsUsers;
+	}
+
+	public void setEventsUsers(Set<EventDTO> eventsUsers) {
+		this.eventsUsers = eventsUsers;
 	}
 
 }
