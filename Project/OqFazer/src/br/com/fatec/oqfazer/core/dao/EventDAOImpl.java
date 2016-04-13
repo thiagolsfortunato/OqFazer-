@@ -10,6 +10,7 @@ import com.google.common.collect.Lists;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
+import br.com.fatec.oqfazer.api.entity.Category;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
@@ -146,7 +147,7 @@ public class EventDAOImpl implements EventDAO{
 			String sql = "SELECT * FROM "+ Event.TABLE +" ORDER BY "+ Event.COL_ID;
 			search = conn.prepareStatement(sql);
 			ResultSet rs = search.executeQuery();
-			return this.builEvents(rs);
+			return this.buildEvents(rs);
 		}catch(Exception e){
 			throw new RuntimeException(e);
 		}finally{
@@ -167,7 +168,7 @@ public class EventDAOImpl implements EventDAO{
 				search = conn.prepareStatement(sql);
 				DAOUtils.setValues(search, idsEvent);
 				ResultSet rs = search.executeQuery();
-				if(rs != null) events = this.builEvents(rs);
+				if(rs != null) events = this.buildEvents(rs);
 			}catch(Exception e){
 				throw new RuntimeException(e);
 			}finally{
@@ -194,11 +195,54 @@ public class EventDAOImpl implements EventDAO{
 		return event;
 	}
 	
-	private List<Event> builEvents(ResultSet rs) throws SQLException{
+	private List<Event> buildEvents(ResultSet rs) throws SQLException{
 		List<Event> events = Lists.newArrayList();
 		while(rs.next()){
 			events.add(this.buildEvent(rs));
 		}
 		return events;
 	}
+
+	@Override
+	public List<Long> searchEvents(Long id) {
+		List<Long> eventsIds = Lists.newArrayList();
+		if (id != null){
+			Connection conn = null;
+			PreparedStatement search = null;
+			try {
+				conn = ConfigDBMapper.getDefaultConnection();
+				String sql = "SELECT" + Event.COL_ID +" FROM " + Event.TABLE + " WHERE " + Event.COL_ID + " = ?";
+				search = conn.prepareStatement(sql);
+				ResultSet rs = search.executeQuery();
+				return buildIdEvents(rs);
+			} catch (Exception e){
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}
+		}
+		return eventsIds;
+	}
+	
+	public Long buildEventId(ResultSet rs) throws SQLException {
+		Long eventId;
+		eventId = rs.getLong(Event.COL_ID);
+		return eventId;
+	}
+
+	private List<Long> buildIdEvents(ResultSet rs) throws SQLException {
+		List<Long> eventsIds = Lists.newArrayList();
+		while (rs.next()) {
+			eventsIds.add(this.buildEventId(rs));
+		}
+		return eventsIds;
+	}
+
+	@Override
+	public List<Event> searchByCategory(Long idCategory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

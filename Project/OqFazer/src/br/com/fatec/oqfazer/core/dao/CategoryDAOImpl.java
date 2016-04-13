@@ -17,11 +17,8 @@ import static br.com.spektro.minispring.core.dbmapper.ConfigDBMapper.getDefaultC
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
-import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
 public class CategoryDAOImpl implements CategoryDAO {
-
-	private CategoryDAO categoryDao;
 
 	@Override
 	public Long insertCategory(Category category) {
@@ -186,6 +183,64 @@ public class CategoryDAOImpl implements CategoryDAO {
 		List<Category> categories = Lists.newArrayList();
 		while (rs.next()) {
 			categories.add(this.buildCategory(rs));
+		}
+		return categories;
+	}
+
+	@Override
+	public List<Long> searchCategories(Long id) {
+		List<Long> categoriesIds = Lists.newArrayList();
+		if (id != null){
+			Connection conn = null;
+			PreparedStatement search = null;
+			try {
+				conn = ConfigDBMapper.getDefaultConnection();
+				String sql = "SELECT" + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
+				search = conn.prepareStatement(sql);
+				ResultSet rs = search.executeQuery();
+				return buildIdCategories(rs);
+			} catch (Exception e){
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}
+		}
+		return categoriesIds;
+	}
+	
+	public Long buildCategoryId(ResultSet rs) throws SQLException {
+		Long categoryId;
+		categoryId = rs.getLong(Category.COL_ID);
+		return categoryId;
+	}
+
+	private List<Long> buildIdCategories(ResultSet rs) throws SQLException {
+		List<Long> categoriesIds = Lists.newArrayList();
+		while (rs.next()) {
+			categoriesIds.add(this.buildCategoryId(rs));
+		}
+		return categoriesIds;
+	}
+
+	@Override
+	public List<Category> searchByCategory(Long idCategory) {
+		List<Category> categories = Lists.newArrayList();
+		if (idCategory != null) {
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement search = null;
+			try {
+				String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
+				search = conn.prepareStatement(sql);
+				search.setLong(1, idCategory);
+				ResultSet rs = search.executeQuery();
+				categories = buildCategories(rs);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}
 		}
 		return categories;
 	}

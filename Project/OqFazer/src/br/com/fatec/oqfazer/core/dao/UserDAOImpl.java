@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
+import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
@@ -175,5 +176,30 @@ public class UserDAOImpl implements UserDAO {
 			usuarios.add(this.buildUser(rs));
 		}
 		return usuarios;
+	}
+
+	@Override
+	public List<Event> searchByUsers(Long idEvent) {
+		List<Event> eventsList = Lists.newArrayList();
+		if(idEvent != null){
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement search = null;
+			try{
+				String args = DAOUtils.preparePlaceHolders(idsUser.size());
+				String sql = "SELECT * FROM " + Event.TABLE + " WHERE " + Event.COL_ID + " IN ("+ args +") ORDER BY "+ Event.COL_ID;
+				search = conn.prepareStatement(sql);
+				DAOUtils.setValues(search, idsUser);
+				ResultSet rs = search.executeQuery();
+				users = buildUsers(rs);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}
+		}
+		return users;
+		
+		return null;
 	}
 }

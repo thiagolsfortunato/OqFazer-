@@ -1,6 +1,8 @@
 package br.com.fatec.oqfazer.api.dao;
 
 import java.util.List;
+
+import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 
 public interface UserDAO {
@@ -16,4 +18,6 @@ public interface UserDAO {
 	List<User> searchAllUsers();
 	
 	List<User> searchUsersByIds(List<Long> idsUser);
+
+	List<Event> searchByUsers(Long idEvent);
 }

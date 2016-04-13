@@ -1,5 +1,8 @@
 package br.com.fatec.oqfazer.api.dto;
 
+import java.util.List;
+import java.util.Set;
+
 import br.com.fatec.oqfazer.api.entity.Category;
 
 public class CategoryDTO {
@@ -42,6 +45,16 @@ public class CategoryDTO {
 	
 	public String toString(){
 		return "Category[" + this.id + " - " + this.name + " ]";
+	}
+
+	public void setCategories(List<CategoryDTO> categoriesDTO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCategoryCategories(Set<CategoryDTO> categoryCategories) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

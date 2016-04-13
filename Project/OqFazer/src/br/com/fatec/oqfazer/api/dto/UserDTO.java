@@ -74,7 +74,7 @@ public class UserDTO {
 		return eventos;
 	}
 
-	public void setEventos(List<EventDTO> eventos) {
+	public void setEvents(List<EventDTO> eventos) {
 		this.eventos = eventos;
 	}
 	
@@ -91,7 +91,7 @@ public class UserDTO {
 	}
 	
 	public boolean isOwner(String UserName){
-		for (EventDTO event: this.getEventsUsers()){
+		for (EventDTO event: this.getEventsUser()){
 			if (event.getName().equals(UserName)) return true;
 		}
 		return false;
@@ -105,11 +105,11 @@ public class UserDTO {
 		this.startSession = startSession;
 	}
 
-	public Set<EventDTO> getEventsUsers() {
+	public Set<EventDTO> getEventsUser() {
 		return eventsUsers;
 	}
 
-	public void setEventsUsers(Set<EventDTO> eventsUsers) {
+	public void setEventsUser(Set<EventDTO> eventsUsers) {
 		this.eventsUsers = eventsUsers;
 	}
 
