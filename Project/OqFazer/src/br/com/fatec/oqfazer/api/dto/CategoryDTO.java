@@ -9,14 +9,14 @@ public class CategoryDTO {
 	
 	private Long id;
 	private String name;
-	private Category category;
+	private CategoryDTO categoryDTO;
 	
 	public CategoryDTO(){};
 	
-	public CategoryDTO(Long id, String name, Category category) {
+	public CategoryDTO(Long id, String name, CategoryDTO category) {
 		this.id = id;
 		this.name = name;
-		this.category = category;
+		this.categoryDTO = category;
 	}
 
 	public Long getId() {
@@ -35,12 +35,12 @@ public class CategoryDTO {
 		this.name = name;
 	}
 
-	public Category getCategory() {
-		return category;
+	public CategoryDTO getCategory() {
+		return categoryDTO;
 	}
 
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		this.categoryDTO = categoryDTO;
 	}
 	
 	public String toString(){

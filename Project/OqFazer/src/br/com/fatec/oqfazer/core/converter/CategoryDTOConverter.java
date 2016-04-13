@@ -19,7 +19,6 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	
 	public CategoryDTOConverter (){
 		ImplFinder.getImpl(CategoryDAO.class);
-		
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		CategoryDTO dtoCategory = new CategoryDTO();
 		dtoCategory.setId(entityCategory.getId());
 		dtoCategory.setName(entityCategory.getName());
-		dtoCategory.setCategory(entityCategory.getCategory());
+		dtoCategory.setCategoryDTO(this.DTOSimple(entityCategory.getCategory()));
 		return dtoCategory;
 	}
 
@@ -74,7 +73,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		Category entity = new Category();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setCategory(dto.getCategory());
+		entity.setCategory(this.toEntity(dto.getCategory()));
 		return entity;
 	}
 
