@@ -13,8 +13,8 @@ public class UserDTO {
 	private String password;
 	private String email;
 	private int phone;
-	private List<EventDTO> eventos = Lists.newArrayList();
-	private Set<EventDTO> eventsUsers = Sets.newHashSet();
+	private List<EventDTO> events = Lists.newArrayList();
+	private Set<EventDTO> eventsUser = Sets.newHashSet();
 	
 	private Boolean isOwner;
 	private Long startSession;
@@ -71,11 +71,11 @@ public class UserDTO {
 	}
 
 	public List<EventDTO> getEventos() {
-		return eventos;
+		return events;
 	}
 
 	public void setEvents(List<EventDTO> eventos) {
-		this.eventos = eventos;
+		this.events = eventos;
 	}
 	
 	public String toString(){
@@ -106,11 +106,11 @@ public class UserDTO {
 	}
 
 	public Set<EventDTO> getEventsUser() {
-		return eventsUsers;
+		return eventsUser;
 	}
 
-	public void setEventsUser(Set<EventDTO> eventsUsers) {
-		this.eventsUsers = eventsUsers;
+	public void setEventsUser(Set<EventDTO> eventsUser) {
+		this.eventsUser = eventsUser;
 	}
 
 }

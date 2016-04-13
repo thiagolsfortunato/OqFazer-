@@ -42,8 +42,8 @@ public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 			List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
 			Set<EventDTO> eventsUsers = Sets.newLinkedHashSet();
 			eventsUsers.addAll(eventsDTO);
-			dtoUser.setEventos(eventsDTO);
-			dtoUser.setEventsUsers(eventsUsers);
+			dtoUser.setEvents(eventsDTO);
+			dtoUser.setEventsUser(eventsUsers);
 			
 			dtoUser.setIsOwner(dtoUser.isOwner("OWNER"));
 		}
