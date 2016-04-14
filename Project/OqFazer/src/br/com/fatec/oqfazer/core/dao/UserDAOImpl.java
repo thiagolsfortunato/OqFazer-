@@ -178,8 +178,14 @@ public class UserDAOImpl implements UserDAO {
 		return usuarios;
 	}
 
-	//metodo que retorna uma lista de eventos tem que ficar dentro da classe evento.
 	@Override
+	public List<Event> searchByUsers(Long idEvent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	//metodo que retorna uma lista de eventos tem que ficar dentro da classe evento.
+	/*@Override
 	public List<Event> searchByUsers(Long idEvent) {
 		List<Event> eventsList = Lists.newArrayList();
 		if(idEvent != null){
@@ -202,6 +208,6 @@ public class UserDAOImpl implements UserDAO {
 		return users;
 		
 		return null;
-	}
+	}*/
 	
 }

@@ -4,16 +4,22 @@ import java.util.List;
 
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
 import br.com.fatec.oqfazer.api.entity.Region;
+import br.com.spektro.minispring.core.implfinder.ImplFinder;
 import br.com.spektro.minispring.dto.DTOConverter;
 
 public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
-
+	
 	@Override
 	public RegionDTO toDTO(Region region) {
-		// TODO Auto-generated method stub
+		RegionDTO regionDTO = new RegionDTO();
+		
 		return null;
 	}
 
+	public RegionDTO toDTOSimple(Region region){
+		return null;
+	}
+	
 	@Override
 	public List<RegionDTO> toDTO(List<Region> regions) {
 		// TODO Auto-generated method stub
