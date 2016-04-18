@@ -5,8 +5,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import br.com.fatec.oqfazer.api.dao.Participation;
-
 public class EventDTO {
 	
 	private Long id;
@@ -18,7 +16,8 @@ public class EventDTO {
 	private String imageURL;
 	private RegionDTO regionDTO;
 	private UserDTO owner;
-	private List<Participation> participations = Lists.newArrayList();
+	private List<UserDTO> participation = Lists.newArrayList();
+	private List<CategoryDTO> categories = Lists.newArrayList();
 	
 	public EventDTO(){};
 	
@@ -106,17 +105,24 @@ public class EventDTO {
 	public void setOwner(UserDTO owner) {
 		this.owner = owner;
 	}
-
-	public List<Participation> getPartipations() {
-		return participations;
-	}
-
-	public void setPartipations(List<Participation> partipations) {
-		this.participations = partipations;
-	}
-	
+		
 	public String toString(){
 		return "Event[" + this.id + " - " + this.name + " ]";
 	}
-	
+
+	public List<UserDTO> getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(List<UserDTO> participation) {
+		this.participation = participation;
+	}
+
+	public List<CategoryDTO> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
+	}	
 }
