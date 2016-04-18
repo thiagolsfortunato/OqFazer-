@@ -47,7 +47,7 @@ public class CategoryDTO {
 		return "Category[" + this.id + " - " + this.name + " ]";
 	}
 
-	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar implementação
+	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar Implementação
 		// TODO Auto-generated method stub
 		
 	}
