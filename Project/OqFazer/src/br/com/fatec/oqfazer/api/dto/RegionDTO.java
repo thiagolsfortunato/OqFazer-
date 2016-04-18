@@ -10,6 +10,9 @@ public class RegionDTO {
 	private String name;
 	private List<City> cities;
 	
+	//atribute screen
+	private int option = 0;
+	
 	public RegionDTO(){};
 	
 	public RegionDTO(Long id, String name) {
@@ -44,5 +47,13 @@ public class RegionDTO {
 	
 	public String toString(){
 		return "Region[" + this.id + " - " + this.name + " ]"; 
+	}
+
+	public int getOption() {
+		return option;
+	}
+
+	public void setOption(int option) {
+		this.option = option;
 	}
 }

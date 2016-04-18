@@ -1,6 +1,4 @@
 package br.com.fatec.oqfazer.core.converter;
-
-import java.lang.reflect.Constructor;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -40,13 +38,17 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		Region region = new Region();
 		region.setId(regionDTO.getId());
 		region.setName(regionDTO.getName());
-		return null;
+		List<City> city = regionDTO.getCities(); // ver o que vai fazer aqui !!! 
+		return region;
 	}
 
 	@Override
 	public List<Region> toEntity(List<RegionDTO> regionsDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Region> regions = Lists.newArrayList();
+		for(RegionDTO regionDTO : regionsDTO){
+			regions.add(this.toEntity(regionDTO));
+		}
+		return regions;
 	}
 	
 	@Override
