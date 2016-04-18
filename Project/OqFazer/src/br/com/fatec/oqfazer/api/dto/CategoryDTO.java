@@ -47,12 +47,12 @@ public class CategoryDTO {
 		return "Category[" + this.id + " - " + this.name + " ]";
 	}
 
-	public void setCategories(List<CategoryDTO> categoriesDTO) {
+	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar implementação
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void setCategoryCategories(Set<CategoryDTO> categoryCategories) {
+	public void setCategoryCategories(Set<CategoryDTO> categoryCategories) { //Verificar Implementação
 		// TODO Auto-generated method stub
 		
 	}

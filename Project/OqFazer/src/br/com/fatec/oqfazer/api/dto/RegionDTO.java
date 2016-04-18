@@ -2,13 +2,15 @@ package br.com.fatec.oqfazer.api.dto;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.entity.City;
 
 public class RegionDTO {
 	
 	private Long id;
 	private String name;
-	private List<City> cities;
+	private List<City> cities = Lists.newArrayList();
 	
 	//atribute screen
 	private int option = 0;
