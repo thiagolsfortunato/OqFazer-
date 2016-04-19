@@ -45,7 +45,7 @@ public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 			dtoUser.setEvents(eventsDTO);
 			dtoUser.setEventsUser(eventsUsers);
 			
-			dtoUser.setIsOwner(dtoUser.isOwner("OWNER"));
+			dtoUser.setIsOwner(dtoUser.isOwner(dtoUser.getName()));
 		}
 		return dtoUser;
 	}
