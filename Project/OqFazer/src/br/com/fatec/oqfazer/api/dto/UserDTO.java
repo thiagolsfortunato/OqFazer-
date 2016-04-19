@@ -16,6 +16,7 @@ public class UserDTO {
 	private List<EventDTO> events = Lists.newArrayList();
 	private Set<EventDTO> eventsUser = Sets.newHashSet();
 	
+	//atributes screen 
 	private Boolean isOwner;
 	private Long startSession;
 	
@@ -90,7 +91,7 @@ public class UserDTO {
 		this.isOwner = isOwner;
 	}
 	
-	public boolean isOwner(String UserName){
+	public boolean isOwner(String UserName){ // verificar essa comparação !
 		for (EventDTO event: this.getEventsUser()){
 			if (event.getName().equals(UserName)) return true;
 		}

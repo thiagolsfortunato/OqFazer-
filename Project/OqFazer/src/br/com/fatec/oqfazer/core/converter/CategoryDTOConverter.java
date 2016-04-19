@@ -29,7 +29,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	public CategoryDTO toDTO(Category entityCategory, boolean convertDependences){
 		CategoryDTO dtoCategory = this.DTOSimple(entityCategory);
 		Long id = entityCategory.getId();
-		if(id!=null && convertDependences){
+		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategories(id);
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
 			List<CategoryDTO> categoriesDTO = this.categoryConverter.toDTO(entityCategories);

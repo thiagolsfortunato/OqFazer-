@@ -18,27 +18,27 @@ import br.com.spektro.minispring.dto.DTOConverter;
 
 public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 	
-	private EventDAO eventDao;
-	private Participation participationDao;
+	private EventDAO eventDAO;
+	private Participation participationDAO;
 	private EventDTOConverter eventConverter;
 	
 	public UserDTOConverter() {
 		ImplFinder.getImpl(UserDAO.class);
-		this.eventDao = ImplFinder.getImpl(EventDAO.class);
-		this.participationDao = ImplFinder.getImpl(Participation.class);
+		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
+		this.participationDAO = ImplFinder.getImpl(Participation.class);
 	}
 	
 	@Override
 	public UserDTO toDTO(User entityUser) {
-		return this.toDTO(entityUser);
+		return this.toDTO(entityUser, true);
 	}
 	
 	public UserDTO toDTO(User entityUser, boolean convertDependences){
 		UserDTO dtoUser = this.toDTOSimple(entityUser);
 		Long id = entityUser.getId();
 		if(id!=null && convertDependences){
-			List<Long> idsEvents = this.participationDao.searchEvents(id);
-			List<Event> entityEvents = this.eventDao.searchEventsByListIds(idsEvents);
+			List<Long> idsEvents = this.participationDAO.searchEvents(id);
+			List<Event> entityEvents = this.eventDAO.searchEventsByListIds(idsEvents);
 			List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
 			Set<EventDTO> eventsUsers = Sets.newLinkedHashSet();
 			eventsUsers.addAll(eventsDTO);
