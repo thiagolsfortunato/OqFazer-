@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.DbUtils;
 import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
@@ -104,5 +105,17 @@ public class ParticipationDAOImpl implements Participation {
 			}
 		}
 		return events;
+	}
+
+	@Override
+	public void updateEventParticipations(long userId, List<Event> events) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateUserParticipations(long eventId, List<User> users) {
+		// TODO Auto-generated method stub
+		
 	}
 }

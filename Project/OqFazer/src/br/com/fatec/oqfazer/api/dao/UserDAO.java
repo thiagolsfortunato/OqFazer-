@@ -20,4 +20,6 @@ public interface UserDAO {
 	List<User> searchUsersByIds(List<Long> idsUser);
 
 	List<Event> searchByUsers(Long idEvent);
+
+	User searchByLoginAndPassword(String login, String password);
 }

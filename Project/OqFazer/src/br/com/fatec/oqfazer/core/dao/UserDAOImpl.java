@@ -184,6 +184,12 @@ public class UserDAOImpl implements UserDAO {
 		return null;
 	}
 
+	@Override
+	public User searchByLoginAndPassword(String login, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	//metodo que retorna uma lista de eventos tem que ficar dentro da classe evento.
 	/*@Override
 	public List<Event> searchByUsers(Long idEvent) {
