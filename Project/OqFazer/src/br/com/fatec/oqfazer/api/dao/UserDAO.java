@@ -18,6 +18,4 @@ public interface UserDAO {
 	List<User> searchAllUsers();
 	
 	List<User> searchUsersByIds(List<Long> idsUser);
-
-	List<Event> searchByUsers(Long idEvent);
 }
