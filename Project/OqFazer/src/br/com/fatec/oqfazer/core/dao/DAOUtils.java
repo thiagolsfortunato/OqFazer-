@@ -72,5 +72,18 @@ public class DAOUtils {
 			preparedStatement.setObject(i + 1, values.get(i));
 		}
 	}
-
+	
+	public static java.sql.Date convertDateToSqlDate(java.util.Date data){
+		if(data != null){
+			return new java.sql.Date(data.getTime());
+		}
+		return null;
+	}
+	
+	public static java.util.Date convertDateToUtilDate(java.sql.Date data){
+		if(data != null){
+			return new java.util.Date(data.getTime());
+		}
+		return null;
+	}
 }

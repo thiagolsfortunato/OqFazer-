@@ -2,7 +2,6 @@ package br.com.fatec.oqfazer.api.entity;
 
 import java.util.Date;
 import java.util.List;
-
 import com.google.common.collect.Lists;
 
 public class Event {
@@ -14,7 +13,7 @@ public class Event {
 	public static final String COL_REGISTRATION_DATE = "EVN_REGISTRATION_DATE";
 	public static final String COL_EVENT_DATE = "EVN_EVENT_DATE";
 	public static final String COL_LOCAL = "EVN_LOCAL";
-	public static final String COL_IMAGEURL = "EVN_IMAGE_URL";
+	public static final String COL_IMAGE_URL = "EVN_IMAGE_URL";
 	public static final String COL_REGION_ID = "EVN_REGION_ID";
 	public static final String COL_OWNER_ID = "EVN_OWNER_ID";
 		
@@ -99,11 +98,11 @@ public class Event {
 	}
 	
 	public static List<String> getColumns() {
-		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_REGION_ID, COL_OWNER_ID);
+		return Lists.newArrayList(COL_ID, COL_NAME, COL_DESCRIPTION, COL_REGISTRATION_DATE, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID);
 	}
 
 	public static String[] getColumnsArray() {
-		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_DESCRIPTION, COL_EVENT_DATE, COL_LOCAL, COL_IMAGEURL, COL_REGION_ID, COL_OWNER_ID};
+		return new String[] {COL_ID, COL_NAME, COL_DESCRIPTION, COL_REGISTRATION_DATE, COL_EVENT_DATE, COL_LOCAL, COL_IMAGE_URL, COL_REGION_ID, COL_OWNER_ID};
 	}
 	
 }

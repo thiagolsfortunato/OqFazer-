@@ -3,6 +3,7 @@ package br.com.fatec.oqfazer.core.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,15 +12,25 @@ import org.apache.commons.dbutils.DbUtils;
 import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.EventCategory;
+import br.com.fatec.oqfazer.api.dao.RegionDAO;
+import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
+import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
+import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
 public class EventCategoryDAOImpl implements EventCategory {
 	
 	public static final String TABLE = "EVENT_CATEGORY";
 	public static final String COL_ID_EVENT = "ECT_EVENT_ID";
 	public static final String COL_ID_CATEGORY = "ECT_CATEGORY_ID";
+	private RegionDAO daoRegion;
+	private UserDAO daoUser;
 	
+	public EventCategoryDAOImpl (){
+		this.daoRegion = ImplFinder.getImpl(RegionDAO.class);
+		this.daoUser = ImplFinder.getImpl(UserDAO.class);
+	}
 	
 	@Override
 	public Long insertEventCategory(Long idEvent, Category category) {
@@ -51,7 +62,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 				String sql = "INSERT INTO "+ TABLE +" VALUES (?,?)";
 				insert = conn.prepareStatement(sql);
 				insert.setLong(1, idEvent);
-				insert.setLong(1, category.getId());
+				insert.setLong(2, category.getId());
 				insert.execute();
 			}			
 			return idEvent;
@@ -133,5 +144,29 @@ public class EventCategoryDAOImpl implements EventCategory {
 			DbUtils.closeQuietly(conn);
 		}
 		return idsCategories;
+	}
+	
+	@Override
+	public List<Long> searchEvents(Long idCategory) {
+		List<Long> idsEvents = Lists.newArrayList();
+		if(idCategory != null){
+			Connection conn = ConfigDBMapper.getDefaultConnection();
+			PreparedStatement search = null;
+			try{
+				String sql = "SELECT "+ COL_ID_EVENT +" FROM "+ TABLE + " WHERE "+ COL_ID_CATEGORY +" = ?";
+				search = conn.prepareStatement(sql);
+				search.setLong(1, idCategory);
+				ResultSet rs = search.executeQuery();
+				while(rs.next()){
+					idsEvents.add(rs.getLong(COL_ID_EVENT));
+				}				
+			}catch (Exception e) {
+				throw new RuntimeException(e);
+			} finally {
+				DbUtils.closeQuietly(search);
+				DbUtils.closeQuietly(conn);
+			}			
+		}
+		return idsEvents;
 	}
 }

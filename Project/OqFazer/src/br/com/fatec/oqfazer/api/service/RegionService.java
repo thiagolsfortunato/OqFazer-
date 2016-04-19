@@ -1,5 +1,17 @@
 package br.com.fatec.oqfazer.api.service;
 
-public interface RegionService {
+import java.util.List;
 
+import br.com.fatec.oqfazer.api.dto.RegionDTO;
+
+public interface RegionService {
+	RegionDTO insert(RegionDTO regionDTO);
+	
+	void update(RegionDTO regionDTO);
+	
+	void delete(Long idRegionDTO);
+	
+	List<RegionDTO> searchAll();
+	
+	RegionDTO searchById(Long idRegionDTO);
 }

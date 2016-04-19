@@ -2,13 +2,20 @@ package br.com.fatec.oqfazer.api.dao;
 
 import java.util.List;
 
+import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 
 public interface Participation {
 	
-	void updateListParticipation(Long eventId, List<User> user);
+	Long insertParticipation(Long eventId, Long userId);
 	
-	void updateListParticipation(Long eventId, User user);
+	void deleteParticipation(Long eventId, Long userId);
 	
-	List<User> searchUsers(Long eventId);
+	List<Long> searchUsers(Long eventId);
+	
+	List<Long> searchEvents(Long userId);
+
+	void updateEventParticipations(long userId, List<Event> events);
+	
+	void updateUserParticipations(long eventId, List<User> users);
 }

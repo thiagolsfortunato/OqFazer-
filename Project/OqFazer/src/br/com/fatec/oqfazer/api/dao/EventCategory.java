@@ -15,4 +15,6 @@ public interface EventCategory {
 	void deleteEventCategory(Long idEvent, Long idCategory);
 	
 	List<Long> searchCategories(Long idEvent);
+	
+	List<Long> searchEvents(Long idCategory);
 }
