@@ -19,5 +19,5 @@ public interface EventDAO {
 
 	List<Long> searchEvents(Long id);
 
-	List<Event> searchByCategory(Long idCategory);
+	List<Event> searchEventsByIdUser(Long idUser);
 }
