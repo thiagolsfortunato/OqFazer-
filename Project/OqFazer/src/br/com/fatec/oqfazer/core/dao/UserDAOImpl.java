@@ -176,38 +176,5 @@ public class UserDAOImpl implements UserDAO {
 			usuarios.add(this.buildUser(rs));
 		}
 		return usuarios;
-	}
-
-	@Override
-	public List<Event> searchByUsers(Long idEvent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	//metodo que retorna uma lista de eventos tem que ficar dentro da classe evento.
-	/*@Override
-	public List<Event> searchByUsers(Long idEvent) {
-		List<Event> eventsList = Lists.newArrayList();
-		if(idEvent != null){
-			Connection conn = ConfigDBMapper.getDefaultConnection();
-			PreparedStatement search = null;
-			try{
-				String args = DAOUtils.preparePlaceHolders(idsUser.size());
-				String sql = "SELECT * FROM " + Event.TABLE + " WHERE " + Event.COL_ID + " IN ("+ args +") ORDER BY "+ Event.COL_ID;
-				search = conn.prepareStatement(sql);
-				DAOUtils.setValues(search, idsUser);
-				ResultSet rs = search.executeQuery();
-				users = buildUsers(rs);
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			} finally {
-				DbUtils.closeQuietly(search);
-				DbUtils.closeQuietly(conn);
-			}
-		}
-		return users;
-		
-		return null;
-	}*/
-	
+	}	
 }

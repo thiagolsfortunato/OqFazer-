@@ -164,17 +164,40 @@ public class EventDAOImpl implements EventDAO{
 			PreparedStatement search = null;
 			try{
 				String args = DAOUtils.preparePlaceHolders(idsEvent.size());
-				String sql = "SELECT * FROM " + User.TABLE + " WHERE " + User.COL_ID + " IN ("+ args +") ORDER BY "+ User.COL_ID;
+				String sql = "SELECT * FROM " + Event.TABLE + " WHERE " + Event.COL_ID + " IN ("+ args +") ORDER BY "+ Event.COL_ID;
 				search = conn.prepareStatement(sql);
 				DAOUtils.setValues(search, idsEvent);
 				ResultSet rs = search.executeQuery();
-				if(rs != null) events = this.buildEvents(rs);
+				if(rs != null) {
+					events = this.buildEvents(rs);
+				}
 			}catch(Exception e){
 				throw new RuntimeException(e);
 			}finally{
 				DbUtils.closeQuietly(search);
 				DbUtils.closeQuietly(conn);
 			}
+		}
+		return events;
+	}
+	
+	@Override
+	public List<Event> searchEventsByIdUser(Long idUser) {
+		List<Event> events = Lists.newArrayList();
+		Connection conn = ConfigDBMapper.getDefaultConnection();
+		PreparedStatement search = null;
+		try{
+			String sql = "SELECT * FROM "+ Event.TABLE +" WHERE "+ Event.COL_OWNER_ID+" = ? ORDER BY "+Event.COL_ID;
+			search = conn.prepareStatement(sql);
+			ResultSet rs = search.executeQuery();
+			if(rs != null){
+				events = this.buildEvents(rs);
+			}
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}finally{
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
 		}
 		return events;
 	}
@@ -238,11 +261,4 @@ public class EventDAOImpl implements EventDAO{
 		}
 		return eventsIds;
 	}
-
-	@Override
-	public List<Event> searchByCategory(Long idCategory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
