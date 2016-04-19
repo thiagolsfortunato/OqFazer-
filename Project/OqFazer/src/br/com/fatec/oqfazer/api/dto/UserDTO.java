@@ -15,6 +15,10 @@ public class UserDTO {
 	private String password;
 	private String email;
 	private int phone;
+	/*Esta lista de Participações seria o que ?
+	 *  Não existe lista da classe participações, ela representa os Users
+	 *  Acho que gostaria de saber quais eventos o User esta, e pra isso voce ja tem a lista ali em baixo 
+	 */
 	private List<Participation> participations = Lists.newArrayList();
 	private List<EventDTO> events = Lists.newArrayList();
 	private Set<EventDTO> eventsUser = Sets.newHashSet();
@@ -98,7 +102,8 @@ public class UserDTO {
 		this.isOwner = isOwner;
 	}
 	
-	public boolean isOwner(String UserName){ // verificar essa comparação !
+	 // verificar essa comparação !
+	public boolean isOwner(String UserName){
 		for (EventDTO event: this.getEventsUser()){
 			if (event.getName().equals(UserName)) return true;
 		}
