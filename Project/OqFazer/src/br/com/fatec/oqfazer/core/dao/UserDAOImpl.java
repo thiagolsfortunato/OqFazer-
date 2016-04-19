@@ -176,5 +176,17 @@ public class UserDAOImpl implements UserDAO {
 			usuarios.add(this.buildUser(rs));
 		}
 		return usuarios;
-	}	
+	}
+
+	@Override
+	public List<Event> searchByUsers(Long idEvent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User searchByLoginAndPassword(String login, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

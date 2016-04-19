@@ -6,6 +6,8 @@ import java.util.Set;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import br.com.fatec.oqfazer.api.dao.Participation;
+
 public class UserDTO {
 	
 	private Long id;
@@ -13,6 +15,7 @@ public class UserDTO {
 	private String password;
 	private String email;
 	private int phone;
+	private List<Participation> participations = Lists.newArrayList();
 	private List<EventDTO> events = Lists.newArrayList();
 	private Set<EventDTO> eventsUser = Sets.newHashSet();
 	
@@ -69,6 +72,10 @@ public class UserDTO {
 
 	public void setPhone(int phone) {
 		this.phone = phone;
+	}
+	
+	public List<Participation> getParticipations() {
+		return participations;
 	}
 
 	public List<EventDTO> getEventos() {
