@@ -100,8 +100,8 @@ public class CategoryDAOTest extends TestBase {
 		category2.setName("Show Rock");
 		category2.setCategory(category1);
 		
-		Long id1 = this.dao.insertCategory(category1);
-		Long id2 = this.dao.insertCategory(category2);
+		this.dao.insertCategory(category1);
+		this.dao.insertCategory(category2);
 		
 		List<Category> listCategories = this.dao.searchAllCategory();
 		

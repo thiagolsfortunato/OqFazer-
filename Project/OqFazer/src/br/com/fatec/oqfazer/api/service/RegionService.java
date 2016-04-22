@@ -11,6 +11,8 @@ public interface RegionService {
 	
 	void delete(Long idRegionDTO);
 	
+	void delete(RegionDTO regionDTO);
+	
 	List<RegionDTO> searchAll();
 	
 	RegionDTO searchById(Long idRegionDTO);
