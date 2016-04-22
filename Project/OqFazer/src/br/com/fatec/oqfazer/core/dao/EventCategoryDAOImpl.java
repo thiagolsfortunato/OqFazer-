@@ -18,7 +18,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 	public static final String COL_ID_CATEGORY = "ECT_CATEGORY_ID";
 	
 	@Override
-	public Long insertEventCategory(Long idEvent, Category category) {
+	public Long insertEventCategory(Long idEvent, Long idCategory) {
 		Connection conn = null;
 		PreparedStatement insert = null;
 		try{
@@ -26,7 +26,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 			String sql = "INSERT INTO "+ TABLE +" VALUES (?,?)";
 			insert = conn.prepareStatement(sql);
 			insert.setLong(1, idEvent);
-			insert.setLong(1, category.getId());
+			insert.setLong(1, idCategory);
 			insert.execute();
 			return idEvent;
 		}catch (Exception e) {
