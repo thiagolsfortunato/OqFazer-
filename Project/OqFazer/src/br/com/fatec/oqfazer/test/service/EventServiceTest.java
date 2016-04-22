@@ -1,5 +1,28 @@
 package br.com.fatec.oqfazer.test.service;
 
-public class EventServiceTest {
+import org.junit.Test;
 
+import br.com.fatec.oqfazer.test.common.TestScenario;
+
+public class EventServiceTest extends TestScenario {
+
+	@Test
+	public void insert(){
+		
+	}
+	
+	@Test
+	public void delete(){
+		
+	}
+	
+	@Test
+	public void update(){
+		
+	}
+	
+	@Test
+	public void searchAll(){
+		
+	}
 }
