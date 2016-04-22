@@ -1,12 +1,7 @@
 package br.com.fatec.oqfazer.api.dto;
 
 import java.util.List;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
-import br.com.fatec.oqfazer.api.dao.Participation;
 
 public class UserDTO {
 	
@@ -15,13 +10,7 @@ public class UserDTO {
 	private String password;
 	private String email;
 	private int phone;
-	/*Esta lista de Participações seria o que ?
-	 *  Não existe lista da classe participações, ela representa os Users
-	 *  Acho que gostaria de saber quais eventos o User esta, e pra isso voce ja tem a lista ali em baixo 
-	 */
-	private List<Participation> participations = Lists.newArrayList();
 	private List<EventDTO> events = Lists.newArrayList();
-	private Set<EventDTO> eventsUser = Sets.newHashSet();
 	
 	//atributes screen 
 	private Boolean isOwner;
@@ -78,16 +67,12 @@ public class UserDTO {
 		this.phone = phone;
 	}
 	
-	public List<Participation> getParticipations() {
-		return participations;
-	}
-
-	public List<EventDTO> getEventos() {
+	public List<EventDTO> getEvents() {
 		return events;
 	}
 
-	public void setEvents(List<EventDTO> eventos) {
-		this.events = eventos;
+	public void setEvents(List<EventDTO> events) {
+		this.events = events;
 	}
 	
 	public String toString(){
@@ -102,10 +87,9 @@ public class UserDTO {
 		this.isOwner = isOwner;
 	}
 	
-	 // verificar essa comparação !
 	public boolean isOwner(String UserName){
-		for (EventDTO event: this.getEventsUser()){
-			if (event.getName().equals(UserName)) return true;
+		for (EventDTO event: this.getEvents()){
+			if (event.getOwner().getName().equals(UserName)) return true;
 		}
 		return false;
 	}
@@ -117,13 +101,4 @@ public class UserDTO {
 	public void setStartSession(Long startSession) {
 		this.startSession = startSession;
 	}
-
-	public Set<EventDTO> getEventsUser() {
-		return eventsUser;
-	}
-
-	public void setEventsUser(Set<EventDTO> eventsUser) {
-		this.eventsUser = eventsUser;
-	}
-
 }

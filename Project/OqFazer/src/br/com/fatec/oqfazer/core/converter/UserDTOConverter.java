@@ -1,11 +1,7 @@
 package br.com.fatec.oqfazer.core.converter;
 
 import java.util.List;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.Participation;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
@@ -40,11 +36,7 @@ public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 			List<Long> idsEvents = this.participationDAO.searchEvents(id);
 			List<Event> entityEvents = this.eventDAO.searchEventsByListIds(idsEvents);
 			List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
-			Set<EventDTO> eventsUsers = Sets.newLinkedHashSet();
-			eventsUsers.addAll(eventsDTO);
 			dtoUser.setEvents(eventsDTO);
-			dtoUser.setEventsUser(eventsUsers);
-			
 			dtoUser.setIsOwner(dtoUser.isOwner(dtoUser.getName()));
 		}
 		return dtoUser;
