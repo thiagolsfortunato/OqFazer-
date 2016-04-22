@@ -7,14 +7,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import org.apache.commons.dbutils.DbUtils;
-
 import com.google.common.collect.Lists;
-
 import br.com.fatec.oqfazer.api.dao.UserDAO;
-import br.com.fatec.oqfazer.api.entity.Category;
-import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
@@ -179,14 +174,26 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public List<Event> searchByUsers(Long idEvent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public User searchByLoginAndPassword(String login, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public User searchByLoginAndPassword(String email, String password) {
+		Connection conn = null;
+		PreparedStatement search = null;
+		User user = null;
+		try{
+			conn = ConfigDBMapper.getDefaultConnection();
+			String sql = "SELECT * FROM "+ User.TABLE +" WHERE "+ User.COL_EMAIL +" ? AND "+ User.COL_PASSWORD +" = ?";
+			search = conn.prepareStatement(sql);
+			search.setString(1, email);
+			search.setString(2, password);
+			ResultSet rs = search.executeQuery();
+			if(rs.next()){
+				user = buildUser(rs);
+			}
+			return user;
+		}catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(conn);
+			DbUtils.closeQuietly(search);
+		}
 	}
 }
