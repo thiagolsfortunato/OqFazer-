@@ -3,37 +3,22 @@ package br.com.fatec.oqfazer.core.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
-
 import org.apache.commons.dbutils.DbUtils;
-
 import com.google.common.collect.Lists;
-
 import br.com.fatec.oqfazer.api.dao.EventCategory;
-import br.com.fatec.oqfazer.api.dao.RegionDAO;
-import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
-import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
-import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
 public class EventCategoryDAOImpl implements EventCategory {
 	
 	public static final String TABLE = "EVENT_CATEGORY";
 	public static final String COL_ID_EVENT = "ECT_EVENT_ID";
 	public static final String COL_ID_CATEGORY = "ECT_CATEGORY_ID";
-	private RegionDAO daoRegion;
-	private UserDAO daoUser;
-	
-	public EventCategoryDAOImpl (){
-		this.daoRegion = ImplFinder.getImpl(RegionDAO.class);
-		this.daoUser = ImplFinder.getImpl(UserDAO.class);
-	}
 	
 	@Override
-	public Long insertEventCategory(Long idEvent, Category category) {
+	public Long insertEventCategory(Long idEvent, Long idCategory) {
 		Connection conn = null;
 		PreparedStatement insert = null;
 		try{
@@ -41,7 +26,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 			String sql = "INSERT INTO "+ TABLE +" VALUES (?,?)";
 			insert = conn.prepareStatement(sql);
 			insert.setLong(1, idEvent);
-			insert.setLong(1, category.getId());
+			insert.setLong(1, idCategory);
 			insert.execute();
 			return idEvent;
 		}catch (Exception e) {
@@ -130,6 +115,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 		PreparedStatement select = null;
 		List<Long> idsCategories = Lists.newArrayList();
 		try{
+			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "SELECT "+ COL_ID_CATEGORY +" FROM "+ TABLE + " WHERE "+ COL_ID_EVENT +" = ?";
 			select = conn.prepareStatement(sql);
 			select.setLong(1, idEvent);

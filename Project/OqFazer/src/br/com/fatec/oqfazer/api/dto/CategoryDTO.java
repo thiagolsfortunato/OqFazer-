@@ -3,8 +3,6 @@ package br.com.fatec.oqfazer.api.dto;
 import java.util.List;
 import java.util.Set;
 
-import br.com.fatec.oqfazer.api.entity.Category;
-
 public class CategoryDTO {
 	
 	private Long id;

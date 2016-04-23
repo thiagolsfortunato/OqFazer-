@@ -6,7 +6,7 @@ import br.com.fatec.oqfazer.api.entity.Category;
 
 public interface EventCategory {
 	
-	Long insertEventCategory(Long idEvent, Category category);
+	Long insertEventCategory(Long idEvent, Long idCategory);
 	
 	Long insertEventCategory(Long idEvent, List<Category> categories);
 	

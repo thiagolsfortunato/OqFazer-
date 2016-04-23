@@ -3,7 +3,6 @@ package br.com.fatec.oqfazer.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.Participation;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.dto.EventDTO;
@@ -35,13 +34,14 @@ public class UserServiceImpl implements UserService{
 	public UserDTO insert(UserDTO userDTO) {
 		User entityUser = this.userConverter.toEntity(userDTO);
 		Long id = this.userDao.insertUser(entityUser);
-		List<EventDTO> eventsList = userDTO.getEventos();
-		this.atualizeParticipations(id, eventsList);
+		List<EventDTO> eventsList = userDTO.getEvents();
+		this.updateParticipations(id, eventsList);
 		userDTO.setId(id);
 		return userDTO;
 	}
 	
-	public void atualizeParticipations(long userId, List<EventDTO> eventsList){
+	
+	public void updateParticipations(long userId, List<EventDTO> eventsList){
 		List<Event> events = this.eventConverter.toEntity(eventsList);
 		this.participation.updateEventParticipations(userId, events);
 	}
@@ -50,13 +50,13 @@ public class UserServiceImpl implements UserService{
 	public void update(UserDTO userDTO) {
 		User entityUser = this.userConverter.toEntity(userDTO);
 		this.userDao.updateUser(entityUser);
-		List<EventDTO> participationsEvent = userDTO.getEventos();
-		this.atualizeParticipations(userDTO.getId(), participationsEvent);
+		List<EventDTO> participationsEvent = userDTO.getEvents();
+		this.updateParticipations(userDTO.getId(), participationsEvent);
 	}
 	
 	@Override
 	public void delete(Long userId) {
-		this.atualizeParticipations(userId, new ArrayList<EventDTO>());
+		this.updateParticipations(userId, new ArrayList<EventDTO>());
 		this.userDao.deleteUser(userId);
 	}
 

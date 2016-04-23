@@ -3,10 +3,6 @@ package br.com.fatec.oqfazer.test.dao;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
-import org.apache.commons.dbutils.DbUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +22,6 @@ import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.fatec.oqfazer.api.entity.User;
-import br.com.fatec.oqfazer.core.dao.DAOUtils;
 import br.com.fatec.oqfazer.test.common.TestBase;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
