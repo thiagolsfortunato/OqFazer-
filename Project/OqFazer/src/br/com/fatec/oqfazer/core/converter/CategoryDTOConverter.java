@@ -27,7 +27,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	}
 	
 	public CategoryDTO toDTO(Category entityCategory, boolean convertDependences){
-		CategoryDTO dtoCategory = this.DTOSimple(entityCategory);
+		CategoryDTO dtoCategory = this.toDTOSimple(entityCategory);
 		Long id = entityCategory.getId();
 		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategories(id);
@@ -43,11 +43,11 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		return dtoCategory;
 	}
 
-	private CategoryDTO DTOSimple(Category entityCategory) {
+	public CategoryDTO toDTOSimple(Category entityCategory) {
 		CategoryDTO dtoCategory = new CategoryDTO();
 		dtoCategory.setId(entityCategory.getId());
 		dtoCategory.setName(entityCategory.getName());
-		dtoCategory.setCategoryDTO(this.DTOSimple(entityCategory.getCategory()));
+		dtoCategory.setCategoryDTO(this.toDTOSimple(entityCategory.getCategory()));
 		return dtoCategory;
 	}
 

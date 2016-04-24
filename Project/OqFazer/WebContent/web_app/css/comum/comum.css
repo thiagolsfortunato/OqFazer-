@@ -1,0 +1,39 @@
+div.conteudo {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.semRegistros {
+	text-align: center;
+}
+
+ul.pagination {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#tabelaAngular {
+    margin-bottom: 0px;
+}
+
+.btn.focus, .btn:focus {
+	outline: none;
+}
+
+.modal-footer button.btn {
+    float: left;
+}
+
+td.btnCell {
+	width: 57px;
+}
+
+td.btnCell p {
+    margin-bottom: 0px !important;
+}
+
+.logoutBtn {
+    margin-top: 6px;
+    margin-right: 6px;
+}
