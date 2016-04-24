@@ -7,7 +7,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	$scope.grupos = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.grupo = {};
+	$scope.event = {};
 
 	$scope.loadEvent = function() {
 		$http.get(urlPath + 'searchAll.action', {
@@ -85,7 +85,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	function buildLista(response) {
-		$scope.event = response.contexto.event;
+		$scope.event = response.contexto.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
