@@ -1,50 +1,50 @@
 var app = angular.module('fatec');
 
-app.controller('GrupoController', function($scope, $http, $timeout) {
+app.controller('RegionController', function($scope, $http, $timeout) {
 
-	var urlPath = "http://localhost:8585/projeto_exemplo/Grupo!";
-	TelaHelper.tela = 'grupo';
+	var urlPath = "http://localhost:8585/oqfazer/Grupo!";
+	TelaHelper.tela = 'region';
 	$scope.grupos = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.grupo = {};
+	$scope.region = {};
 
-	$scope.loadGrupos = function() {
-		$http.get(urlPath + 'listar.action', {
+	$scope.loadRegions = function() {
+		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
-	    	carregarLista(response);
+	    	buildList(response);
 		});
 	};
 
-	$scope.salvar = function() {
+	$scope.insert = function() {
 		var data = {contexto : {
-			grupo : $scope.grupo
+			region : $scope.region
 		}};
 		
 		var data1 = JSON.stringify(data);
 		jQuery.ajax({
-		    url: urlPath + 'salvar.action',
+		    url: urlPath + 'insert.action',
 		    data: data1,
 		    dataType: 'json',
 		    contentType: 'application/json',
 		    type: 'POST',
 		    async: true,
 		    success: function (response) {
-		        $scope.cancelarModal();
-		    	carregarLista(response);
+		        $scope.cancelModal();
+		    	buildList(response);
 		    }
 		});
 	};
 	
-	$scope.deletar = function(id) {
+	$scope.deleta = function(id) {
 		var data = {contexto : {
-			grupo : {id : id}
+			region : {id : id}
 		}};
 		
 		var data1 = JSON.stringify(data);
 		jQuery.ajax({
-		    url: urlPath + 'deletar.action',
+		    url: urlPath + 'delete.action',
 		    data: data1,
 		    dataType: 'json',
 		    contentType: 'application/json',
@@ -52,50 +52,50 @@ app.controller('GrupoController', function($scope, $http, $timeout) {
 		    async: false,
 		    success: function (response) {
 		    	$scope.id = null;
-		    	carregarLista(response);
+		    	buildList(response);
 		    }
 		});
 	}
 	
-	$scope.abrirModal = function(id) {
+	$scope.openModal = function(id) {
 		if (id) {
 			var data = {contexto : {
-				grupo : {id : id}
+				region : {id : id}
 			}};
 
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
-			    url: urlPath + 'editar.action',
+			    url: urlPath + 'update.action',
 			    data: data1,
 			    dataType: 'json',
 			    contentType: 'application/json',
 			    type: 'POST',
 			    async: false,
 			    success: function (response) {
-			        $scope.grupo = response.contexto.grupo;
+			        $scope.region = response.contexto.region;
 			    }
 			});
 		}
 		jQuery('#modalForm').modal('show');
 	};
 
-	$scope.cancelarModal = function() {
-		$scope.grupo = {};
-		fecharModal();
+	$scope.cancelModal = function() {
+		$scope.region = {};
+		closeModal();
 	};
 
-	function carregarLista(response) {
-		$scope.grupos = response.contexto.grupos;
+	function buildLista(response) {
+		$scope.region = response.contexto.regions;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
 	
-	function fecharModal() {
+	function closeModal() {
 		jQuery('#modalForm').modal('hide');
 	};
 	
 	setTimeout(function() {
-		$scope.loadGrupos();
+		$scope.loadRegions();
 	}, 0);
 	
 });
