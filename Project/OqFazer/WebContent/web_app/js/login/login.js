@@ -11,32 +11,32 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
                                    function($scope, $http, $timeout, $sce) {
 
 	// por padrão defininos variáveis contantes no início do arquivo
-	var CHAVE_STORAGE = 'usuario';
-	var urlPath = "http://localhost:8585/projeto_exemplo/Login!";
+	var CHAVE_STORAGE = 'user';
+	var urlPath = "http://localhost:8585/oqfazer/Login!";
 
 	// O $scope é um objeto público que permite o HTML ter acesso ao Controller,
 	// tudo que é declarado no scope pode ser usado na tela.
 	// representa o usuário logado
-	$scope.usuario = {};
+	$scope.user = {};
 	// Flag para avisar se existe usuário logado
 	$scope.isLogado = false;
 	// flag para exibir mensagem de erro na tela
-	$scope.exibirMensagemErro = false;
+	$scope.showMessageError = false;
 	
 	// Função que verifica se o código da tela que foi aberta é a mesmo que foi
 	// passado como argumento, nesse caso devolve a palavra 'active'
-	$scope.isAtivo = function(tela) {
-		return TelaHelper.tela == tela ? 'active' : '';
+	$scope.isActive = function(screen) {
+		return TelaHelper.screen == screen ? 'active' : '';
 	};
 	
 	// função que realiza o login no sistema
 	$scope.doLogin = function() {
-		$scope.exibirMensagemErro = false;
+		$scope.showMessageError = false;
 		// primeiro criamos uma variável data que possui um atributo contexto,
 		// este é um objeto que possui um atributo 'usuario' que reebe o usuario
 		// que está no scope da controller.
 		var data = {'contexto' : {
-			'usuario' : $scope.usuario
+			'user' : $scope.user
 		}};
 		
 		// JSON é um objeto nativo do JavaScript e serve para converter variaveis
@@ -59,26 +59,26 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    async: false,
 		    success: function (response) {
 		    	// a partir da variável 'response' é possível acessar 
-		    	var usuario = response.contexto.usuario
-		    	if (usuario == null) {
-	    			$scope.exibirMensagemErro = true;
+		    	var user = response.contexto.user
+		    	if (user == null) {
+	    			$scope.showMessageError = true;
 	    			return;
 		    	}
-		    	$scope.usuario = usuario;
-		    	StorageHelper.setItem(CHAVE_STORAGE, usuario);
+		    	$scope.user = user;
+		    	StorageHelper.setItem(CHAVE_STORAGE, user);
 		    	$scope.isLogado = true;
 		    }
 		});
 	};
 	
 	// 
-	$scope.getMensagemApresentacao = function() {
-		return $sce.trustAsHtml("Olá, " + $scope.usuario.nome);
+	$scope.getMensageApresentation = function() {
+		return $sce.trustAsHtml("Olá, " + $scope.user.name);
 	}
 	
 	$scope.doLogout	 = function() {
 		var data = {contexto : {
-			usuario : $scope.usuario
+			user : $scope.user
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -91,26 +91,26 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    async: false,
 		    success: function (response) {
 				StorageHelper.removeItem(CHAVE_STORAGE);
-				$scope.usuario = {};
+				$scope.user = {};
 				$scope.isLogado = false;
 		    }
 		});
 	};
 	
 	$scope.isLogged = function () {
-		var usuario = StorageHelper.getItem(CHAVE_STORAGE);
-		if (usuario != null) {
-			var agora = new Date().getTime()
-			var inicioSessao = usuario.startSession;
-			if (inicioSessao + 1200000 <= agora) {
-				$scope.usuario = {};
+		var user = StorageHelper.getItem(CHAVE_STORAGE);
+		if (user != null) {
+			var now = new Date().getTime()
+			var initSession = user.startSession;
+			if (initSession + 1200000 <= now) {
+				$scope.user = {};
 				$scope.isLogado = false;
 			} else {
-				$scope.usuario = usuario;
+				$scope.user = user;
 				$scope.isLogado = true;
 			}
 		} else {
-			$scope.usuario = {};
+			$scope.user = {};
 			$scope.isLogado = false;
 		}
 		$scope.$applyAsync();

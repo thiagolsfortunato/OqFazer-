@@ -1,17 +1,17 @@
 <div ng-if="!isLogado">
 	<form role="form" class="formLogin">
 		<div class="form-group">
-			<label for="nome">Usuario:</label>
-			<input type="text" class="form-control" ng-model="usuario.login">
+			<label for="nome">Email:</label>
+			<input type="text" class="form-control" ng-model="user.email">
 			<!-- <br/>{{usuario.login}}  -->
 		</div>
 		<div class="form-group">
-			<label for="pwd">Senha:</label>
-			<input type="password" class="form-control" ng-model="usuario.senha">
+			<label for="pwd">Password:</label>
+			<input type="password" class="form-control" ng-model="user.password">
 		</div>
 		
-		<div class="alert alert-danger" role="alert" ng-show="exibirMensagemErro">
-			<p>usuario/senha invalido</p>
+		<div class="alert alert-danger" role="alert" ng-show="showMessageError">
+			<p>email/password incorrect</p>
 		</div>
 		
 		<button type="button" class="btn btn-primary" ng-click="doLogin()">Login</button>
