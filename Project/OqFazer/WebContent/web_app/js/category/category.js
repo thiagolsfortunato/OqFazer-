@@ -31,7 +31,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 		    type: 'POST',
 		    async: true,
 		    success: function (response) {
-		        $scope.cancelarModal();
+		        $scope.cancelModal();
 		    	buildList(response);
 		    }
 		});

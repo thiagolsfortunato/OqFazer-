@@ -51,7 +51,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<uib-pagination boundary-links="true" total-items="grupos.length" ng-model="currentPage" 
+			<uib-pagination boundary-links="true" total-items="events.length" ng-model="currentPage" 
 			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
 			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
 			<br/>
@@ -79,7 +79,7 @@
 								<button type="button" class="btn btn-danger" 
 									ng-click="cancelModal()">Cancel</button>
 								<button type="button" class="btn btn-success" 
-									ng-click="salve()">Save</button>
+									ng-click="insert()">Save</button>
 							</div>
 						</div>
 					</div>
