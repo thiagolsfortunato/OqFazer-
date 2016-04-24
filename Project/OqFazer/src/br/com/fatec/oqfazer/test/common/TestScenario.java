@@ -81,11 +81,11 @@ public abstract class TestScenario extends TestBase {
 		this.eventDTOConverter = ImplFinder.getFinalImpl(EventDTOConverter.class);
 		this.regionDTOConverter = ImplFinder.getFinalImpl(RegionDTOConverter.class);
 		this.userDTOConverter = ImplFinder.getFinalImpl(UserDTOConverter.class);
-		
-		this.categoryService = ImplFinder.getFinalImpl(CategoryService.class);
-		this.eventService = ImplFinder.getFinalImpl(EventService.class);
-		this.regionService = ImplFinder.getFinalImpl(RegionService.class);
-		this.userService = ImplFinder.getFinalImpl(UserService.class);
+		//verificar se na service não é getImpl, como está no projeto do Carlos
+		this.categoryService = ImplFinder.getImpl(CategoryService.class);
+		this.eventService = ImplFinder.getImpl(EventService.class);
+		this.regionService = ImplFinder.getImpl(RegionService.class);
+		this.userService = ImplFinder.getImpl(UserService.class);
 		
 		this.buildCategory();
 		this.buildCity();
@@ -106,18 +106,18 @@ public abstract class TestScenario extends TestBase {
 	private void buildCategory() {
 		Category cat1 = new Category(null, "Category 1", null);
 		Category cat2 = new Category(null, "Category 2", this.categories.get(1l));
-		Category cat3 = new Category(null, "Category 1", this.categories.get(2l));
+		Category cat3 = new Category(null, "Category 3", this.categories.get(2l));
 		
 		Long cat1Id = this.categoryDAO.insertCategory(cat1);
-		this.categories.put(1l, this.categoryDAO.searchCategoryById(cat1Id));
+		this.categories.put(cat1Id, this.categoryDAO.searchCategoryById(1l));
 		Long cat2Id = this.categoryDAO.insertCategory(cat2);
-		this.categories.put(2l, this.categoryDAO.searchCategoryById(cat2Id));
+		this.categories.put(cat2Id, this.categoryDAO.searchCategoryById(2l));
 		Long cat3Id = this.categoryDAO.insertCategory(cat3);
-		this.categories.put(3l, this.categoryDAO.searchCategoryById(cat3Id));
+		this.categories.put(cat3Id, this.categoryDAO.searchCategoryById(3l));
 		
 		this.categoriesDTO.put(1l, this.categoryDTOConverter.toDTOSimple(this.categories.get(1l)));
 		this.categoriesDTO.put(2l, this.categoryDTOConverter.toDTOSimple(this.categories.get(2l)));
-		this.categoriesDTO.put(1l, this.categoryDTOConverter.toDTOSimple(this.categories.get(3l)));
+		this.categoriesDTO.put(3l, this.categoryDTOConverter.toDTOSimple(this.categories.get(3l)));
 		
 	}
 	
@@ -146,7 +146,7 @@ public abstract class TestScenario extends TestBase {
 		this.regions.put(1l,this.regionDAO.searchRegionById(r1Id));
 		Long r2Id = this.regionDAO.insertRegion(r2);
 		this.regions.put(2l,this.regionDAO.searchRegionById(r2Id));
-		
+		//verificar se aqui não é toDTO ao invés de toDTOSimple, porque region não tem dependência para outra DTO
 		this.regionsDTO.put(1l, this.regionDTOConverter.toDTOSimple(this.regions.get(1l)));
 		this.regionsDTO.put(2l, this.regionDTOConverter.toDTOSimple(this.regions.get(2l)));		
 	}
@@ -196,6 +196,22 @@ public abstract class TestScenario extends TestBase {
 		this.eventsDTO.put(1l, this.eventDTOConverter.toDTOSimple(this.events.get(e1Id)));
 		this.eventsDTO.put(2l, this.eventDTOConverter.toDTOSimple(this.events.get(e2Id)));
 		this.eventsDTO.put(3l, this.eventDTOConverter.toDTOSimple(this.events.get(e3Id)));
+	}
+	
+	protected List<EventDTO> getEvents(Long... ids){
+		List<EventDTO> events = Lists.newArrayList();
+		for (Long id: ids){
+			events.add(this.eventsDTO.get(id));
+		}
+		return events;
+	}
+	
+	protected List<CategoryDTO> getCategories (Long ... ids){
+		List<CategoryDTO> categories = Lists.newArrayList();
+		for (Long id: ids){
+			categories.add(this.categoriesDTO.get(id));
+		}
+		return categories;
 	}
 }
 

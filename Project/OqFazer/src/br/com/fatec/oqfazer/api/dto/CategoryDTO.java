@@ -3,11 +3,17 @@ package br.com.fatec.oqfazer.api.dto;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+
 public class CategoryDTO {
 	
 	private Long id;
 	private String name;
 	private CategoryDTO categoryDTO;
+	
+	private List<CategoryDTO> categories = Lists.newArrayList();
+	private Set<CategoryDTO> categoriesOfCategory = Sets.newHashSet();
 	
 	public CategoryDTO(){};
 	
@@ -44,15 +50,21 @@ public class CategoryDTO {
 	public String toString(){
 		return "Category[" + this.id + " - " + this.name + " ]";
 	}
-
-	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar Implementação
-		// TODO Auto-generated method stub
-		
+	
+	public List<CategoryDTO> getCategories(){
+		return this.categories;
 	}
 
-	public void setCategoryCategories(Set<CategoryDTO> categoryCategories) { //Verificar Implementação
-		// TODO Auto-generated method stub
-		
+	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar Implementação
+		this.categories = categoriesDTO;
+	}
+	
+	public Set<CategoryDTO> getCategoriesOfCategory(){
+		return this.categoriesOfCategory;
+	}
+	
+	public void setCategoriesOfCategory(Set<CategoryDTO> categoriesOfCategory) { //Verificar Implementação
+		this.categoriesOfCategory = categoriesOfCategory;
 	}
 	
 }

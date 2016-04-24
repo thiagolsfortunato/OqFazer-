@@ -38,7 +38,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 			categoryCategories.addAll(categoriesDTO);
 
 			dtoCategory.setCategories(categoriesDTO);
-			dtoCategory.setCategoryCategories(categoryCategories);
+			dtoCategory.setCategoriesOfCategory(categoryCategories);
 		}
 		return dtoCategory;
 	}
