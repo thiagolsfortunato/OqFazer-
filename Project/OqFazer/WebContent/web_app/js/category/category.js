@@ -85,7 +85,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 	};
 
 	function buildList(response) {
-		$scope.category = response.contexto.category;
+		$scope.category = response.contexto.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
