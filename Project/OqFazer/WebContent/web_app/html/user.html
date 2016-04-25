@@ -1,0 +1,101 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Usuários</title>
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" href="../css/grupo/grupo.css" ></link>
+	<link rel="stylesheet" href="../css/login/login.css" ></link>
+</head>
+<body ng-app="fatec" ng-controller="LoginController">
+
+	<ng-include src="'menu.html'"></ng-include>
+
+	<div ng-controller="GrupoController" ng-cloak="true" class="conteudo" ng-if="isLogado">
+		<div id="tabela" class="tab-pane fade in active" ><br/>
+
+			<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
+				cellspacing="0" width="100%" at-table at-paginated at-list="grupos" at-config="config">
+
+				<thead>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>Descrição</th>
+					<th colspan="2">
+					</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="grupo in grupos.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
+						ng-if="grupos.length != 0">
+						<td at-implicit at-sortable>{{ grupo.id }}</td>
+						<td at-implicit at-sortable>{{ grupo.nome }}</td>
+						<td at-implicit at-sortable>{{ grupo.descricao }}</td>
+						<td class="btnCell">
+							<p>
+								<a ng-click="abrirModal(grupo.id)" href="#" class="btn btn-danger btn-small">
+									<span class="glyphicon glyphicon-edit" title="Atualizar"></span>
+								</a>
+							</p>
+						</td>
+						<td class="btnCell">
+							<p>
+								<a ng-click="deletar(grupo.id)" href="#" class="btn btn-danger btn-small">
+									<span class="glyphicon glyphicon-remove" title="Deletar"></span>
+								</a>
+							</p>
+						</td>
+					</tr>
+					<tr ng-if="grupos.length == 0">
+						<td colspan="3" class="semRegistros">
+							<p>Não existem Grupos Cadastrados</p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<uib-pagination boundary-links="true" total-items="grupos.length" ng-model="currentPage" 
+			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
+			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
+			<br/>
+			<button type="button" class="btn btn-primary" ng-click="abrirModal()">Criar</button>
+			<div>
+				<div class="modal fade" id="modalForm" role="dialog">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4>Cadastro de Grupo</h4>
+							</div>
+							<div class="modal-body">
+								<form role="form">
+									<div class="form-group">
+										<label for="nome">Nome:</label>
+										<input type="text" class="form-control" ng-model="grupo.nome">
+									</div>
+									<div class="form-group">
+										<label for="pwd">Descrição:</label>
+										<input type="text" class="form-control" ng-model="grupo.descricao">
+									</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-danger" 
+									ng-click="cancelarModal()">Cancelar</button>
+								<button type="button" class="btn btn-success" 
+									ng-click="salvar()">Salvar</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<ng-include src="'login.html'"></ng-include>
+
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/comum/comum.js"></script>
+	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
+	<script type="text/javascript" src="../js/grupo/grupo.js"></script>
+	<script type="text/javascript" src="../js/login/login.js"></script>
+	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
