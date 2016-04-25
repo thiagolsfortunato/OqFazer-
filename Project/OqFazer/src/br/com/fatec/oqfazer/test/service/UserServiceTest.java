@@ -1,28 +1,74 @@
 package br.com.fatec.oqfazer.test.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
+
+import br.com.fatec.oqfazer.api.dto.EventDTO;
+import br.com.fatec.oqfazer.api.dto.UserDTO;
 import br.com.fatec.oqfazer.test.common.TestScenario;
 
 public class UserServiceTest extends TestScenario {
 
 	@Test
 	public void insert(){
+		UserDTO dto = new UserDTO(null, "William", "william01", "william@test", 33334444);
+		dto.setEvents(this.getEvents(1l));
 		
+		UserDTO saved = this.userService.insert(dto);
+		saved = this.userService.searchById(saved.getId());
+		Assert.assertEquals(new Long(4), saved.getId());
+		Assert.assertEquals("William", saved.getName());
+		Assert.assertEquals("william01", saved.getPassword());
+		Assert.assertEquals("william@test", saved.getEmail());
+		Assert.assertEquals(33334444, saved.getPhone());
+		
+		Assert.assertEquals(1, saved.getEvents().size());
+		Assert.assertEquals(new Long(1l), saved.getEvents().get(0).getId());
+		
+		Assert.assertEquals(5, saved.getParticipations.size());
+		ArrayList<EventDTO> eventsUser = Lists.newArrayList(saved.getEventsUser());
+		Assert.assertEquals(new Long(1), eventsUser.get(0).getId());
 	}
 	
 	@Test
 	public void delete(){
+		UserDTO dto = this.usersDTO.get(1l);
+		dto.setEvents(this.getEvents(1l));
 		
+		UserDTO saved = this.userService.insert(dto);
+		
+		this.userService.delete(saved.getId());
 	}
 	
 	@Test
 	public void update(){
+		UserDTO dto = this.usersDTO.get(1l);
+		dto.setName("William Cezar");
+		dto.setPassword("william02");
+		dto.setEmail("william@test2");
+		dto.setEvents(this.getEvents(2l));
 		
+		this.userService.update(dto);
+		dto = this.userService.searchById(dto.getId());
+		
+		Assert.assertEquals(new Long(1), dto.getId());
+		Assert.assertEquals("William Cezar", dto.getName());
+		Assert.assertEquals("william02", dto.getPassword());
+		Assert.assertEquals("william@test2", dto.getEmail());
 	}
 	
 	@Test
 	public void searchAll(){
+		List<UserDTO> users = this.userService.searchAll();
 		
+		Assert.assertEquals(3, users.size());
+		Assert.assertEquals("William", users.get(0).getName());
+		Assert.assertEquals("Thiago", users.get(1).getName());
+		Assert.assertEquals("Carlos", users.get(2).getName());
 	}
 }
