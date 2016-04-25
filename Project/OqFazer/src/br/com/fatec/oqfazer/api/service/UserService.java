@@ -16,6 +16,6 @@ public interface UserService {
 	
 	UserDTO searchById(Long IdUserDTO);
 	
-	UserDTO searchByUserAndPassword(String login, String password);
+	UserDTO searchUserByEmailAndPassword(String email, String password);
 
 }

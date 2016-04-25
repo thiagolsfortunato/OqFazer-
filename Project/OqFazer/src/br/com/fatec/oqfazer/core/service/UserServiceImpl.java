@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserDTO searchByUserAndPassword(String login, String password) {
-		User user = this.userDao.searchByLoginAndPassword(login, password);
+	public UserDTO searchUserByEmailAndPassword(String email, String password) {
+		User user = this.userDao.searchUserByEmailAndPassword(email, password);
 		UserDTO userDTO = null;
 		if (user != null){
 			userDTO = this.userConverter.toDTOSimple(user);
