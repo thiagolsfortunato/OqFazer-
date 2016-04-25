@@ -17,5 +17,5 @@ public interface UserDAO {
 	
 	List<User> searchUsersByIds(List<Long> idsUser);
 
-	User searchByLoginAndPassword(String login, String password);
+	User searchUserByEmailAndPassword(String email, String password);
 }
