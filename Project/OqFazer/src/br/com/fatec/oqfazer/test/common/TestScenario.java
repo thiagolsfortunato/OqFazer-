@@ -206,12 +206,20 @@ public abstract class TestScenario extends TestBase {
 		return events;
 	}
 	
-	protected List<CategoryDTO> getCategories (Long ... ids){
+	protected List<CategoryDTO> getCategories (Long... ids){
 		List<CategoryDTO> categories = Lists.newArrayList();
 		for (Long id: ids){
 			categories.add(this.categoriesDTO.get(id));
 		}
 		return categories;
+	}
+	
+	protected List<City> getCities (Long... ids){
+		List<City> cities = Lists.newArrayList();
+		for (Long id: ids){
+			cities.addAll(this.cities.get(id));
+		}
+		return cities;
 	}
 }
 

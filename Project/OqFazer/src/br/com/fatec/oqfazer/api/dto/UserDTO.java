@@ -10,7 +10,8 @@ public class UserDTO {
 	private String password;
 	private String email;
 	private int phone;
-	private List<EventDTO> events = Lists.newArrayList();
+	private List<EventDTO> participationEvents = Lists.newArrayList();
+	private List<EventDTO> myEvents = Lists.newArrayList();
 	
 	//atributes screen 
 	private Boolean isOwner;
@@ -67,12 +68,20 @@ public class UserDTO {
 		this.phone = phone;
 	}
 	
-	public List<EventDTO> getEvents() {
-		return events;
+	public List<EventDTO> getParticipationEvents() {
+		return participationEvents;
 	}
 
-	public void setEvents(List<EventDTO> events) {
-		this.events = events;
+	public void setParticipationEvents(List<EventDTO> events) {
+		this.participationEvents = events;
+	}
+	
+	public List<EventDTO> getMyEvents(){
+		return myEvents;
+	}
+	
+	public void setMyEvents(List<EventDTO> myEvents){
+		this.myEvents = myEvents;
 	}
 	
 	public String toString(){
@@ -88,7 +97,7 @@ public class UserDTO {
 	}
 	
 	public boolean isOwner(String UserName){
-		for (EventDTO event: this.getEvents()){
+		for (EventDTO event: this.getMyEvents()){
 			if (event.getOwner().getName().equals(UserName)) return true;
 		}
 		return false;

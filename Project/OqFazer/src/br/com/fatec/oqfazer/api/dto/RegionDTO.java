@@ -11,6 +11,7 @@ public class RegionDTO {
 	private Long id;
 	private String name;
 	private List<City> cities = Lists.newArrayList();
+	private List<RegionDTO> regions = Lists.newArrayList();
 	
 	//atribute screen
 	private int option = 0;
@@ -46,6 +47,13 @@ public class RegionDTO {
 		this.cities = cities;
 	}
 	
+	public List<RegionDTO> getRegions(){
+		return regions;
+	}
+	
+	public void setRegions(List<RegionDTO> regions){
+		this.regions = regions;
+	}
 	
 	public String toString(){
 		return "Region[" + this.id + " - " + this.name + " ]"; 
