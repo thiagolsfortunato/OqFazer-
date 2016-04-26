@@ -13,14 +13,14 @@ public class Category {
 	
 	private Long id;
 	private String name;
-	private Category category;
+	private Category parent;
 	
 	public Category(){};
 	
 	public Category(Long id, String name, Category category) {
 		this.id = id;
 		this.name = name;
-		this.category = category;
+		this.parent = category;
 	}
 	
 	public Long getId() {
@@ -35,11 +35,11 @@ public class Category {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Category getCategory() {
-		return category;
+	public Category getParent() {
+		return parent;
 	}
-	public void setCategory(Category category) {
-		this.category = category;
+	public void setParent(Category parent) {
+		this.parent = parent;
 	}
 	
 	public static List<String> getColumns() {
