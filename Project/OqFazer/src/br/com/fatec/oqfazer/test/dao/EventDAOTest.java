@@ -77,12 +77,12 @@ public class EventDAOTest extends TestBase {
 		Category category1 = new Category();
 		category1.setId((long) 1);
 		category1.setName("Show");
-		category1.setCategory(null);
+		category1.setParent(null);
 		
 		Category category2 = new Category();
 		category1.setId((long) 1);
 		category2.setName("Show Rock");
-		category2.setCategory(category1);
+		category2.setParent(category1);
 		
 		//LIST DE CITIES AND REGIONS
 		List<City> citiesRio = Lists.newArrayList();

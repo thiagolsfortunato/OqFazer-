@@ -17,7 +17,7 @@ public class UserServiceTest extends TestScenario {
 	@Test
 	public void insert(){
 		UserDTO dto = new UserDTO(null, "William", "william01", "william@test", 33334444);
-		dto.setEvents(this.getEvents(1l));
+		dto.setParticipationEvents(this.getEvents(1l));
 		
 		UserDTO saved = this.userService.insert(dto);
 		saved = this.userService.searchById(saved.getId());
@@ -26,19 +26,20 @@ public class UserServiceTest extends TestScenario {
 		Assert.assertEquals("william01", saved.getPassword());
 		Assert.assertEquals("william@test", saved.getEmail());
 		Assert.assertEquals(33334444, saved.getPhone());
+		Assert.assertTrue(saved.getIsOwner());
 		
-		Assert.assertEquals(1, saved.getEvents().size());
-		Assert.assertEquals(new Long(1l), saved.getEvents().get(0).getId());
+		//Assert.assertEquals(1, saved.getMyEvents().size());
+		//Assert.assertEquals(new Long(1l), saved.getMyEvents().get(0).getId());
 		
-		Assert.assertEquals(5, saved.getParticipations.size());
-		ArrayList<EventDTO> eventsUser = Lists.newArrayList(saved.getEventsUser());
-		Assert.assertEquals(new Long(1), eventsUser.get(0).getId());
+		Assert.assertEquals(1, saved.getParticipationEvents().size());
+		ArrayList<EventDTO> participationEvents = Lists.newArrayList(saved.getMyEvents());
+		Assert.assertEquals(new Long(1), participationEvents.get(0).getId());
 	}
 	
 	@Test
 	public void delete(){
 		UserDTO dto = this.usersDTO.get(1l);
-		dto.setEvents(this.getEvents(1l));
+		dto.setMyEvents(this.getEvents(1l));
 		
 		UserDTO saved = this.userService.insert(dto);
 		
@@ -51,7 +52,7 @@ public class UserServiceTest extends TestScenario {
 		dto.setName("William Cezar");
 		dto.setPassword("william02");
 		dto.setEmail("william@test2");
-		dto.setEvents(this.getEvents(2l));
+		dto.setMyEvents(this.getEvents(2l));
 		
 		this.userService.update(dto);
 		dto = this.userService.searchById(dto.getId());

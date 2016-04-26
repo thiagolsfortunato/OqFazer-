@@ -81,7 +81,7 @@ public abstract class TestScenario extends TestBase {
 		this.eventDTOConverter = ImplFinder.getFinalImpl(EventDTOConverter.class);
 		this.regionDTOConverter = ImplFinder.getFinalImpl(RegionDTOConverter.class);
 		this.userDTOConverter = ImplFinder.getFinalImpl(UserDTOConverter.class);
-		//verificar se na service não é getImpl, como está no projeto do Carlos
+
 		this.categoryService = ImplFinder.getImpl(CategoryService.class);
 		this.eventService = ImplFinder.getImpl(EventService.class);
 		this.regionService = ImplFinder.getImpl(RegionService.class);
@@ -206,12 +206,28 @@ public abstract class TestScenario extends TestBase {
 		return events;
 	}
 	
-	protected List<CategoryDTO> getCategories (Long ... ids){
+	protected List<CategoryDTO> getCategories (Long... ids){
 		List<CategoryDTO> categories = Lists.newArrayList();
 		for (Long id: ids){
 			categories.add(this.categoriesDTO.get(id));
 		}
 		return categories;
+	}
+	
+	protected List<City> getCities (Long... ids){
+		List<City> cities = Lists.newArrayList();
+		for (Long id: ids){
+			cities.addAll(this.cities.get(id));
+		}
+		return cities;
+	}
+
+	public List<UserDTO> getUsersDTO(Long...ids) {
+		List<UserDTO> users = Lists.newArrayList();
+		for (Long id: ids) {
+			users.add(this.usersDTO.get(id));
+		}
+		return users;
 	}
 }
 

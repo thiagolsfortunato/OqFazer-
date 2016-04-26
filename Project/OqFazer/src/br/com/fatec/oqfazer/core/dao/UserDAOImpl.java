@@ -174,7 +174,7 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User searchByLoginAndPassword(String email, String password) {
+	public User searchUserByEmailAndPassword(String email, String password) {
 		Connection conn = null;
 		PreparedStatement search = null;
 		User user = null;

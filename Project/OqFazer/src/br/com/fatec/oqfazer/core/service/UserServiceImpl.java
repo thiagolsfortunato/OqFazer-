@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService{
 	public UserDTO insert(UserDTO userDTO) {
 		User entityUser = this.userConverter.toEntity(userDTO);
 		Long id = this.userDao.insertUser(entityUser);
-		List<EventDTO> eventsList = userDTO.getEvents();
+		List<EventDTO> eventsList = userDTO.getParticipationEvents();
 		this.updateParticipations(id, eventsList);
 		userDTO.setId(id);
 		return userDTO;
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService{
 	public void update(UserDTO userDTO) {
 		User entityUser = this.userConverter.toEntity(userDTO);
 		this.userDao.updateUser(entityUser);
-		List<EventDTO> participationsEvent = userDTO.getEvents();
+		List<EventDTO> participationsEvent = userDTO.getParticipationEvents();
 		this.updateParticipations(userDTO.getId(), participationsEvent);
 	}
 	
@@ -73,8 +73,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public UserDTO searchByUserAndPassword(String login, String password) {
-		User user = this.userDao.searchByLoginAndPassword(login, password);
+	public UserDTO searchUserByEmailAndPassword(String email, String password) {
+		User user = this.userDao.searchUserByEmailAndPassword(email, password);
 		UserDTO userDTO = null;
 		if (user != null){
 			userDTO = this.userConverter.toDTOSimple(user);

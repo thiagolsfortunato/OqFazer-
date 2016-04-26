@@ -37,7 +37,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Category.getColumnsArray());
 
 			insert.setString(1, category.getName());
-			Category cat = category.getCategory();
+			Category cat = category.getParent();
 			if (cat != null) {
 				insert.setLong(2, cat.getId());
 			} else {
@@ -90,8 +90,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 			update = conn.prepareStatement(sql);
 			update.setString(1, category.getName());
-			if (category.getCategory() != null) {
-				update.setLong(2, category.getCategory().getId());
+			if (category.getParent() != null) {
+				update.setLong(2, category.getParent().getId());
 			} else {
 				update.setNull(2, Types.BIGINT);
 			}
@@ -175,7 +175,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		category.setId(rs.getLong(Category.COL_ID));
 		category.setName(rs.getString(Category.COL_NAME));
 		Long idCategory = rs.getLong(Category.COL_ID_CATEGORY);
-		category.setCategory(idCategory != 0 ? this.searchCategoryById(idCategory) : null);
+		category.setParent(idCategory != 0 ? this.searchCategoryById(idCategory) : null);
 		return category;
 	}
 
