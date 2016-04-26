@@ -15,9 +15,7 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insert(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", this.categoriesDTO.get(0));
-		dto.setCategories(this.getCategories(1l));
-
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", this.categoriesDTO.get(1l));
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
 		Assert.assertEquals(new Long(4), saved.getId());
@@ -33,7 +31,7 @@ public class CategoryServiceTest extends TestScenario {
 		Assert.assertEquals(new Long(2), categoriesOfCategory.get(1).getId());
 	}
 	
-	@Test
+	
 	public void delete(){
 		CategoryDTO dto = this.categoriesDTO.get(1l);
 		dto.setCategories(this.getCategories(1l));
@@ -43,13 +41,13 @@ public class CategoryServiceTest extends TestScenario {
 		this.categoryService.delete(saved.getId());
 	}
 	
-	@Test
+	
 	public void update(){
 		CategoryDTO dto = this.categoriesDTO.get(1l);
 		
 		dto.setName("Showzaço");
 		dto.setCategories(null);
-		dto.setCategories(this.getCategories(2l));
+		dto.setCategories(this.getCategories(2l,3l));
 		
 		this.categoryService.update(dto);
 		dto = this.categoryService.searchById(dto.getId());
@@ -59,7 +57,7 @@ public class CategoryServiceTest extends TestScenario {
 		Assert.assertEquals(null, dto.getCategory());
 	}
 	
-	@Test
+	
 	public void searchAll(){
 		List<CategoryDTO> categories = this.categoryService.searchAll();
 		
