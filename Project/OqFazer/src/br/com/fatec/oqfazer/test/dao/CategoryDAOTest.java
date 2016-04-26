@@ -25,12 +25,12 @@ public class CategoryDAOTest extends TestBase {
 		Category category = new Category();
 		category.setId((long) 1);
 		category.setName("Show");
-		category.setCategory(null);
+		category.setParent(null);
 		
 		Category category1 = new Category();
 		category1.setId((long) 2);
 		category1.setName("Show de Rock");
-		category1.setCategory(category);
+		category1.setParent(category);
 
 		Long id = this.dao.insertCategory(category);
 		Long id1 = this.dao.insertCategory(category1);
@@ -42,12 +42,12 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertNotNull(savedCategory);
 		Assert.assertEquals(new Long (1), savedCategory.getId());
 		Assert.assertEquals("Show", savedCategory.getName());
-		Assert.assertEquals(null, savedCategory.getCategory());
+		Assert.assertEquals(null, savedCategory.getParent());
 		
 		Assert.assertNotNull(savedCategory);
 		Assert.assertEquals(new Long (2), savedCategory1.getId());
 		Assert.assertEquals("Show de Rock", savedCategory1.getName());
-		Assert.assertEquals("Show", savedCategory1.getCategory().getName());
+		Assert.assertEquals("Show", savedCategory1.getParent().getName());
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class CategoryDAOTest extends TestBase {
 		Category category = new Category();
 		category.setId((long) 1);
 		category.setName("Show");
-		category.setCategory(null);
+		category.setParent(null);
 
 		Long id = this.dao.insertCategory(category);
 		Category updateCategory = this.dao.searchCategoryById(id);
@@ -69,7 +69,7 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertNotNull(category);
 		Assert.assertEquals(new Long (1), updateCategory.getId());
 		Assert.assertEquals("Teatro", updatedCatedory.getName());
-		Assert.assertEquals(null, updatedCatedory.getCategory());
+		Assert.assertEquals(null, updatedCatedory.getParent());
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class CategoryDAOTest extends TestBase {
 		Category category = new Category();
 		category.setId((long) 1);
 		category.setName("Show");
-		category.setCategory(null);
+		category.setParent(null);
 
 		Long id = this.dao.insertCategory(category);
 		this.dao.deleteCategory(id);
@@ -94,11 +94,11 @@ public class CategoryDAOTest extends TestBase {
 		
 		category1.setId((long) 1);
 		category1.setName("Show");
-		category1.setCategory(null);
+		category1.setParent(null);
 		
 		category2.setId((long) 2);
 		category2.setName("Show Rock");
-		category2.setCategory(category1);
+		category2.setParent(category1);
 		
 		this.dao.insertCategory(category1);
 		this.dao.insertCategory(category2);
@@ -108,10 +108,10 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertEquals(2, listCategories.size());
 		Assert.assertEquals(new Long (1), listCategories.get(0).getId());
 		Assert.assertEquals("Show", listCategories.get(0).getName());
-		Assert.assertEquals(null, listCategories.get(0).getCategory());
+		Assert.assertEquals(null, listCategories.get(0).getParent());
 		
 		Assert.assertEquals(new Long (2), listCategories.get(1).getId());
 		Assert.assertEquals("Show Rock", listCategories.get(1).getName());
-		Assert.assertEquals("Show", listCategories.get(1).getCategory().getName());
+		Assert.assertEquals("Show", listCategories.get(1).getParent().getName());
 	}
 }

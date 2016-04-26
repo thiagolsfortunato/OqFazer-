@@ -47,7 +47,9 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		CategoryDTO dtoCategory = new CategoryDTO();
 		dtoCategory.setId(entityCategory.getId());
 		dtoCategory.setName(entityCategory.getName());
-		dtoCategory.setCategoryDTO(this.toDTOSimple(entityCategory.getCategory()));
+		if(entityCategory.getParent()!= null){
+			dtoCategory.setCategoryDTO(this.toDTOSimple(entityCategory.getParent()));
+		}
 		return dtoCategory;
 	}
 
@@ -73,7 +75,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		Category entity = new Category();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setCategory(this.toEntity(dto.getCategory()));
+		entity.setParent(this.toEntity(dto.getCategory()));
 		return entity;
 	}
 
