@@ -190,23 +190,27 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public List<Long> searchCategories(Long id) {
 		List<Long> categoriesIds = Lists.newArrayList();
-		if (id != null){
+		//if (id != null){
 			Connection conn = null;
 			PreparedStatement search = null;
 			try {
 				conn = ConfigDBMapper.getDefaultConnection();
-				String sql = "SELECT" + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
+				String sql = "SELECT " + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
 				search = conn.prepareStatement(sql);
+				search.setLong(1, id);
 				ResultSet rs = search.executeQuery();
-				return buildIdCategories(rs);
+				if (rs.next()) {
+					categoriesIds = buildIdCategories(rs);
+				}
+				return categoriesIds;
 			} catch (Exception e){
 				throw new RuntimeException(e);
 			} finally {
 				DbUtils.closeQuietly(search);
 				DbUtils.closeQuietly(conn);
 			}
-		}
-		return categoriesIds;
+		//}
+		
 	}
 	
 	public Long buildCategoryId(ResultSet rs) throws SQLException {
