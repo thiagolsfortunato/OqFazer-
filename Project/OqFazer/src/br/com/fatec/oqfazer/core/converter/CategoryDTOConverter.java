@@ -31,6 +31,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		Long id = entityCategory.getId();
 		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategories(id);
+			
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
 			List<CategoryDTO> categoriesDTO = this.categoryConverter.toDTO(entityCategories);
 			
@@ -53,14 +54,16 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		return dtoCategory;
 	}
 
-	public Long CategoryChild(Long id){
+	public List<Long> CategoryChild(Long id){
+		List<Long> children = Lists.newArrayList();
 		Long father = id;
 		Long child = this.categoryDAO.searchChildCategory(id);
 		if(child == null){
-			return father;
+			children.add(father);
 		}else{
-			return this.CategoryChild(child);
+			children.addAll(this.CategoryChild(child));
 		}
+		return children;
 	}
 	
 	@Override
