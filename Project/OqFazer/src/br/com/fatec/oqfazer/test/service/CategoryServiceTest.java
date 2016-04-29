@@ -18,6 +18,7 @@ public class CategoryServiceTest extends TestScenario {
 		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", this.categoriesDTO.get(1l));
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
+		
 		Assert.assertEquals(new Long(4), saved.getId());
 		Assert.assertEquals("Sertanejo", saved.getName());
 		Assert.assertEquals(null, saved.getCategory());
