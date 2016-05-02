@@ -155,7 +155,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			try {
 				//String args = DAOUtils.preparePlaceHolders(idsCategory.size());
 				for (long id : idsCategory) {
-					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " =?;";
+					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
 					search = conn.prepareStatement(sql);
 					search.setLong(1, id);
 					ResultSet rs = search.executeQuery();

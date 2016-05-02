@@ -21,4 +21,6 @@ public interface CategoryDAO {
 	List<Long> searchCategoriesChildren(Long id);
 
 	List<Category> searchByCategory(Long idCategory);
+
+	Long searchChildCategory(Long id);
 }
