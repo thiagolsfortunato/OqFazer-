@@ -30,7 +30,7 @@ public class CategoryDAOTest extends TestBase {
 		Category category1 = new Category();
 		category1.setId((long) 2);
 		category1.setName("Show de Rock");
-		category1.setParent(category);
+		category1.setParent(category.getId());
 
 		Long id = this.dao.insertCategory(category);
 		Long id1 = this.dao.insertCategory(category1);
@@ -47,7 +47,7 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertNotNull(savedCategory);
 		Assert.assertEquals(new Long (2), savedCategory1.getId());
 		Assert.assertEquals("Show de Rock", savedCategory1.getName());
-		Assert.assertEquals("Show", savedCategory1.getParent().getName());
+		Assert.assertEquals(new Long (1), savedCategory1.getParent());
 	}
 
 	@Test
@@ -98,7 +98,7 @@ public class CategoryDAOTest extends TestBase {
 		
 		category2.setId((long) 2);
 		category2.setName("Show Rock");
-		category2.setParent(category1);
+		category2.setParent(category1.getId());
 		
 		this.dao.insertCategory(category1);
 		this.dao.insertCategory(category2);
@@ -112,6 +112,6 @@ public class CategoryDAOTest extends TestBase {
 		
 		Assert.assertEquals(new Long (2), listCategories.get(1).getId());
 		Assert.assertEquals("Show Rock", listCategories.get(1).getName());
-		Assert.assertEquals("Show", listCategories.get(1).getParent().getName());
+		Assert.assertEquals(new Long (1), listCategories.get(1).getParent());
 	}
 }

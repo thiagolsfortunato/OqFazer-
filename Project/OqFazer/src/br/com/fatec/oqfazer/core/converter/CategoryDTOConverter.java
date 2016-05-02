@@ -53,6 +53,18 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		return dtoCategory;
 	}
 
+	public List<Long> CategoryChild(Long id){
+		List<Long> children = Lists.newArrayList();
+		Long father = id;
+		Long child = this.categoryDAO.searchChildCategory(id);
+		if(child == null){
+			children.add(father);
+		}else{
+			children.addAll(this.CategoryChild(child));
+		}
+		return children;
+	}
+	
 	@Override
 	public List<CategoryDTO> toDTO(List<Category> categories) {
 		return this.toDTO(categories, false);

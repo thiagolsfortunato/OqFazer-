@@ -149,13 +149,13 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public List<Category> searchCategoriesByListIds(List<Long> idsCategory) {
 		List<Category> categories = Lists.newArrayList();
-		if (idsCategory != null) {
+		if (idsCategory.size() > 0) {
 			Connection conn = ConfigDBMapper.getDefaultConnection();
 			PreparedStatement search = null;
 			try {
 				//String args = DAOUtils.preparePlaceHolders(idsCategory.size());
 				for (long id : idsCategory) {
-					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " =?;";
+					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
 					search = conn.prepareStatement(sql);
 					search.setLong(1, id);
 					ResultSet rs = search.executeQuery();
@@ -195,7 +195,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public List<Long> searchCategoriesChildren (Long id) {
 		List<Long> categoriesIds = Lists.newArrayList();
-		//if (id != null){
+		if (id != null){
 			Connection conn = null;
 			PreparedStatement search = null;
 			try {
@@ -214,8 +214,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 				DbUtils.closeQuietly(search);
 				DbUtils.closeQuietly(conn);
 			}
-		//}
-		
+		}
+		return null;
 	}
 	
 	public Long buildCategoryId(ResultSet rs) throws SQLException {
@@ -252,5 +252,23 @@ public class CategoryDAOImpl implements CategoryDAO {
 			}
 		}
 		return categories;
+	}
+
+	@Override
+	public Long searchChildCategory(Long id) {
+		Connection conn = ConfigDBMapper.getDefaultConnection();
+		PreparedStatement search = null;
+		try {
+			String sql = "SELECT "+ Category.COL_ID_CATEGORY +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
+			search = conn.prepareStatement(sql);
+			search.setLong(1, id);
+			ResultSet rs = search.executeQuery();
+			return rs.getLong(Category.COL_ID_CATEGORY);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}
 	}
 }

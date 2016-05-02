@@ -15,4 +15,5 @@ public interface CategoryService {
 	List<CategoryDTO> searchAll();
 	
 	CategoryDTO searchById(Long idCategoryDTO);
+	
 }
