@@ -15,21 +15,21 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insert(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", this.categoriesDTO.get(1l));
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
 		
 		Assert.assertEquals(new Long(4), saved.getId());
 		Assert.assertEquals("Sertanejo", saved.getName());
-		Assert.assertEquals(null, saved.getCategory());
+		Assert.assertEquals(new Long(1), saved.getParentDTO());
 
 		Assert.assertEquals(1, saved.getCategories());
 		Assert.assertEquals(new Long(1L), saved.getCategories().get(0).getId());
 
-		Assert.assertEquals(2, saved.getCategoriesOfCategory().size());
-		ArrayList<CategoryDTO> categoriesOfCategory = Lists.newArrayList(saved.getCategoriesOfCategory());
-		Assert.assertEquals(new Long(1), categoriesOfCategory.get(0).getId());
-		Assert.assertEquals(new Long(2), categoriesOfCategory.get(1).getId());
+		Assert.assertEquals(2, saved.getCategoriesChildren().size());
+		ArrayList<CategoryDTO> categoriesChildren = Lists.newArrayList(saved.getCategoriesChildren());
+		Assert.assertEquals(new Long(1), categoriesChildren.get(0).getId());
+		Assert.assertEquals(new Long(2), categoriesChildren.get(1).getId());
 	}
 	
 	
@@ -46,7 +46,7 @@ public class CategoryServiceTest extends TestScenario {
 	public void update(){
 		CategoryDTO dto = this.categoriesDTO.get(1l);
 		
-		dto.setName("Showzaço");
+		dto.setName("Show");
 		dto.setCategories(null);
 		dto.setCategories(this.getCategories(2l,3l));
 		
@@ -54,8 +54,8 @@ public class CategoryServiceTest extends TestScenario {
 		dto = this.categoryService.searchById(dto.getId());
 		
 		Assert.assertEquals(new Long(1), dto.getId());
-		Assert.assertEquals("showzaço", dto.getName());
-		Assert.assertEquals(null, dto.getCategory());
+		Assert.assertEquals("show", dto.getName());
+		Assert.assertEquals(null, dto.getParentDTO());
 	}
 	
 	

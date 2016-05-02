@@ -106,9 +106,9 @@ public abstract class TestScenario extends TestBase {
 	}
 	
 	private void buildCategory() {
-		Category cat1 = new Category(null, "Category 1", null);
-		Category cat2 = new Category(null, "Category 2", this.categories.get(1l));
-		Category cat3 = new Category(null, "Category 3", this.categories.get(2l));
+		Category cat1 = new Category(1l, "Category 1", null);
+		Category cat2 = new Category(2l, "Category 2", cat1.getId());
+		Category cat3 = new Category(3l, "Category 3", cat2.getId());
 		
 		Long cat1Id = this.categoryDAO.insertCategory(cat1);
 		this.categories.put(cat1Id, this.categoryDAO.searchCategoryById(1l));
