@@ -10,17 +10,17 @@ public class CategoryDTO {
 	
 	private Long id;
 	private String name;
-	private CategoryDTO categoryDTO;
+	private Long parent;
 	
 	private List<CategoryDTO> categories = Lists.newArrayList();
-	private Set<CategoryDTO> categoriesOfCategory = Sets.newHashSet();
+	private Set<CategoryDTO> categoriesChildren = Sets.newHashSet();
 	
 	public CategoryDTO(){};
 	
-	public CategoryDTO(Long id, String name, CategoryDTO category) {
+	public CategoryDTO(Long id, String name, Long parent) {
 		this.id = id;
 		this.name = name;
-		this.categoryDTO = category;
+		this.parent = parent;
 	}
 
 	public Long getId() {
@@ -39,12 +39,12 @@ public class CategoryDTO {
 		this.name = name;
 	}
 
-	public CategoryDTO getCategory() {
-		return categoryDTO;
+	public Long getParentDTO() {
+		return parent;
 	}
 
-	public void setCategoryDTO(CategoryDTO categoryDTO) {
-		this.categoryDTO = categoryDTO;
+	public void setParentDTO(Long parent) {
+		this.parent = parent;
 	}
 	
 	public String toString(){
@@ -55,16 +55,16 @@ public class CategoryDTO {
 		return this.categories;
 	}
 
-	public void setCategories(List<CategoryDTO> categoriesDTO) { //Verificar Implementação
+	public void setCategories(List<CategoryDTO> categoriesDTO) {
 		this.categories = categoriesDTO;
 	}
 	
-	public Set<CategoryDTO> getCategoriesOfCategory(){
-		return this.categoriesOfCategory;
+	public Set<CategoryDTO> getCategoriesChildren(){
+		return this.categoriesChildren;
 	}
 	
-	public void setCategoriesOfCategory(Set<CategoryDTO> categoriesOfCategory) { //Verificar Implementação
-		this.categoriesOfCategory = categoriesOfCategory;
+	public void setCategoriesChildren (Set<CategoryDTO> categoriesChildren) {
+		this.categoriesChildren = categoriesChildren;
 	}
 	
 }
