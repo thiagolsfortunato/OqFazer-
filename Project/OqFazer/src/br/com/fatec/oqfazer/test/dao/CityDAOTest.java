@@ -1,5 +1,6 @@
 package br.com.fatec.oqfazer.test.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -51,6 +52,9 @@ public class CityDAOTest extends TestBase {
 		Long idRegion = this.cityDAO.insertCity(region1.getId(), cities);
 		
 		List<City> citiesSaved = this.cityDAO.searchCityByRegionId(idRegion);
+		
+		//ArrayList<City> citiesA = Lists.newArrayList(City.values());
+		//System.out.println(cities.get(0));   -- EXEMPLO 
 		
 		Assert.assertNotNull(citiesSaved);
 		Assert.assertEquals("São José dos Campos", citiesSaved.get(0).getNome());
