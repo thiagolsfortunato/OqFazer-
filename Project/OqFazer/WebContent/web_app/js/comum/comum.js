@@ -13,7 +13,7 @@ var StorageHelper = (function(){
 	};
 
 	SH.getItem = function(chave, valor) {
-		return angular.fromJson(window.localStorage.getItem('user'));
+		return angular.fromJson(window.localStorage.getItem(chave));
 	};
 
 	SH.removeItem = function(chave) {
