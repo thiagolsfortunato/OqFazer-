@@ -11,7 +11,7 @@ public class LoginAction extends OqFazerWebAction {
 
 	/** */
 	private static final long serialVersionUID = 7059748509020357437L;
-	private static final String DEU_CERTO = "foi";
+	private static final String IT_WORKED = "worked";
 
 	private UserService service;
 	private ContextLogin contexto = new ContextLogin();
@@ -21,6 +21,7 @@ public class LoginAction extends OqFazerWebAction {
 	}
 
 	public String login() {
+		System.out.println("aqui");
 		UserDTO user = this.contexto.getUserDTO();
 		UserDTO userFound = this.service.searchUserByEmailAndPassword(user.getEmail(), user.getPassword());
 
@@ -29,13 +30,13 @@ public class LoginAction extends OqFazerWebAction {
 			this.getSession().put("usuario", userFound);
 		}
 		this.contexto.setUserDTO(userFound);
-		return DEU_CERTO;
+		return IT_WORKED;
 	}
 
 	public String logout() {
 		this.contexto.setUserDTO(null);
 		this.getSession().remove("user");
-		return DEU_CERTO;
+		return IT_WORKED;
 	}
 
 	public ContextLogin getContexto() {
