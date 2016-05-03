@@ -18,7 +18,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	private CategoryDTOConverter categoryConverter;
 	
 	public CategoryDTOConverter (){
-		this.categoryDAO = ImplFinder.getFinalImpl(CategoryDAO.class);
+		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 	}
 
 	@Override

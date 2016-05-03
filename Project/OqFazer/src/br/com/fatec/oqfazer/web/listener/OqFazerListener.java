@@ -19,7 +19,6 @@ public class OqFazerListener implements ServletContextListener{
 		ContextSpecifier.setContext("br.com.fatec.oqfazer");
 		ConfigDBMapper.setDefaultConnectionName("test");
 		LiquibaseRunnerService.run();
-		
 	}
 	
 	
