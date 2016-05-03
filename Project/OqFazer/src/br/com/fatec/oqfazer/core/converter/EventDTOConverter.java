@@ -29,10 +29,10 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 		this.regionDTOConverter = ImplFinder.getFinalImpl(RegionDTOConverter.class);
 		this.userDTOConverter = ImplFinder.getFinalImpl(UserDTOConverter.class);
 		this.categoryDTOConverter = ImplFinder.getFinalImpl(CategoryDTOConverter.class);
-		this.eventCategory = ImplFinder.getFinalImpl(EventCategory.class);
-		this.participation = ImplFinder.getFinalImpl(Participation.class);
-		this.categoryDAO = ImplFinder.getFinalImpl(CategoryDAO.class);
-		this.userDAO = ImplFinder.getFinalImpl(UserDAO.class); 
+		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
+		this.participation = ImplFinder.getImpl(Participation.class);
+		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
+		this.userDAO = ImplFinder.getImpl(UserDAO.class); 
 	}
 	
 	

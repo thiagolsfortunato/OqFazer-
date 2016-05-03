@@ -13,7 +13,7 @@ public class EventAction extends OqFazerWebAction{
 	private EventService service;
 	
 	public EventAction() {
-		this.service = ImplFinder.getFinalImpl(EventService.class);
+		this.service = ImplFinder.getImpl(EventService.class);
 	}
 	
 	public String searchAll(){

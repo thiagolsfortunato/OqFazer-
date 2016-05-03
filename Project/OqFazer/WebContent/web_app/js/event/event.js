@@ -2,14 +2,20 @@ var app = angular.module('fatec');
 
 app.controller('EventController', function($scope, $http, $timeout) {
 
-	var urlPath = "http://localhost:8585/oqfazer/Event!";
+	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';
 	$scope.grupos = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.event = {};
+	$scope.events = {id: "1",
+			  		name: "Event 1",
+			  		description: "Descricao Event 1",
+			  		event_date: "02/05/2016",
+			  		local: "sao jose",
+			  		region: "vale do paraiba",
+			  		owner: "Thiago"};
 
-	$scope.loadEvent = function() {
+	$scope.loadEvents = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
@@ -72,7 +78,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 			    type: 'POST',
 			    async: false,
 			    success: function (response) {
-			        $scope.event = response.contexto.event;
+			        $scope.event = response.context.eventsDTO;
 			    }
 			});
 		}
@@ -84,8 +90,8 @@ app.controller('EventController', function($scope, $http, $timeout) {
 		closeModal();
 	};
 
-	function buildLista(response) {
-		$scope.event = response.contexto.events;
+	function buildList(response) {
+		$scope.event = response.context.eventsDTO;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
