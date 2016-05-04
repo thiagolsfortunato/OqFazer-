@@ -153,7 +153,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 			Connection conn = ConfigDBMapper.getDefaultConnection();
 			PreparedStatement search = null;
 			try {
-				//String args = DAOUtils.preparePlaceHolders(idsCategory.size());
 				for (long id : idsCategory) {
 					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
 					search = conn.prepareStatement(sql);
@@ -161,11 +160,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 					ResultSet rs = search.executeQuery();
 					categories = buildCategories(rs);
 				}
-				/*String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " IN ("+ args +") ORDER BY "+ Category.COL_ID;
-				search = conn.prepareStatement(sql);
-				DAOUtils.setValues(search, idsCategory);
-				ResultSet rs = search.executeQuery();
-				categories = buildCategories(rs);*/
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			} finally {
@@ -195,27 +189,22 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public List<Long> searchCategoriesChildren (Long id) {
 		List<Long> categoriesIds = Lists.newArrayList();
-		if (id != null){
-			Connection conn = null;
-			PreparedStatement search = null;
-			try {
-				conn = ConfigDBMapper.getDefaultConnection();
-				String sql = "SELECT " + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID_CATEGORY + " = ?";
-				search = conn.prepareStatement(sql);
-				search.setLong(1, id);
-				ResultSet rs = search.executeQuery();
-				if (rs.next()) {
-					categoriesIds = buildIdCategories(rs);
-				}
-				return categoriesIds;
-			} catch (Exception e){
-				throw new RuntimeException(e);
-			} finally {
-				DbUtils.closeQuietly(search);
-				DbUtils.closeQuietly(conn);
-			}
+		Connection conn = null;
+		PreparedStatement search = null;
+		try {
+			conn = ConfigDBMapper.getDefaultConnection();
+			String sql = "SELECT " + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID_CATEGORY + " = ?;";
+			search = conn.prepareStatement(sql);
+			search.setLong(1, id);
+			ResultSet rs = search.executeQuery();
+			categoriesIds = buildIdCategories(rs);
+			return categoriesIds;
+		} catch (Exception e){
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
 		}
-		return null;
 	}
 	
 	public Long buildCategoryId(ResultSet rs) throws SQLException {

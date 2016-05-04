@@ -15,10 +15,9 @@ import br.com.spektro.minispring.dto.DTOConverter;
 public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>{
 	
 	private CategoryDAO categoryDAO;
-	private CategoryDTOConverter categoryConverter;
 	
 	public CategoryDTOConverter (){
-		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
+		this.categoryDAO = ImplFinder.getFinalImpl(CategoryDAO.class);
 	}
 
 	@Override
@@ -32,13 +31,20 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategoriesChildren(id);
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
-			List<CategoryDTO> categoriesDTO = this.categoryConverter.toDTO(entityCategories);
+			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
 			
-			Set<CategoryDTO> categoryCategories = Sets.newLinkedHashSet();
-			categoryCategories.addAll(categoriesDTO);
-
-			dtoCategory.setCategories(categoriesDTO);
-			dtoCategory.setCategoriesChildren(categoryCategories);
+			Set<CategoryDTO> categoriesChildren = Sets.newLinkedHashSet();
+			for (CategoryDTO dto : categoriesDTO) {
+				if (dto.getParentDTO() != null){
+					/*
+					CategoryDTO savingChild = this.searchCategoryById(dto.getParentDTO());
+					categoriesChildren.add(savingChild);
+					savingChild.set(categoriesChildren);
+					categoriesChildren.add(dto);*/
+				}
+			}
+			
+			dtoCategory.setCategoriesChildren(categoriesChildren);
 		}
 		return dtoCategory;
 	}
