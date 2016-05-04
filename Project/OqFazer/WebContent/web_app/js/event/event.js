@@ -4,10 +4,10 @@ app.controller('EventController', function($scope, $http, $timeout) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';
-	$scope.grupos = [];
+	$scope.events = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.events = {id: "1",
+	$scope.event = {id: "1",
 			  		name: "Event 1",
 			  		description: "Descricao Event 1",
 			  		event_date: "02/05/2016",
@@ -24,7 +24,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
-		var data = {contexto : {
+		var data = {context : {
 			event : $scope.event
 		}};
 		
@@ -44,7 +44,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {contexto : {
+		var data = {context : {
 			event : {id : id}
 		}};
 		
@@ -65,7 +65,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	
 	$scope.openModal = function(id) {
 		if (id) {
-			var data = {contexto : {
+			var data = {context : {
 				event : {id : id}
 			}};
 

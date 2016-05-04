@@ -2,9 +2,9 @@ var app = angular.module('fatec');
 
 app.controller('RegionController', function($scope, $http, $timeout) {
 
-	var urlPath = "http://localhost:8585/oqfazer/Grupo!";
+	var urlPath = "http://localhost:8085/OqFazer/Region!";
 	TelaHelper.tela = 'region';
-	$scope.grupos = [];
+	$scope.regions = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.region = {};
@@ -13,67 +13,77 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
-	    	buildList(response);
+			buildList(response);
 		});
 	};
 
 	$scope.insert = function() {
-		var data = {contexto : {
-			region : $scope.region
-		}};
-		
+		var data = {
+			context : {
+				region : $scope.region
+			}
+		};
+
 		var data1 = JSON.stringify(data);
 		jQuery.ajax({
-		    url: urlPath + 'insert.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: true,
-		    success: function (response) {
-		        $scope.cancelModal();
-		    	buildList(response);
-		    }
+			url : urlPath + 'insert.action',
+			data : data1,
+			dataType : 'json',
+			contentType : 'application/json',
+			type : 'POST',
+			async : true,
+			success : function(response) {
+				$scope.cancelModal();
+				buildList(response);
+			}
 		});
 	};
-	
+
 	$scope.deleta = function(id) {
-		var data = {contexto : {
-			region : {id : id}
-		}};
-		
+		var data = {
+			context : {
+				region : {
+					id : id
+				}
+			}
+		};
+
 		var data1 = JSON.stringify(data);
 		jQuery.ajax({
-		    url: urlPath + 'delete.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: false,
-		    success: function (response) {
-		    	$scope.id = null;
-		    	buildList(response);
-		    }
+			url : urlPath + 'delete.action',
+			data : data1,
+			dataType : 'json',
+			contentType : 'application/json',
+			type : 'POST',
+			async : false,
+			success : function(response) {
+				$scope.id = null;
+				buildList(response);
+			}
 		});
 	}
-	
+
 	$scope.openModal = function(id) {
 		if (id) {
-			var data = {contexto : {
-				region : {id : id}
-			}};
+			var data = {
+				context : {
+					region : {
+						id : id
+					}
+				}
+			};
 
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
-			    url: urlPath + 'update.action',
-			    data: data1,
-			    dataType: 'json',
-			    contentType: 'application/json',
-			    type: 'POST',
-			    async: false,
-			    success: function (response) {
-			        $scope.region = response.contexto.region;
-			    }
+				url : urlPath + 'update.action',
+				data : data1,
+				dataType : 'json',
+				contentType : 'application/json',
+				type : 'POST',
+				async : false,
+				success : function(response) {
+					$scope.region = response.context.region;
+				}
 			});
 		}
 		jQuery('#modalForm').modal('show');
@@ -85,17 +95,18 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	};
 
 	function buildLista(response) {
-		$scope.region = response.contexto.regions;
+		$scope.region = response.context.regions;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
-	
+
 	function closeModal() {
 		jQuery('#modalForm').modal('hide');
-	};
-	
+	}
+	;
+
 	setTimeout(function() {
 		$scope.loadRegions();
 	}, 0);
-	
+
 });
