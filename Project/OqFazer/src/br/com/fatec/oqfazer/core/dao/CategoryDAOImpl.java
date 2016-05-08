@@ -193,7 +193,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		PreparedStatement search = null;
 		try {
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "SELECT " + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID_CATEGORY + " = ?;";
+			String sql = "SELECT C1.CTG_ID FROM CATEGORY C1 JOIN (SELECT CTG_ID FROM CATEGORY) C2 ON ? = C2.CTG_ID";
 			search = conn.prepareStatement(sql);
 			search.setLong(1, id);
 			ResultSet rs = search.executeQuery();
@@ -217,7 +217,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		List<Long> categoriesIds = Lists.newArrayList();
 		while (rs.next()) {
 			categoriesIds.add(this.buildCategoryId(rs));
-		}
+		} 
 		return categoriesIds;
 	}
 

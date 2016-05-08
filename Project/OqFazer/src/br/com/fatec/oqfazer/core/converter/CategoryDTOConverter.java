@@ -33,14 +33,10 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
 			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
 			
-			Set<CategoryDTO> categoriesChildren = Sets.newLinkedHashSet();
+			Set<Long> categoriesChildren = Sets.newLinkedHashSet();
 			for (CategoryDTO dto : categoriesDTO) {
 				if (dto.getParentDTO() != null){
-					/*
-					CategoryDTO savingChild = this.searchCategoryById(dto.getParentDTO());
-					categoriesChildren.add(savingChild);
-					savingChild.set(categoriesChildren);
-					categoriesChildren.add(dto);*/
+				categoriesChildren.add(dto.getParentDTO());
 				}
 			}
 			

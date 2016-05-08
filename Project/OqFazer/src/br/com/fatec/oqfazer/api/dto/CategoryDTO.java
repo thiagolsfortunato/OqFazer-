@@ -13,7 +13,7 @@ public class CategoryDTO {
 	private Long parent;
 	
 	private List<CategoryDTO> categories = Lists.newArrayList();
-	private Set<CategoryDTO> categoriesChildren = Sets.newHashSet();
+	private Set<Long> categoriesChildren = Sets.newHashSet();
 	
 	public CategoryDTO(){};
 	
@@ -59,11 +59,11 @@ public class CategoryDTO {
 		this.categories = categoriesDTO;
 	}
 	
-	public Set<CategoryDTO> getCategoriesChildren(){
+	public Set<Long> getCategoriesChildren(){
 		return this.categoriesChildren;
 	}
 	
-	public void setCategoriesChildren (Set<CategoryDTO> categoriesChildren) {
+	public void setCategoriesChildren (Set<Long> categoriesChildren) {
 		this.categoriesChildren = categoriesChildren;
 	}
 	
