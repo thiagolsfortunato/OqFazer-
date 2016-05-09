@@ -2,8 +2,8 @@ var app = angular.module('fatec');
 
 app.controller('UserController', function($scope, $http, $timeout) {
 
-	var urlPath = "http://localhost:8085/oqfazer/User!";
-	TelaHelper.tela = 'region';
+	var urlPath = "http://localhost:8085/OqFazer/User!";
+	TelaHelper.tela = 'user';
 	$scope.users = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5

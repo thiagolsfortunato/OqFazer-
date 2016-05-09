@@ -82,7 +82,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
-					$scope.category = response.context.category;
+					$scope.category = response.context.categoriesDTO;
 				}
 			});
 		}
@@ -95,7 +95,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 	};
 
 	function buildList(response) {
-		$scope.category = response.context.categories;
+		$scope.category = response.context.categoriesDTO;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}

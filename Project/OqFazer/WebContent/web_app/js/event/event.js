@@ -18,8 +18,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
-		var data = {context : {
-			event : $scope.event
+		var data = {
+			context : {
+				event : $scope.event
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -38,8 +39,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {context : {
-			event : {id : id}
+		var data = {
+			context : {
+				event : {id : id}
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -59,9 +61,11 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	
 	$scope.openModal = function(id) {
 		if (id) {
-			var data = {context : {
-				event : {id : id}
-			}};
+			var data = {
+				context : {
+					event : {id : id}
+				}
+			};
 
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({

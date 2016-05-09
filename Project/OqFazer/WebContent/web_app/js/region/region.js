@@ -42,9 +42,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	$scope.deleta = function(id) {
 		var data = {
 			context : {
-				region : {
-					id : id
-				}
+				region : {id : id}
 			}
 		};
 
@@ -67,9 +65,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		if (id) {
 			var data = {
 				context : {
-					region : {
-						id : id
-					}
+					region : {id : id}
 				}
 			};
 
@@ -82,7 +78,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
-					$scope.region = response.context.region;
+					$scope.region = response.context.regionsDTO;
 				}
 			});
 		}
@@ -95,7 +91,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	};
 
 	function buildLista(response) {
-		$scope.region = response.context.regions;
+		$scope.region = response.context.regionsDTO;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
