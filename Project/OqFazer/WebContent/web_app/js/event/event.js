@@ -4,17 +4,11 @@ app.controller('EventController', function($scope, $http, $timeout) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';
-	$scope.grupos = [];
+	$scope.events = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.events = {id: "1",
-			  		name: "Event 1",
-			  		description: "Descricao Event 1",
-			  		event_date: "02/05/2016",
-			  		local: "sao jose",
-			  		region: "vale do paraiba",
-			  		owner: "Thiago"};
-
+	$scope.event = {};
+	
 	$scope.loadEvents = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
@@ -24,8 +18,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
-		var data = {contexto : {
-			event : $scope.event
+		var data = {
+			context : {
+				event : $scope.event
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -44,8 +39,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {contexto : {
-			event : {id : id}
+		var data = {
+			context : {
+				event : {id : id}
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -65,9 +61,11 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	
 	$scope.openModal = function(id) {
 		if (id) {
-			var data = {contexto : {
-				event : {id : id}
-			}};
+			var data = {
+				context : {
+					event : {id : id}
+				}
+			};
 
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({

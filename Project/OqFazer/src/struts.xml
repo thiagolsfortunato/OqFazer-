@@ -16,7 +16,7 @@
 
 		<action name="Test!*" class="br.com.fatec.oqfazer.web.action.TestAction"
 			method="{1}">
-			<result name="html">index.html</result>
+			<result name="html">/web_app/html/index.html</result>
 			<result name="jsp">index.jsp</result>
 		</action>
 

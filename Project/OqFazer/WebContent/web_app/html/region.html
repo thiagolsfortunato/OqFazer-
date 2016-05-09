@@ -1,16 +1,13 @@
 <html>
 <head>
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Usuários</title>
+	<title>Regions</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
-	<link rel="stylesheet" href="../css/region/region.css" ></link>
 	<link rel="stylesheet" href="../css/login/login.css" ></link>
 </head>
-<body ng-app="fatec" ng-controller="LoginController">
+<body ng-app="fatec">
 
-	<ng-include src="'menu.html'"></ng-include>
-
-	<div ng-controller="RegionController" ng-cloak="true" class="conteudo" ng-if="isLogado">
+	<div ng-controller="RegionController" ng-cloak="true" class="conteudo">
 		<div id="tabela" class="tab-pane fade in active" ><br/>
 
 			<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
@@ -45,7 +42,7 @@
 						</td>
 					</tr>
 					<tr ng-if="regions.length == 0">
-						<td colspan="3" class="semRegistros">
+						<td colspan="5" class="semRegistros">
 							<p>No Regions</p>
 						</td>
 					</tr>
@@ -87,9 +84,6 @@
 			</div>
 		</div>
 	</div>
-
-	<ng-include src="'login.html'"></ng-include>
-
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
