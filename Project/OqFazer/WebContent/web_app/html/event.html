@@ -3,13 +3,8 @@
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Events</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
-	<!-- <link rel="stylesheet" href="../css/event/event.css" ></link> -->
-	<link rel="stylesheet" href="../css/login/login.css" ></link>
 </head>
-<body ng-app="fatec" ng-controller="LoginController">
-
-	<ng-include src="'menu.html'"></ng-include>
-
+<body ng-app="fatec">
 	<div ng-controller="EventController" ng-cloak="true" class="conteudo">
 		<div id="table" class="tab-pane fade in active" ><br/>
 			<table id="tableAngular" class="table table-striped table-bordered table-responsive" 
@@ -52,7 +47,7 @@
 						</td>
 					</tr>
 					<tr ng-if="events.length == 0">
-						<td colspan="3" class="semRegistros">
+						<td colspan="9" class="semRegistros">
 							<p>No Events</p>
 						</td>
 					</tr>
@@ -115,7 +110,6 @@
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
 	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
 	<script type="text/javascript" src="../js/event/event.js"></script>
-	<script type="text/javascript" src="../js/login/login.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

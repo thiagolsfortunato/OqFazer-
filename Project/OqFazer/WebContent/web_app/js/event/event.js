@@ -7,14 +7,8 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	$scope.events = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.event = {id: "1",
-			  		name: "Event 1",
-			  		description: "Descricao Event 1",
-			  		event_date: "02/05/2016",
-			  		local: "sao jose",
-			  		region: "vale do paraiba",
-			  		owner: "Thiago"};
-
+	$scope.event = {};
+	
 	$scope.loadEvents = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
