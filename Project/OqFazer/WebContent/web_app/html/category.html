@@ -3,14 +3,11 @@
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Category</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
-	<link rel="stylesheet" href="../css/category/category.css" ></link>
 	<link rel="stylesheet" href="../css/login/login.css" ></link>
 </head>
-<body ng-app="fatec" ng-controller="LoginController">
+<body ng-app="fatec">
 
-	<ng-include src="'menu.html'"></ng-include>
-
-	<div ng-controller="CategoryController" ng-cloak="true" class="conteudo" ng-if="isLogado">
+	<div ng-controller="CategoryController" ng-cloak="true" class="conteudo">
 		<div id="table" class="tab-pane fade in active" ><br/>
 
 			<table id="tableAngular" class="table table-striped table-bordered table-responsive" 
@@ -25,7 +22,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="category in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
-						ng-if="grupos.length != 0">
+						ng-if="category.length != 0">
 						<td at-implicit at-sortable>{{ category.id }}</td>
 						<td at-implicit at-sortable>{{ category.nome }}</td>
 						<td at-implicit at-sortable>{{ category.category.nome }}</td>
@@ -44,8 +41,8 @@
 							</p>
 						</td>
 					</tr>
-					<tr ng-if="category.length == 0">
-						<td colspan="3" class="semRegistros">
+					<tr ng-if="categories.length == 0">
+						<td colspan="5" class="semRegistros">
 							<p>No categories</p>
 						</td>
 					</tr>
@@ -88,7 +85,6 @@
 		</div>
 	</div>
 
-	<ng-include src="'login.html'"></ng-include>
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>

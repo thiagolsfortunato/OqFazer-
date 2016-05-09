@@ -1,17 +1,15 @@
 <html>
 <head>
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>User</title>
+	<title>Users</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
 	<link rel="stylesheet" href="../css/login/login.css" ></link>
 </head>
-<body ng-app="fatec" ng-controller="LoginController">
-	<ng-include src="'menu.html'"></ng-include>
-	
+<body ng-app="fatec">	
 	<div ng-controller="UserController" ng-cloak="true" class="conteudo">
 		<div id="tabela" class="tab-pane fade in active" ><br/>
 			<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
-				cellspacing="0" width="100%" at-table at-paginated at-list="grupos" at-config="config">
+				cellspacing="0" width="100%" at-table at-paginated at-list="users" at-config="config">
 
 				<thead>
 					<th>ID</th>
@@ -44,8 +42,8 @@
 							</p>
 						</td>
 					</tr>
-					<tr ng-if="user.length == 0">
-						<td colspan="3" class="semRegistros">
+					<tr ng-if="users.length == 0">
+						<td colspan="7" class="semRegistros">
 							<p>No Users</p>
 						</td>
 					</tr>
@@ -95,6 +93,7 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
