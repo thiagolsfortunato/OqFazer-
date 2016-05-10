@@ -78,7 +78,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
-					$scope.region = response.context.regionsDTO;
+					$scope.region = response.context.region;
 				}
 			});
 		}
@@ -90,8 +90,8 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		closeModal();
 	};
 
-	function buildLista(response) {
-		$scope.region = response.context.regionsDTO;
+	function buildList(response) {
+		$scope.regions = response.context.regions;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}

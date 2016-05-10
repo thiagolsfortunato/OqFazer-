@@ -180,7 +180,7 @@ public class UserDAOImpl implements UserDAO {
 		User user = null;
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
-			String sql = "SELECT * FROM "+ User.TABLE +" WHERE "+ User.COL_EMAIL +" ? AND "+ User.COL_PASSWORD +" = ?";
+			String sql = "SELECT * FROM "+ User.TABLE +" WHERE "+ User.COL_EMAIL +" = ? AND "+ User.COL_PASSWORD +" = ?";
 			search = conn.prepareStatement(sql);
 			search.setString(1, email);
 			search.setString(2, password);

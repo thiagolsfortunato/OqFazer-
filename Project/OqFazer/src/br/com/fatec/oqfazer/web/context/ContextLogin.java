@@ -9,16 +9,13 @@ public class ContextLogin implements Serializable{
 	/***/
 	private static final long serialVersionUID = 2310542235874985181L;
 	
-	private UserDTO userDTO;
+	private UserDTO user;
 
-	public UserDTO getUserDTO() {
-		return userDTO;
+	public UserDTO getUser() {
+		return user;
 	}
 
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
-	
-	
-
 }
