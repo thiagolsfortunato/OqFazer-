@@ -15,31 +15,31 @@ public class UserAction extends OqFazerWebAction{
 	private UserService service;
 	
 	public UserAction() {
-		this.service = ImplFinder.getFinalImpl(UserService.class);
+		this.service = ImplFinder.getImpl(UserService.class);
 	}
 	
 	public String searchAll(){
-		this.context.setUsersDTO(this.service.searchAll());
+		this.context.setUsers(this.service.searchAll());
 		return IT_WORKED;
 	}
 	
 	public String insert(){
-		if(this.context.getUserDTO().getId() != null){
-			this.service.update(this.context.getUserDTO());
+		if(this.context.getUser().getId() != null){
+			this.service.update(this.context.getUser());
 		}else{
-			this.service.insert(this.context.getUserDTO());
+			this.service.insert(this.context.getUser());
 		}
 		return this.searchAll();
 	}
 	
 	public String update(){
-		UserDTO userDTO = this.service.searchById(this.context.getUserDTO().getId());
-		this.context.setUserDTO(userDTO);
+		UserDTO userDTO = this.service.searchById(this.context.getUser().getId());
+		this.context.setUser(userDTO);
 		return this.searchAll();
 	}
 	
 	public String delete(){
-		this.service.delete(this.context.getUserDTO().getId());
+		this.service.delete(this.context.getUser().getId());
 		return this.searchAll();
 	}
 

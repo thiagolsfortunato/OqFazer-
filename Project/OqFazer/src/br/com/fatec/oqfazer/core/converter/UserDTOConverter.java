@@ -34,9 +34,11 @@ public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 		Long id = entityUser.getId();
 		if(id!=null && convertDependences){
 			List<Long> idsEvents = this.participationDAO.searchEvents(id);
-			List<Event> entityEvents = this.eventDAO.searchEventsByListIds(idsEvents);
-			List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
-			dtoUser.setParticipationEvents(eventsDTO);
+			if(!idsEvents.isEmpty()){
+				List<Event> entityEvents = this.eventDAO.searchEventsByListIds(idsEvents);
+				List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
+				dtoUser.setParticipationEvents(eventsDTO);
+			}
 			dtoUser.setIsOwner(dtoUser.isOwner(dtoUser.getName()));
 		}
 		return dtoUser;

@@ -31,7 +31,6 @@ var TelaHelper = (function(){
 	TH.tela = '';
 
 	return TH;
-s
 })();
 
 jQuery(document).on('mouseup','.btn', function(){
