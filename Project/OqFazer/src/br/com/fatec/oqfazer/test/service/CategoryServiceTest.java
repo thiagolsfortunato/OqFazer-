@@ -24,29 +24,43 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insertCategoryWithChildren(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
-		CategoryDTO saved = this.categoryService.insert(dto);
-		saved = this.categoryService.searchById(saved.getId());
+		CategoryDTO sertanejoDto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO sertanejoEntidade = this.categoryService.insert(sertanejoDto);
 		
-		CategoryDTO dto1 = new CategoryDTO(null, "Universitario", (long)4);
-		CategoryDTO saved1 = this.categoryService.insert(dto1);
-		saved1 = this.categoryService.searchById(saved1.getId());
+		CategoryDTO uversitarioDto = new CategoryDTO(null, "Universitario", sertanejoEntidade.getId());
+		CategoryDTO universitarioEntidade = this.categoryService.insert(uversitarioDto);
+		universitarioEntidade = this.categoryService.searchById(universitarioEntidade.getId());
 		
-		Assert.assertEquals(new Long(5), saved1.getId());
-		Assert.assertEquals("Universitario", saved1.getName());
-		Assert.assertEquals(new Long(4), saved1.getParentDTO());
+		sertanejoEntidade = this.categoryService.searchById(sertanejoEntidade.getId());
+		Assert.assertEquals(new Long(5), universitarioEntidade.getId());
+		Assert.assertEquals("Universitario", universitarioEntidade.getName());
+		Assert.assertEquals(new Long(4), universitarioEntidade.getParentDTO());
 		
-		Assert.assertEquals(1, saved.getCategoriesChildren().size());
+		Assert.assertEquals(1, sertanejoEntidade.getCategoriesChildren().size());
 	}
 	
 	@Test
-	public void delete(){
-		CategoryDTO dto = this.categoriesDTO.get(1l);
-		dto.setCategories(this.getCategories(1l));
+	public void deleteWithoutChildren(){
+		CategoryDTO dto = this.categoriesDTO.get(3l);
+		dto.setCategories(this.getCategories(3l));
+		//CategoryDTO saved = this.categoryService.insert(dto);
+		if(dto.getCategoriesChildren()==null){
+			this.categoryService.delete(dto.getId());
+		} else {
+			System.out.println("Não é possível deletar, a categoria possui filhos!");
+		}
+	}
+	
+	@Test
+	public void deleteWithChildren(){
+		CategoryDTO dto = this.categoriesDTO.get(2l);
+		dto.setCategories(this.getCategories(2l));
 		
-		CategoryDTO saved = this.categoryService.insert(dto);
-		
-		this.categoryService.delete(saved.getId());
+		if(dto.getCategoriesChildren()!=null){
+			System.out.println("Não é possível deletar, a categoria possui filhos!");
+		} else {
+			this.categoryService.delete(dto.getId());
+		}
 	}
 	
 	@Test
