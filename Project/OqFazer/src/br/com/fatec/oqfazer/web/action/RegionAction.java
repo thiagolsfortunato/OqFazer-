@@ -15,31 +15,31 @@ public class RegionAction extends OqFazerWebAction{
 	private RegionService service;
 	
 	public RegionAction() {
-		this.service = ImplFinder.getFinalImpl(RegionService.class);
+		this.service = ImplFinder.getImpl(RegionService.class);
 	}
 
 	public String searchAll(){
-		this.context.setRegionsDTO(this.service.searchAll());
+		this.context.setRegions(this.service.searchAll());
 		return IT_WORKED;
 	}
 	
 	public String insert(){
-		if(this.context.getRegionDTO().getId() != null){
-			this.service.update(this.context.getRegionDTO());
+		if(this.context.getRegion().getId() != null){
+			this.service.update(this.context.getRegion());
 		}else{
-			this.service.insert(this.context.getRegionDTO());
+			this.service.insert(this.context.getRegion());
 		}
 		return this.searchAll();
 	}
 	
 	public String update(){
-		RegionDTO regionDTO = this.service.searchById(this.context.getRegionDTO().getId());
-		this.context.setRegionDTO(regionDTO);
+		RegionDTO regionDTO = this.service.searchById(this.context.getRegion().getId());
+		this.context.setRegion(regionDTO);
 		return this.searchAll();
 	}
 	
 	public String delete(){
-		this.service.delete(this.context.getRegionDTO().getId());
+		this.service.delete(this.context.getRegion().getId());
 		return this.searchAll();
 	}
 	
