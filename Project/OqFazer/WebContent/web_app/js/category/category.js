@@ -9,7 +9,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 	$scope.itemsPerPage = 5
 	$scope.category = {};
 
-	$scope.loadCategory = function() {
+	$scope.loadCategories = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
@@ -82,7 +82,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
-					$scope.category = response.context.categoriesDTO;
+					$scope.category = response.context.category;
 				}
 			});
 		}
@@ -95,7 +95,7 @@ app.controller('CategoryController', function($scope, $http, $timeout) {
 	};
 
 	function buildList(response) {
-		$scope.category = response.context.categoriesDTO;
+		$scope.categories = response.context.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
