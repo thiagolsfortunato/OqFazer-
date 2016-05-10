@@ -5,7 +5,7 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>OqFazer</display-name>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>/web_app/html/index.html</welcome-file>
 	</welcome-file-list>
 
 	<listener>

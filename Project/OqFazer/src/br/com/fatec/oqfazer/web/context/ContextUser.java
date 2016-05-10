@@ -10,22 +10,21 @@ public class ContextUser implements Serializable{
 	/***/
 	private static final long serialVersionUID = 3395922774753783569L;
 
-	private UserDTO userDTO;
-	private List<UserDTO> usersDTO;
+	private UserDTO user;
+	private List<UserDTO> users;
 	
-	public UserDTO getUserDTO() {
-		return userDTO;
+	
+	public List<UserDTO> getUsers() {
+		return users;
+	}
+	public void setUsers(List<UserDTO> users) {
+		this.users = users;
+	}
+	public UserDTO getUser() {
+		return user;
+	}
+	public void setUser(UserDTO user) {
+		this.user = user;
 	}
 	
-	public void setUserDTO(UserDTO userDTO) {
-		this.userDTO = userDTO;
-	}
-
-	public List<UserDTO> getUsersDTO() {
-		return usersDTO;
-	}
-
-	public void setUsersDTO(List<UserDTO> usersDTO) {
-		this.usersDTO = usersDTO;
-	}	
 }

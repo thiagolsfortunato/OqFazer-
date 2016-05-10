@@ -13,31 +13,31 @@ public class EventAction extends OqFazerWebAction{
 	private EventService service;
 	
 	public EventAction() {
-		this.service = ImplFinder.getFinalImpl(EventService.class);
+		this.service = ImplFinder.getImpl(EventService.class);
 	}
 	
 	public String searchAll(){
-		this.context.setEventsDTO(this.service.searchAll());
+		this.context.setEvents(this.service.searchAll());
 		return IT_WORKED;
 	}
 	
 	public String insert(){
-		if(this.context.getEventDTO().getId() != null){
-			this.service.update(this.context.getEventDTO());
+		if(this.context.getEvent().getId() != null){
+			this.service.update(this.context.getEvent());
 		}else{
-			this.service.insert(this.context.getEventDTO());
+			this.service.insert(this.context.getEvent());
 		}
 		return this.searchAll();
 	}
 	
 	public String update(){
-		EventDTO eventDTO = this.service.searchById(this.context.getEventDTO().getId());
-		this.context.setEventDTO(eventDTO);
+		EventDTO eventDTO = this.service.searchById(this.context.getEvent().getId());
+		this.context.setEvent(eventDTO);
 		return this.searchAll();
 	}
 	
 	public String delete(){
-		this.service.delete(this.context.getEventDTO().getId());
+		this.service.delete(this.context.getEvent().getId());
 		return this.searchAll();
 	}
 

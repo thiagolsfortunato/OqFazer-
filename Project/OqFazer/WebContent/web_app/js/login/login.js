@@ -12,7 +12,7 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 
 	// por padrão defininos variáveis contantes no início do arquivo
 	var CHAVE_STORAGE = 'user';
-	var urlPath = "http://localhost:8585/oqfazer/Login!";
+	var urlPath = "http://localhost:8085/OqFazer/Login!";
 
 	// O $scope é um objeto público que permite o HTML ter acesso ao Controller,
 	// tudo que é declarado no scope pode ser usado na tela.
@@ -35,7 +35,7 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		// primeiro criamos uma variável data que possui um atributo contexto,
 		// este é um objeto que possui um atributo 'usuario' que reebe o usuario
 		// que está no scope da controller.
-		var data = {'contexto' : {
+		var data = {'context' : {
 			'user' : $scope.user
 		}};
 		
@@ -59,7 +59,7 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    async: false,
 		    success: function (response) {
 		    	// a partir da variável 'response' é possível acessar 
-		    	var user = response.contexto.user
+		    	var user = response.context.user
 		    	if (user == null) {
 	    			$scope.showMessageError = true;
 	    			return;
@@ -77,7 +77,7 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 	}
 	
 	$scope.doLogout	 = function() {
-		var data = {contexto : {
+		var data = {context : {
 			user : $scope.user
 		}};
 		

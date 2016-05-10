@@ -1,28 +1,20 @@
-<!-- A tag NAV existe dentro do bootstrap: https://getbootstrap.com/components/#navbar
-	Ela serve para criar menus e submenus.
-	O NG-IF é uma diretiva que serve para renderizar ou não um elemento HTML,
-	nesse caso está sendo usado para controlar se o menu deve aparecer.
-	O NG-IF pode usar funções e veriáveis definidas no Controller ao qual pertence
-	para fazer as verificações, aqui está usando a variável isLogado. login.js -->
-	
-<nav class="navbar navbar-default" ng-if="isLogado">
+<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
-		
 			<!-- Uma expressão agular '{{CONTEUDO}}' serve para executarmos código 
 				angular em qualquer parte do HTML, aqui é chamada a função isAtivo do 
 				LoginController, login.js linha 28  -->
 				
-			<li class="{{isAtivo('events')}}">
+			<li class="{{isActive('events')}}">
 				<a href="event.html">Events</a>
 			</li>
-			<li class="{{isAtivo('users')}}">
-				<a href="usuario.html">Users</a>
+			<li class="{{isActive('users')}}">
+				<a href="user.html">Users</a>
 			</li>
-			<li class="{{isAtivo('Category')}}">
+			<li class="{{isActive('Category')}}">
 				<a href="category.html">Category</a>
 			</li>
-			<li class="{{isAtivo('Region')}}">
+			<li class="{{isActive('Region')}}">
 				<a href="region.html">Region</a>
 			</li>
 		</ul>

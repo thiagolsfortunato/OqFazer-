@@ -37,9 +37,8 @@ public class CategoryDAOImpl implements CategoryDAO {
 			insert = DAOUtils.buildStatment(sql, conn, getDefaultConnectionType(), Category.getColumnsArray());
 
 			insert.setString(1, category.getName());
-			Category cat = category.getParent();
-			if (cat != null) {
-				insert.setLong(2, cat.getId());
+			if (category.getParent() != null) {
+				insert.setLong(2, category.getParent());
 			} else {
 				insert.setNull(2, Types.BIGINT);
 			}
@@ -91,7 +90,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 			update = conn.prepareStatement(sql);
 			update.setString(1, category.getName());
 			if (category.getParent() != null) {
-				update.setLong(2, category.getParent().getId());
+				update.setLong(2, category.getParent());
 			} else {
 				update.setNull(2, Types.BIGINT);
 			}
@@ -150,16 +149,17 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public List<Category> searchCategoriesByListIds(List<Long> idsCategory) {
 		List<Category> categories = Lists.newArrayList();
-		if (idsCategory != null) {
+		if (idsCategory.size() > 0) {
 			Connection conn = ConfigDBMapper.getDefaultConnection();
 			PreparedStatement search = null;
 			try {
-				String args = DAOUtils.preparePlaceHolders(idsCategory.size());
-				String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " IN ("+ args +") ORDER BY "+ Category.COL_ID;
-				search = conn.prepareStatement(sql);
-				DAOUtils.setValues(search, idsCategory);
-				ResultSet rs = search.executeQuery();
-				categories = buildCategories(rs);
+				for (long id : idsCategory) {
+					String sql = "SELECT * FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
+					search = conn.prepareStatement(sql);
+					search.setLong(1, id);
+					ResultSet rs = search.executeQuery();
+					categories = buildCategories(rs);
+				}
 			} catch (Exception e) {
 				throw new RuntimeException(e);
 			} finally {
@@ -174,8 +174,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 		Category category = new Category();
 		category.setId(rs.getLong(Category.COL_ID));
 		category.setName(rs.getString(Category.COL_NAME));
-		Long idCategory = rs.getLong(Category.COL_ID_CATEGORY);
-		category.setParent(idCategory != 0 ? this.searchCategoryById(idCategory) : null);
+		category.setParent(rs.getLong(Category.COL_ID_CATEGORY));
 		return category;
 	}
 
@@ -188,25 +187,27 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	@Override
-	public List<Long> searchCategories(Long id) {
+	public List<Long> searchCategoriesChildren (Long id) {
 		List<Long> categoriesIds = Lists.newArrayList();
-		if (id != null){
-			Connection conn = null;
-			PreparedStatement search = null;
-			try {
-				conn = ConfigDBMapper.getDefaultConnection();
-				String sql = "SELECT" + Category.COL_ID +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?";
-				search = conn.prepareStatement(sql);
-				ResultSet rs = search.executeQuery();
-				return buildIdCategories(rs);
-			} catch (Exception e){
-				throw new RuntimeException(e);
-			} finally {
-				DbUtils.closeQuietly(search);
-				DbUtils.closeQuietly(conn);
-			}
+		Connection conn = null;
+		PreparedStatement search = null;
+		try {
+			conn = ConfigDBMapper.getDefaultConnection();
+			//String sql = "SELECT C1.CTG_ID FROM CATEGORY C1 JOIN (SELECT CTG_ID FROM CATEGORY) C2 ON C1.CTG_CATEGORY_ID = C2.CTG_ID WHERE C2.CTG__ID = ?;";
+			//String sql = "SELECT C1.CTG_ID FROM CATEGORY C1 LEFT JOIN CATEGORY C2 ON C2.CTG_CATEGORY_ID = ?;";
+			//String sql = "SELECT C1.CTG_ID FROM CATEGORY C1 JOIN (SELECT CTG_CATEGORY_ID FROM CATEGORY) C2 ON C1.CTG_ID = C2.CTG_CATEGORY_ID WHERE C2.CTG_CATEGORY_ID = ?;";
+			String sql = "SELECT CTG_ID FROM CATEGORY WHERE CTG_CATEGORY_ID = ?;";
+			search = conn.prepareStatement(sql);
+			search.setLong(1, id);
+			ResultSet rs = search.executeQuery();
+			categoriesIds = buildIdCategories(rs);
+			return categoriesIds;
+		} catch (Exception e){
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
 		}
-		return categoriesIds;
 	}
 	
 	public Long buildCategoryId(ResultSet rs) throws SQLException {
@@ -243,5 +244,24 @@ public class CategoryDAOImpl implements CategoryDAO {
 			}
 		}
 		return categories;
+	}
+
+	@Override
+	public Long searchChildCategory(Long id) {
+		Connection conn = ConfigDBMapper.getDefaultConnection();
+		PreparedStatement search = null;
+		try {
+			//String sql = "SELECT "+ Category.COL_ID_CATEGORY +" FROM " + Category.TABLE + " WHERE " + Category.COL_ID + " = ?;";
+			String sql = "SELECT C1.CTG_ID_CATEGORY FROM CATEGORY C1 JOIN (SELECT CTG_ID FROM CATEGORY) C2 ON ? = C2.CTG_ID;";
+			search = conn.prepareStatement(sql);
+			search.setLong(1, id);
+			ResultSet rs = search.executeQuery();
+			return rs.getLong(Category.COL_ID_CATEGORY);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}
 	}
 }

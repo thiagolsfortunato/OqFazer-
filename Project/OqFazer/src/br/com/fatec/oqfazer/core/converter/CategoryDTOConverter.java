@@ -15,10 +15,9 @@ import br.com.spektro.minispring.dto.DTOConverter;
 public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>{
 	
 	private CategoryDAO categoryDAO;
-	private CategoryDTOConverter categoryConverter;
 	
 	public CategoryDTOConverter (){
-		ImplFinder.getImpl(CategoryDAO.class);
+		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 	}
 
 	@Override
@@ -30,15 +29,16 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		CategoryDTO dtoCategory = this.toDTOSimple(entityCategory);
 		Long id = entityCategory.getId();
 		if(id != null && convertDependences){
-			List<Long> idsCategories = this.categoryDAO.searchCategories(id);
+			List<Long> idsCategories = this.categoryDAO.searchCategoriesChildren(id);
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
-			List<CategoryDTO> categoriesDTO = this.categoryConverter.toDTO(entityCategories);
+			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
 			
-			Set<CategoryDTO> categoryCategories = Sets.newLinkedHashSet();
-			categoryCategories.addAll(categoriesDTO);
-
-			dtoCategory.setCategories(categoriesDTO);
-			dtoCategory.setCategoriesOfCategory(categoryCategories);
+			Set<Long> categoriesChildren = Sets.newLinkedHashSet();
+			for (CategoryDTO dto: categoriesDTO){
+				categoriesChildren.add(dto.getId());
+			}
+			
+			dtoCategory.setCategoriesChildren(categoriesChildren);
 		}
 		return dtoCategory;
 	}
@@ -48,11 +48,23 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		dtoCategory.setId(entityCategory.getId());
 		dtoCategory.setName(entityCategory.getName());
 		if(entityCategory.getParent()!= null){
-			dtoCategory.setCategoryDTO(this.toDTOSimple(entityCategory.getParent()));
+			dtoCategory.setParentDTO(entityCategory.getParent());
 		}
 		return dtoCategory;
 	}
 
+	public List<Long> CategoryChild(Long id){
+		List<Long> children = Lists.newArrayList();
+		Long father = id;
+		Long child = this.categoryDAO.searchChildCategory(id);
+		if(child == null){
+			children.add(father);
+		}else{
+			children.addAll(this.CategoryChild(child));
+		}
+		return children;
+	}
+	
 	@Override
 	public List<CategoryDTO> toDTO(List<Category> categories) {
 		return this.toDTO(categories, false);
@@ -75,7 +87,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		Category entity = new Category();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setParent(this.toEntity(dto.getCategory()));
+		if (dto.getParentDTO()!=null) entity.setParent(dto.getParentDTO());
 		return entity;
 	}
 

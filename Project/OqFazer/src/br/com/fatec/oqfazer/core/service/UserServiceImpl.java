@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
 		User entityUser = this.userConverter.toEntity(userDTO);
 		Long id = this.userDao.insertUser(entityUser);
 		List<EventDTO> eventsList = userDTO.getParticipationEvents();
-		this.updateParticipations(id, eventsList);
+		if(eventsList == null) this.updateParticipations(id, eventsList);
 		userDTO.setId(id);
 		return userDTO;
 	}
@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService{
 		User entityUser = this.userConverter.toEntity(userDTO);
 		this.userDao.updateUser(entityUser);
 		List<EventDTO> participationsEvent = userDTO.getParticipationEvents();
-		this.updateParticipations(userDTO.getId(), participationsEvent);
+		if(!participationsEvent.isEmpty()) this.updateParticipations(userDTO.getId(), participationsEvent);
 	}
 	
 	@Override

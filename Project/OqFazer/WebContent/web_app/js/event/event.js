@@ -2,14 +2,14 @@ var app = angular.module('fatec');
 
 app.controller('EventController', function($scope, $http, $timeout) {
 
-	var urlPath = "http://localhost:8585/oqfazer/Event!";
+	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';
-	$scope.grupos = [];
+	$scope.events = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.event = {};
-
-	$scope.loadEvent = function() {
+	
+	$scope.loadEvents = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
@@ -18,8 +18,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
-		var data = {contexto : {
-			event : $scope.event
+		var data = {
+			context : {
+				event : $scope.event
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -38,8 +39,9 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {contexto : {
-			event : {id : id}
+		var data = {
+			context : {
+				event : {id : id}
 		}};
 		
 		var data1 = JSON.stringify(data);
@@ -59,9 +61,11 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	
 	$scope.openModal = function(id) {
 		if (id) {
-			var data = {contexto : {
-				event : {id : id}
-			}};
+			var data = {
+				context : {
+					event : {id : id}
+				}
+			};
 
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
@@ -72,7 +76,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 			    type: 'POST',
 			    async: false,
 			    success: function (response) {
-			        $scope.event = response.contexto.event;
+			        $scope.event = response.context.eventsDTO;
 			    }
 			});
 		}
@@ -84,8 +88,8 @@ app.controller('EventController', function($scope, $http, $timeout) {
 		closeModal();
 	};
 
-	function buildLista(response) {
-		$scope.event = response.contexto.events;
+	function buildList(response) {
+		$scope.event = response.context.eventsDTO;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}

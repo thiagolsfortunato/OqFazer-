@@ -58,6 +58,8 @@ public abstract class TestScenario extends TestBase {
 	
 	protected Map<Long, Category> categories = Maps.newHashMap();
 	protected Map<Long, List<City>> cities = Maps.newHashMap();
+	protected Map<Long, User> userParticipations = Maps.newHashMap();
+	protected Map<Long, Category> categoryEvent = Maps.newHashMap();
 	protected Map<Long, Event> events = Maps.newHashMap();
 	protected Map<Long, Region> regions = Maps.newHashMap();
 	protected Map<Long, User> users = Maps.newHashMap();
@@ -88,8 +90,8 @@ public abstract class TestScenario extends TestBase {
 		this.userService = ImplFinder.getImpl(UserService.class);
 		
 		this.buildCategory();
-		this.buildCity();
 		this.buildRegion();
+		this.buildCity();
 		this.buildUser();
 		this.buildEvent();		
 	}
@@ -105,8 +107,8 @@ public abstract class TestScenario extends TestBase {
 	
 	private void buildCategory() {
 		Category cat1 = new Category(null, "Category 1", null);
-		Category cat2 = new Category(null, "Category 2", this.categories.get(1l));
-		Category cat3 = new Category(null, "Category 3", this.categories.get(2l));
+		Category cat2 = new Category(null, "Category 2", cat1.getId());
+		Category cat3 = new Category(null, "Category 3", cat2.getId());
 		
 		Long cat1Id = this.categoryDAO.insertCategory(cat1);
 		this.categories.put(cat1Id, this.categoryDAO.searchCategoryById(1l));
@@ -174,22 +176,22 @@ public abstract class TestScenario extends TestBase {
 		Event event3 = new Event(null, "event3", "desc event3", new Date(), new Date(), "local evn3", "image2", this.regions.get(1l), this.users.get(3l));
 		
 		Long e1Id = this.eventDAO.inserEvent(event1);
-		this.participation.insertParticipation(e1Id, this.users.get(2l).getId());
-		this.participation.insertParticipation(e1Id, this.users.get(3l).getId());
-		this.eventCategory.insertEventCategory(e1Id, this.categories.get(1l).getId());
+		this.userParticipations.put(e1Id, this.userDAO.searchUserById(e1Id));
+		this.userParticipations.put(e1Id, this.userDAO.searchUserById(e1Id));
+		this.categoryEvent.put(e1Id, this.categoryDAO.searchCategoryById(e1Id));
 		this.events.put(1l, this.eventDAO.searchEventById(e1Id));
 		
 		Long e2Id = this.eventDAO.inserEvent(event2);
-		this.participation.insertParticipation(e2Id, this.users.get(1l).getId());
-		this.participation.insertParticipation(e2Id, this.users.get(3l).getId());
-		this.eventCategory.insertEventCategory(e2Id, this.categories.get(2l).getId());		
+		this.userParticipations.put(e2Id, this.userDAO.searchUserById(e2Id));
+		this.userParticipations.put(e2Id, this.userDAO.searchUserById(e2Id));
+		this.categoryEvent.put(e2Id, this.categoryDAO.searchCategoryById(e2Id));		
 		this.events.put(2l, this.eventDAO.searchEventById(e2Id));
 		
 		
 		Long e3Id = this.eventDAO.inserEvent(event3);
-		this.participation.insertParticipation(e3Id, this.users.get(1l).getId());
-		this.participation.insertParticipation(e3Id, this.users.get(2l).getId());
-		this.eventCategory.insertEventCategory(e3Id, this.categories.get(3l).getId());	
+		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
+		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
+		this.categoryEvent.put(e3Id, this.categoryDAO.searchCategoryById(e3Id));	
 		this.events.put(3l, this.eventDAO.searchEventById(e3Id));
 		
 		
