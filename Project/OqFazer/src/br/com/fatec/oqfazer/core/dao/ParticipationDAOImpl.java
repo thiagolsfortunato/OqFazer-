@@ -107,7 +107,7 @@ public class ParticipationDAOImpl implements Participation {
 
 	@Override
 	public void updateEventParticipations(long userId, List<Event> events) {
-		if(events != null){
+		if(!events.isEmpty()){
 			events.removeAll(Collections.singleton(null));
 			Connection conn = ConfigDBMapper.getDefaultConnection();
 			PreparedStatement delete = null;
