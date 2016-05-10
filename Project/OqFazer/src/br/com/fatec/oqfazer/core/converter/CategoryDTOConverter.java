@@ -17,7 +17,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	private CategoryDAO categoryDAO;
 	
 	public CategoryDTOConverter (){
-		this.categoryDAO = ImplFinder.getFinalImpl(CategoryDAO.class);
+		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 	}
 
 	@Override
@@ -34,12 +34,8 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
 			
 			Set<Long> categoriesChildren = Sets.newLinkedHashSet();
-			for (int i=0; i<idsCategories.size(); i++){
-				for (CategoryDTO dto: categoriesDTO){
-					if (dto.getParentDTO() == idsCategories.get(i)){
-						categoriesChildren.add(dtoCategory.getId());
-					}
-				}
+			for (CategoryDTO dto: categoriesDTO){
+				categoriesChildren.add(dto.getId());
 			}
 			
 			dtoCategory.setCategoriesChildren(categoriesChildren);
