@@ -14,37 +14,36 @@ public class LoginAction extends OqFazerWebAction {
 	private static final String IT_WORKED = "worked";
 
 	private UserService service;
-	private ContextLogin contexto = new ContextLogin();
+	private ContextLogin context = new ContextLogin();
 
 	public LoginAction() {
 		this.service = ImplFinder.getImpl(UserService.class);
 	}
 
 	public String login() {
-		System.out.println("aqui");
-		UserDTO user = this.contexto.getUserDTO();
+		UserDTO user = this.context.getUser();
 		UserDTO userFound = this.service.searchUserByEmailAndPassword(user.getEmail(), user.getPassword());
 
 		if (userFound != null) {
 			userFound.setStartSession(new Date().getTime());
 			this.getSession().put("usuario", userFound);
 		}
-		this.contexto.setUserDTO(userFound);
+		this.context.setUser(userFound);
 		return IT_WORKED;
 	}
 
 	public String logout() {
-		this.contexto.setUserDTO(null);
+		this.context.setUser(null);
 		this.getSession().remove("user");
 		return IT_WORKED;
 	}
 
 	public ContextLogin getContexto() {
-		return this.contexto;
+		return this.context;
 	}
 
 	public void setContexto(ContextLogin contexto) {
-		this.contexto = contexto;
+		this.context = contexto;
 	}
 
 }

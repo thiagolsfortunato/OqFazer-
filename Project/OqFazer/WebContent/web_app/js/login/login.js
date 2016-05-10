@@ -38,7 +38,7 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		var data = {'context' : {
 			'user' : $scope.user
 		}};
-		
+			
 		// JSON é um objeto nativo do JavaScript e serve para converter variaveis
 		// de Object para uma String e o contrário também.
 		var data1 = JSON.stringify(data);
@@ -119,5 +119,4 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 	setTimeout(function() {
 		$scope.isLogged();
 	}, 0);
-	
 }]);
