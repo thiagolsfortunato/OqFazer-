@@ -17,8 +17,7 @@
 					<th>Email</th>
 					<th>Password</th>
 					<th>Phone</th>
-					<th colspan="2">
-					</th>
+					<th colspan="2"></th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="user in users.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
@@ -26,6 +25,7 @@
 						<td at-implicit at-sortable>{{ user.id }}</td>
 						<td at-implicit at-sortable>{{ user.name }}</td>
 						<td at-implicit at-sortable>{{ user.email }}</td>
+						<td at-implicit at-sortable>{{ user.password }}</td>
 						<td at-implicit at-sortable>{{ user.phone }}</td>
 						<td class="btnCell">
 							<p>

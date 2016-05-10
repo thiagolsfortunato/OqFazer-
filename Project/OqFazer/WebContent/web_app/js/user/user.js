@@ -8,12 +8,13 @@ app.controller('UserController', function($scope, $http, $timeout) {
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.user = {};
+	$scope.buildList = _buildList;
 
 	$scope.loadUsers = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
-	    	buildList(response);
+	    	$scope.buildList(response);
 		});
 	};
 
@@ -21,7 +22,7 @@ app.controller('UserController', function($scope, $http, $timeout) {
 		var data = {context : {
 			user : $scope.user
 		}};
-		
+				
 		var data1 = JSON.stringify(data);
 		jQuery.ajax({
 		    url: urlPath + 'insert.action',
@@ -32,7 +33,7 @@ app.controller('UserController', function($scope, $http, $timeout) {
 		    async: true,
 		    success: function (response) {
 		        $scope.cancelModal();
-		    	buildList(response);
+		    	$scope.buildList(response);
 		    }
 		});
 	};
@@ -52,7 +53,7 @@ app.controller('UserController', function($scope, $http, $timeout) {
 		    async: false,
 		    success: function (response) {
 		    	$scope.id = null;
-		    	buildList(response);
+		    	$scope.buildList(response);
 		    }
 		});
 	}
@@ -63,6 +64,8 @@ app.controller('UserController', function($scope, $http, $timeout) {
 				user : {id : id}
 			}};
 
+			console.log(data);
+			
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
 			    url: urlPath + 'update.action',
@@ -72,7 +75,8 @@ app.controller('UserController', function($scope, $http, $timeout) {
 			    type: 'POST',
 			    async: false,
 			    success: function (response) {
-			        $scope.user = response.context.usersDTO;
+			        $scope.user = response.context.user;
+			        console.log(response.context.user);
 			    }
 			});
 		}
@@ -84,8 +88,8 @@ app.controller('UserController', function($scope, $http, $timeout) {
 		closeModal();
 	};
 
-	function buildLista(response) {
-		$scope.user = response.context.usersDTO;
+	function _buildList(response) {
+		$scope.users = response.context.users;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
