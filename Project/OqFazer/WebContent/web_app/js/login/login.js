@@ -29,19 +29,22 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		return TelaHelper.screen == screen ? 'active' : '';
 	};
 	
+	
+	
 	// função que realiza o login no sistema
 	$scope.doLogin = function() {
 		$scope.showMessageError = false;
 		// primeiro criamos uma variável data que possui um atributo contexto,
 		// este é um objeto que possui um atributo 'usuario' que reebe o usuario
 		// que está no scope da controller.
-		var data = {'context' : {
-			'user' : $scope.user
+		var data = {context : {
+			user : $scope.user
 		}};
 			
 		// JSON é um objeto nativo do JavaScript e serve para converter variaveis
 		// de Object para uma String e o contrário também.
 		var data1 = JSON.stringify(data);
+		console.log(data1);
 		// AJAX (Asynchronous JavaScript e XML) é a forma como requisições são feitas
 		// em javascript, aqui usamos o ajax do jquery (http://api.jquery.com/jquery.ajax/)
 		jQuery.ajax({
@@ -58,7 +61,8 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    // Define se o execução deve esperar o retorno ou não
 		    async: false,
 		    success: function (response) {
-		    	// a partir da variável 'response' é possível acessar 
+		    	// a partir da variável 'response' é possível acessar
+		    	console.log('foi');
 		    	var user = response.context.user
 		    	if (user == null) {
 	    			$scope.showMessageError = true;
@@ -115,6 +119,24 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		}
 		$scope.$applyAsync();
 	};
+	
+	$scope.openModalLogin = function() {
+		jQuery('#modalFormLogin').modal('show');
+	};
+
+	$scope.cancelModal = function() {
+		$scope.user = {};
+		closeModal();
+		$scope.isLogado = false;
+	};
+	
+	function closeModal() {
+		jQuery('#modalFormLogin').modal('hide');
+	};
+	
+	$scope.getMensagemApresentacao = function() {
+		return $sce.trustAsHtml("Olá, " + $scope.usuario.nome);
+	}
 	
 	setTimeout(function() {
 		$scope.isLogged();
