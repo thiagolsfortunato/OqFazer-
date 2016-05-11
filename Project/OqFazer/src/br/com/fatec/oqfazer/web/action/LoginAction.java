@@ -38,12 +38,12 @@ public class LoginAction extends OqFazerWebAction {
 		return IT_WORKED;
 	}
 
-	public ContextLogin getContexto() {
+	public ContextLogin getContext() {
 		return this.context;
 	}
 
-	public void setContexto(ContextLogin contexto) {
-		this.context = contexto;
+	public void setContext(ContextLogin context) {
+		this.context = context;
 	}
 
 }

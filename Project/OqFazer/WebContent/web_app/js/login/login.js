@@ -62,10 +62,11 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    async: false,
 		    success: function (response) {
 		    	// a partir da variável 'response' é possível acessar
-		    	console.log('foi');
 		    	var user = response.context.user
+		    	console.log(user);
 		    	if (user == null) {
 	    			$scope.showMessageError = true;
+	    			closeModal();
 	    			return;
 		    	}
 		    	$scope.user = user;

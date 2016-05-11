@@ -1,9 +1,9 @@
 <div class="panel panel-default ">
-		<div class="panel-heading clearfix">
-			<ul class="nav navbar-nav navbar-left">
-				<li><h3 class="navbar-text">OqFazer</h3></li>
+	<div class="panel-heading clearfix">
+		<ul class="nav navbar-nav navbar-left">
+			<li><h3 class="navbar-text">OqFazer</h3></li>
 		</ul>
-			<div ng-if="!isLogado">
+		<div ng-if="!isLogado">
  			<ul class="nav navbar-nav navbar-right">
  				<li><button type="button" class="btn btn-primary logoutBtn" ng-click="openModalLogin()">Login</button></li>
 			</ul>
@@ -14,7 +14,10 @@
 				<li><button type="button" class="btn btn-primary logoutBtn" ng-click="doLogout()">Log Out</button></li>
 			</ul>
 		</div>
-		</div>	 		
+	</div>
+	<div class="alert alert-danger" role="alert" ng-show="showMessageError">
+		<p>usuario/senha invalido</p>
+	</div>	 		
 	<div>
 		<div class="modal fade" id="modalFormLogin" role="dialog">
 			<div class="modal-dialog">
