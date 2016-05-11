@@ -8,60 +8,14 @@
 </head>
 <body ng-app="fatec">
  	<div class="index">
- 	<div ng-controller="LoginController">
- 		<div class="panel panel-default ">
-	 		<div class="panel-heading clearfix">
-	 			<ul class="nav navbar-nav navbar-left">
-						<li><h3 class="navbar-text">OqFazer</h3></li>
-				</ul>
-	 			<div ng-if="isLogado">
-		 			<ul class="nav navbar-nav navbar-right">
-		 				<li><button type="button" class="btn btn-primary logoutBtn" ng-click="openModalLogin()">Login</button></li>
-					</ul>
-				</div>
-				<div ng-if="!isLogado">
-		 			<ul class="nav navbar-nav navbar-right">
-						<li><p class="navbar-text">{{getMensageApresentation()}}</p></li>
-						<li><button type="button" class="btn btn-primary logoutBtn" ng-click="doLogout()">Log Out</button></li>
-					</ul>
-				</div>
-	 		</div>	 		
-			<div>
-				<div class="modal fade" id="modalFormLogin" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4>Login</h4>
-							</div>
-							<div class="modal-body">
-								<form role="form">
-									<div class="form-group">
-										<label for="pwd">Email:</label>
-										<input type="text" class="form-control" ng-model="user.email">
-									</div>
-									<div class="form-group">
-										<label for="nome">Password:</label>
-										<input type="password" class="form-control" ng-model="user.password">
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" 
-									ng-click="cancelModal()">Cancel</button>
-								<button type="button" class="btn btn-success" 
-									ng-click="doLogin()">Login</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-				<ng-include src="'administrator.html'"></ng-include>
-				<ng-include src="'event.html'"></ng-include>
-			</div>
-								
-			<div class="panel-footer">Copyright &copy; 2016 OqFazer | Development by Thiago Fortunato and William Pena</div>
-		</div>
+		<div ng-controller="LoginController">
+			<ng-include src="'login.html'"></ng-include>
+			<ng-include src="'administrator.html'"></ng-include>
+			<ng-include src="'event.html'"></ng-include>
+		</div>		
 	</div>
+	
+	<ng-include src="'/template/footer.html'"></ng-include>
 	
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
