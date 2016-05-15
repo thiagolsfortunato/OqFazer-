@@ -5,6 +5,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	var urlPath = "http://localhost:8085/OqFazer/Region!";
 	TelaHelper.tela = 'region';
 	$scope.regions = [];
+	$scope.cities = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.region = {};
@@ -14,6 +15,14 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 			cache : false
 		}).success(function(response) {
 			buildList(response);
+		});
+	};
+	
+	$scope.loadCities = function() {
+		$http.get(urlPath + 'searchAllCities.action', {
+			cache : false
+		}).success(function(response) {
+			buildListCities(response);
 		});
 	};
 
@@ -95,6 +104,13 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
+	
+	function buildListCities(response) {
+		$scope.cities = response.context.region.cities;
+		console.log($scope.cities);
+		$scope.currentPage = 1;
+		$scope.$applyAsync();
+	}
 
 	function closeModal() {
 		jQuery('#modalForm').modal('hide');
@@ -103,6 +119,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 
 	setTimeout(function() {
 		$scope.loadRegions();
+		$scope.loadCities();
 	}, 0);
 
 });

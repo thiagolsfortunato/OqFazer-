@@ -5,12 +5,14 @@ import java.util.List;
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
+import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
+import br.com.fatec.oqfazer.api.service.CityService;
 import br.com.fatec.oqfazer.api.service.RegionService;
 import br.com.fatec.oqfazer.core.converter.RegionDTOConverter;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
-public class RegionServiceImpl implements RegionService{
+public class RegionServiceImpl implements RegionService, CityService {
 	
 	private RegionDAO regionDAO;
 	private RegionDTOConverter regionDTOConverter;
@@ -49,7 +51,7 @@ public class RegionServiceImpl implements RegionService{
 		this.regionDAO.deleteRegion(regionDTO.getId());
 		this.cityDAO.deleteCity(regionDTO.getId(), regionDTO.getCities());
 	}
-
+	
 	@Override
 	public List<RegionDTO> searchAll() {
 		return this.regionDTOConverter.toDTO(this.regionDAO.searchAllRegions());
@@ -60,4 +62,13 @@ public class RegionServiceImpl implements RegionService{
 		return this.regionDTOConverter.toDTO(this.regionDAO.searchRegionById(idRegionDTO));
 	}
 
+	@Override
+	public List<City> searchCityByRegionId(Long regionId) {
+		return this.cityDAO.searchCityByRegionId(regionId);
+	}
+
+	@Override
+	public List<City> searchAllCities(){
+		return this.cityDAO.searchAllCity();
+	}
 }
