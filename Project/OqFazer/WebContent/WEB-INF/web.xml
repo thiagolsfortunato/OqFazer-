@@ -9,7 +9,7 @@
 	</welcome-file-list>
 
 	<listener>
-		<listener-class>br.com.fatec.oqfazer.web.listener.OqFazerListener</listener-class>
+		<listener-class>br.com.fatec.oqfazer.web.listener.TestOqFazerListener</listener-class>
 	</listener>
 
 	<filter>
