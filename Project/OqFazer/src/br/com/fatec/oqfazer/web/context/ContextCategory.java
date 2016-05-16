@@ -11,23 +11,22 @@ public class ContextCategory implements Serializable {
 	/** */
 	private static final long serialVersionUID = -4946584307036887149L;
 	
-	private CategoryDTO categoryDTO;
-	private List<CategoryDTO> categoriesDTO;
+	private CategoryDTO category;
+	private List<CategoryDTO> categories;
 	
-	
-	public CategoryDTO getCategoryDTO() {
-		return categoryDTO;
+	public CategoryDTO getCategory() {
+		return category;
 	}
 	
-	public void setCategoryDTO(CategoryDTO categoryDTO) {
-		this.categoryDTO = categoryDTO;
+	public void setCategory(CategoryDTO category) {
+		this.category = category;
 	}
 	
-	public List<CategoryDTO> getCategoriesDTO() {
-		return categoriesDTO;
+	public List<CategoryDTO> getCategories() {
+		return categories;
 	}
 	
-	public void setCategoriesDTO(List<CategoryDTO> categoriesDTO) {
-		this.categoriesDTO = categoriesDTO;
-	}
+	public void setCategories(List<CategoryDTO> categories) {
+		this.categories = categories;
+	}	
 }

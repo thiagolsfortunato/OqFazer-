@@ -4,6 +4,7 @@
 	<title>Events</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
 	<link rel="stylesheet" href="../css/login/login.css"></link>
+	<link rel="stylesheet" href="../css/event/event.css" ></link>
 </head>
 <body ng-app="fatec">
 	<div ng-controller="EventController" ng-cloak="true" class="conteudo">
@@ -19,8 +20,7 @@
 					<th>Local</th>
 					<th>Region</th>
 					<th>Onwer</th>
-					<th colspan="2">
-					</th>
+					<th colspan="2"></th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
@@ -58,7 +58,9 @@
 			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
 			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
 			<br/>
-			<button type="button" class="btn btn-primary" ng-click="openModal()">New Event</button>
+			<div ng-if="isLogado">
+				<button type="button" class="btn btn-primary" ng-click="openModal()">New Event</button>
+			</div>
 			<div>
 				<div class="modal fade" id="modalForm" role="dialog">
 					<div class="modal-dialog">

@@ -10,23 +10,24 @@ public class ContextEvent implements Serializable{
 	/***/
 	private static final long serialVersionUID = 7611395930990198414L;
 
-	private EventDTO eventDTO;
-	private List<EventDTO> eventsDTO;
+	private EventDTO event;
+	private List<EventDTO> events;
 	
-	public EventDTO getEventDTO() {
-		return eventDTO;
+	public EventDTO getEvent() {
+		return event;
 	}
 	
-	public void setEventDTO(EventDTO eventDTO) {
-		this.eventDTO = eventDTO;
+	public void setEvent(EventDTO event) {
+		this.event = event;
 	}
 	
-	public List<EventDTO> getEventsDTO() {
-		return eventsDTO;
+	public List<EventDTO> getEvents() {
+		return events;
 	}
 	
-	public void setEventsDTO(List<EventDTO> eventsDTO) {
-		this.eventsDTO = eventsDTO;
+	public void setEvents(List<EventDTO> events) {
+		this.events = events;
 	}
+	
 	
 }

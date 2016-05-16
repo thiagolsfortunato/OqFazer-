@@ -10,22 +10,22 @@ public class ContextRegion implements Serializable{
 	/***/
 	private static final long serialVersionUID = 6814441968746878032L;
 	
-	private RegionDTO regionDTO;
-	private List<RegionDTO> regionsDTO;
+	private RegionDTO region;
+	private List<RegionDTO> regions;
 	
-	public RegionDTO getRegionDTO() {
-		return regionDTO;
+	public RegionDTO getRegion() {
+		return region;
 	}
 	
-	public void setRegionDTO(RegionDTO regionDTO) {
-		this.regionDTO = regionDTO;
+	public void setRegion(RegionDTO region) {
+		this.region = region;
 	}
-
-	public List<RegionDTO> getRegionsDTO() {
-		return regionsDTO;
+	
+	public List<RegionDTO> getRegions() {
+		return regions;
 	}
-
-	public void setRegionsDTO(List<RegionDTO> regionsDTO) {
-		this.regionsDTO = regionsDTO;
+	
+	public void setRegions(List<RegionDTO> regions) {
+		this.regions = regions;
 	}
 }

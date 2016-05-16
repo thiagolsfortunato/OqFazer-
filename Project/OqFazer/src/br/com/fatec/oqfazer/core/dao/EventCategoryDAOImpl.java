@@ -26,7 +26,7 @@ public class EventCategoryDAOImpl implements EventCategory {
 			String sql = "INSERT INTO "+ TABLE +" VALUES (?,?)";
 			insert = conn.prepareStatement(sql);
 			insert.setLong(1, idEvent);
-			insert.setLong(1, idCategory);
+			insert.setLong(2, idCategory);
 			insert.execute();
 			return idEvent;
 		}catch (Exception e) {
