@@ -10,7 +10,9 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dao.CityDAO;
+import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
+import br.com.fatec.oqfazer.api.dao.Participation;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
@@ -23,8 +25,7 @@ import br.com.spektro.minispring.core.implfinder.ContextSpecifier;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 import br.com.spektro.minispring.core.liquibaseRunner.LiquibaseRunnerService;
 
-
-public class TestOqFazerListener implements ServletContextListener {
+public class ScenarioListener implements ServletContextListener {
 
 	private Category cat1, cat2, cat3;
 	private List<City> citiesRio, citiesSaoPaulo;
@@ -37,36 +38,36 @@ public class TestOqFazerListener implements ServletContextListener {
 	private EventDAO eventDAO;
 	private RegionDAO regionDAO;
 	private UserDAO userDAO;
+	private EventCategory eventCategory;
+	private Participation participation;
 	
-	public TestOqFazerListener() {
-		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
-		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
-		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
-		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
-		this.userDAO = ImplFinder.getImpl(UserDAO.class);
-	}
-	
+		
 	@Override
 	public void contextDestroyed(ServletContextEvent arg0) {
-		System.out.println("Listener OqFazer - destroy");
+		System.out.println("Listener Scenario - destroy");
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent arg0) {
+	public void contextInitialized(ServletContextEvent arg0) {				
+		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
+		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
+		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
+		this.userDAO = ImplFinder.getImpl(UserDAO.class);
+		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
+		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
+		this.participation = ImplFinder.getImpl(Participation.class);
+		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
+				
 		this.insertCategory();
 		this.inserRegion();
 		this.inserUser();
 		this.insertEvent();
-		System.out.println("Listener OqFazer - Init");		
-		ContextSpecifier.setContext("br.com.fatec.oqfazer");
-		ConfigDBMapper.setDefaultConnectionName("test");
-		LiquibaseRunnerService.run();
 	}
 	
 	private void insertCategory(){
-		this.cat1 = new Category(null, "Category 1", null);
-		this.cat2 = new Category(null, "Category 2", cat1.getId());
-		this.cat3 = new Category(null, "Category 3", cat2.getId());
+		this.cat1 = new Category((long)1, "Category 1", null);
+		this.cat2 = new Category((long)2, "Category 2", cat1.getId());
+		this.cat3 = new Category((long)3, "Category 3", cat2.getId());
 		
 		this.categoryDAO.insertCategory(cat1);
 		this.categoryDAO.insertCategory(cat2);
@@ -75,8 +76,8 @@ public class TestOqFazerListener implements ServletContextListener {
 	}
 	
 	private void inserRegion(){
-		this.region1 = new Region(null, "Region1");
-		this.region2 = new Region(null, "Region2");
+		this.region1 = new Region((long)1, "Region1");
+		this.region2 = new Region((long)2, "Region2");
 		
 		Long r1Id = this.regionDAO.insertRegion(region1);
 		Long r2Id = this.regionDAO.insertRegion(region2);
@@ -98,9 +99,9 @@ public class TestOqFazerListener implements ServletContextListener {
 	}
 	
 	private void inserUser(){
-		this.u1 = new User(null, "user1", "user01", "user1@user", 1111);
-		this.u2 = new User(null, "user2", "user02", "user2@user", 2222);
-		this.u3 = new User(null, "user3", "user03", "user3@user", 3333);
+		this.u1 = new User((long)1, "user1", "user01", "user1@user", 1111);
+		this.u2 = new User((long)2, "user2", "user02", "user2@user", 2222);
+		this.u3 = new User((long)3, "user3", "user03", "user3@user", 3333);
 		
 		this.userDAO.insertUser(u1);
 		this.userDAO.insertUser(u2);
@@ -122,7 +123,7 @@ public class TestOqFazerListener implements ServletContextListener {
 		event1.setOwner(u1);
 		
 		this.event2 = new Event();
-		event2.setId((long) 1);
+		event2.setId((long) 2);
 		event2.setName("Show da Banda2");
 		event2.setDescription("Show da banda fulana2");
 		event2.setRegistration_date(new Date());
@@ -132,8 +133,16 @@ public class TestOqFazerListener implements ServletContextListener {
 		event2.setRegion(region2);
 		event2.setOwner(u2);
 					
-		this.eventDAO.inserEvent(event1);
-		this.eventDAO.inserEvent(event2);
+		long evn1 = this.eventDAO.inserEvent(event1);
+		long evn2 = this.eventDAO.inserEvent(event2);
+		
+		this.participation.insertParticipation(evn1, u2.getId());
+		this.participation.insertParticipation(evn1, u3.getId());
+		this.participation.insertParticipation(evn2, u1.getId());
+		this.participation.insertParticipation(evn2, u3.getId());
+				
+		this.eventCategory.insertEventCategory(evn1, cat1.getId());
+		this.eventCategory.insertEventCategory(evn2, cat2.getId());
 		
 		System.out.println("insert event - OK");
 	}
