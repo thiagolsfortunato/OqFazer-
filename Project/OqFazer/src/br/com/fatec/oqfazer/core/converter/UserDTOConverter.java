@@ -3,7 +3,7 @@ package br.com.fatec.oqfazer.core.converter;
 import java.util.List;
 import com.google.common.collect.Lists;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
-import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.dto.EventDTO;
 import br.com.fatec.oqfazer.api.dto.UserDTO;
@@ -15,13 +15,12 @@ import br.com.spektro.minispring.dto.DTOConverter;
 public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 	
 	private EventDAO eventDAO;
-	private Participation participationDAO;
-	private EventDTOConverter eventConverter;
+	private ParticipationDAO participationDAO;
 	
 	public UserDTOConverter() {
 		ImplFinder.getImpl(UserDAO.class);
 		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
-		this.participationDAO = ImplFinder.getImpl(Participation.class);
+		this.participationDAO = ImplFinder.getImpl(ParticipationDAO.class);
 	}
 	
 	@Override
@@ -33,12 +32,6 @@ public class UserDTOConverter implements DTOConverter<User, UserDTO>{
 		UserDTO dtoUser = this.toDTOSimple(entityUser);
 		Long id = entityUser.getId();
 		if(id!=null && convertDependences){
-			List<Long> idsEvents = this.participationDAO.searchEvents(id);
-			if(!idsEvents.isEmpty()){
-				List<Event> entityEvents = this.eventDAO.searchEventsByListIds(idsEvents);
-				List<EventDTO> eventsDTO = this.eventConverter.toDTO(entityEvents);
-				dtoUser.setParticipationEvents(eventsDTO);
-			}
 			dtoUser.setIsOwner(dtoUser.isOwner(dtoUser.getName()));
 		}
 		return dtoUser;

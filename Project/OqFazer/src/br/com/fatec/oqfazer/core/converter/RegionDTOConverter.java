@@ -4,6 +4,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CityDAO;
+import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
 import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
@@ -15,6 +16,7 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 	private CityDAO cityDao;
 	
 	public RegionDTOConverter() {
+		ImplFinder.getImpl(RegionDAO.class);
 		cityDao = ImplFinder.getImpl(CityDAO.class);
 	}
 	
