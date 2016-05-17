@@ -17,7 +17,6 @@
 				<thead>
 					<th>ID</th>
 					<th>Nome</th>
-					<th>Descrição</th>
 					<th colspan="2">
 					</th>
 				</thead>
@@ -26,7 +25,6 @@
 						ng-if="grupos.length != 0">
 						<td at-implicit at-sortable>{{ region.id }}</td>
 						<td at-implicit at-sortable>{{ region.name }}</td>
-						<td at-implicit at-sortable>{{ region.city.nama }}</td>
 						<td class="btnCell">
 							<p>
 								<a ng-click="openModal(region.id)" href="#" class="btn btn-danger btn-small">
