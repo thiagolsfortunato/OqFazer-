@@ -10,10 +10,8 @@
 	<ng-include src="'administrator.html'"></ng-include>
 	<div ng-controller="RegionController" ng-cloak="true" class="conteudo">
 		<div id="tabela" class="tab-pane fade in active" ><br/>
-
 			<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
 				cellspacing="0" width="100%" at-table at-paginated at-list="regions" at-config="config">
-
 				<thead>
 					<th>ID</th>
 					<th>Nome</th>
@@ -22,7 +20,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="region in regions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
-						ng-if="grupos.length != 0">
+						ng-if="regions.length != 0">
 						<td at-implicit at-sortable>{{ region.id }}</td>
 						<td at-implicit at-sortable>{{ region.name }}</td>
 						<td class="btnCell">
@@ -34,7 +32,7 @@
 						</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="delete(region.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="deleta(region.id)" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-remove" title="Delete"></span>
 								</a>
 							</p>
@@ -66,8 +64,10 @@
 										<input type="text" class="form-control" ng-model="region.name">
 									</div>
 									<div class="form-group">
-										<label for="pwd">City:</label>
-										<input type="text" class="form-control" ng-model="region.city.name">
+										<label for="nome">City:</label>
+										<select class="form-control" for="pwd" ng-model="region.city">Cities:
+											<option ng-repeat="city in cities" ng-value="city">{{ city }}</option>
+										</select>
 									</div>
 								</form>
 							</div>

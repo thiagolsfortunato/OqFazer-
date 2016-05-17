@@ -22,7 +22,6 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$http.get(urlPath + 'searchAllCities.action', {
 			cache : false
 		}).success(function(response) {
-			console.log(response);
 			buildListCities(response);
 		});
 	};
@@ -33,8 +32,9 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				region : $scope.region
 			}
 		};
-
+		
 		var data1 = JSON.stringify(data);
+		console.log(data1);
 		jQuery.ajax({
 			url : urlPath + 'insert.action',
 			data : data1,
@@ -78,7 +78,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 					region : {id : id}
 				}
 			};
-
+			
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
 				url : urlPath + 'update.action',
@@ -88,7 +88,10 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
+					console.log(response);
 					$scope.region = response.context.region;
+					$scope.cities = [];
+					$scope.cities = $scope.region.cities;
 				}
 			});
 		}
@@ -108,7 +111,6 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	
 	function buildListCities(response) {
 		$scope.cities = response.context.cities;
-		console.log($scope.cities);
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -116,7 +118,6 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	function closeModal() {
 		jQuery('#modalForm').modal('hide');
 	}
-	;
 
 	setTimeout(function() {
 		$scope.loadRegions();
