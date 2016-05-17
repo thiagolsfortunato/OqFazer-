@@ -64,9 +64,9 @@
 										<input type="text" class="form-control" ng-model="region.name">
 									</div>
 									<div class="form-group">
+										<label for="nome">City:</label>
 										<select class="form-control" for="pwd" ng-model="region.city">Cities:
-											<option ng-repeat="city in cities" ng-if="region.cities.length != 0"> {{city}} </option>
-											<option ng-repeat="city in region.cities" ng-if="region.cities.length != 0"> {{city.nome}} </option>
+											<option ng-repeat="city in cities" ng-value="city">{{ city }}</option>
 										</select>
 									</div>
 								</form>

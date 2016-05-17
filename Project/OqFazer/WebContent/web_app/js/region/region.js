@@ -32,7 +32,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				region : $scope.region
 			}
 		};
-
+		
 		var data1 = JSON.stringify(data);
 		console.log(data1);
 		jQuery.ajax({
@@ -80,7 +80,6 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 			};
 			
 			var data1 = JSON.stringify(data);
-			
 			jQuery.ajax({
 				url : urlPath + 'update.action',
 				data : data1,
@@ -89,7 +88,10 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				type : 'POST',
 				async : false,
 				success : function(response) {
+					console.log(response);
 					$scope.region = response.context.region;
+					$scope.cities = [];
+					$scope.cities = $scope.region.cities;
 				}
 			});
 		}
