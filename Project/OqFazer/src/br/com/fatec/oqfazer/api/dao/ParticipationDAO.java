@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 
-public interface Participation {
+public interface ParticipationDAO {
 	
 	Long insertParticipation(Long eventId, Long userId);
 	
