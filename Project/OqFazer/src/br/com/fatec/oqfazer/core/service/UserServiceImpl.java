@@ -10,6 +10,7 @@ import br.com.fatec.oqfazer.api.dto.EventDTO;
 import br.com.fatec.oqfazer.api.dto.UserDTO;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
+import br.com.fatec.oqfazer.api.service.EventService;
 import br.com.fatec.oqfazer.api.service.UserService;
 import br.com.fatec.oqfazer.core.converter.EventDTOConverter;
 import br.com.fatec.oqfazer.core.converter.UserDTOConverter;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 	private UserDAO userDAO;
 	private ParticipationDAO participationDAO;
 	private EventDAO eventDAO;
+	private EventService eventService;
 
 	private UserDTOConverter userConverter;
 	private EventDTOConverter eventConverter;
@@ -28,7 +30,8 @@ public class UserServiceImpl implements UserService {
 		this.userDAO = ImplFinder.getImpl(UserDAO.class);
 		this.participationDAO = ImplFinder.getImpl(ParticipationDAO.class);
 		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
-
+		this.eventService = ImplFinder.getImpl(EventService.class);
+		
 		this.userConverter = ImplFinder.getFinalImpl(UserDTOConverter.class);
 		this.eventConverter = ImplFinder.getFinalImpl(EventDTOConverter.class);
 	}
@@ -59,16 +62,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(Long userId) {
-		this.updateParticipations(userId, new ArrayList<EventDTO>());
-		List<Event> myEvents = this.eventDAO.searchEventsByIdUser(userId);
-		List<EventDTO> myEventsDTO = this.eventConverter.toDTO(myEvents);
-		for (EventDTO eventDTO : myEventsDTO) {
-			for(UserDTO userDTO : eventDTO.getParticipation()) {
-				User user = this.userConverter.toEntity(userDTO);
+		UserDTO userDTO = this.searchById(userId);
+		
+		for (EventDTO eventDTO : userDTO.getMyEvents()) {
+			for(UserDTO userEventDTO : eventDTO.getParticipation()) {
+				User user = this.userConverter.toEntity(userEventDTO);
 				this.participationDAO.deleteParticipation(eventDTO.getId(), user.getId());
 			}
-			this.eventDAO.deleteEvent(eventDTO.getId());
+			this.eventService.delete(eventDTO.getId());
 		}
+		
+		for(EventDTO eventDTO: userDTO.getParticipationEvents()){
+			this.participationDAO.deleteParticipation(eventDTO.getId(), userDTO.getId());
+		}
+		
 		this.userDAO.deleteUser(userId);
 	}
 

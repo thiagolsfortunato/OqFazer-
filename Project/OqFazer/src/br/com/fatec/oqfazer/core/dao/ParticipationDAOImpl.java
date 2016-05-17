@@ -144,7 +144,7 @@ public class ParticipationDAOImpl implements ParticipationDAO {
 			PreparedStatement delete = null;
 			PreparedStatement insert = null;
 			try{
-				String sqlDelete = "DELETE * FROM "+ TABLE +" WHERE "+ COL_ID_EVENT +" = ?";
+				String sqlDelete = "DELETE FROM "+ TABLE +" WHERE "+ COL_ID_EVENT +" = ?";
 				delete = conn.prepareStatement(sqlDelete);
 				delete.setLong(1, eventId);
 				delete.execute();
