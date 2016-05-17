@@ -27,7 +27,6 @@ public class RegionAction extends OqFazerWebAction{
 	}
 	
 	public String searchAllCities(){
-		//this.context.getRegion().setCities(this.serviceCity.searchAllCities());
 		this.context.setCities(this.serviceCity.searchAllCities());
 		return IT_WORKED;
 	}

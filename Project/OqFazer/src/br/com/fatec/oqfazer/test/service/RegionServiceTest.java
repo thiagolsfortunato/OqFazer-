@@ -13,7 +13,7 @@ public class RegionServiceTest extends TestScenario {
 	@Test
 	public void insert(){
 		RegionDTO dto = new RegionDTO(null, "Litoral Norte");
-		dto.setCities(this.getCities(1l));
+		dto.setCities(this.regionDTOConverter.toStringCity(this.getCities(1l)));
 		
 		RegionDTO saved = this.regionService.insert(dto);
 		saved = this.regionService.searchById(saved.getId());
@@ -27,7 +27,7 @@ public class RegionServiceTest extends TestScenario {
 	@Test
 	public void delete(){
 		RegionDTO dto = this.regionsDTO.get(1L);
-		dto.setCities(this.getCities(1L));
+		dto.setCities(this.regionDTOConverter.toStringCity(this.getCities(1L)));
 		
 		RegionDTO saved = this.regionService.insert(dto);
 		
@@ -39,7 +39,7 @@ public class RegionServiceTest extends TestScenario {
 		RegionDTO dto = this.regionsDTO.get(1L);
 		
 		dto.setName("Litoral Norte2");
-		dto.setCities(this.getCities(1L));
+		dto.setCities(this.regionDTOConverter.toStringCity(this.getCities(1L)));
 		
 		this.regionService.update(dto);
 		dto = this.regionService.searchById(dto.getId());

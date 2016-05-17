@@ -186,14 +186,12 @@ public abstract class TestScenario extends TestBase {
 		this.userParticipations.put(e2Id, this.userDAO.searchUserById(e2Id));
 		this.categoryEvent.put(e2Id, this.categoryDAO.searchCategoryById(e2Id));		
 		this.events.put(2l, this.eventDAO.searchEventById(e2Id));
-		
-		
+				
 		Long e3Id = this.eventDAO.inserEvent(event3);
 		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
 		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
 		this.categoryEvent.put(e3Id, this.categoryDAO.searchCategoryById(e3Id));	
 		this.events.put(3l, this.eventDAO.searchEventById(e3Id));
-		
 		
 		this.eventsDTO.put(1l, this.eventDTOConverter.toDTOSimple(this.events.get(e1Id)));
 		this.eventsDTO.put(2l, this.eventDTOConverter.toDTOSimple(this.events.get(e2Id)));

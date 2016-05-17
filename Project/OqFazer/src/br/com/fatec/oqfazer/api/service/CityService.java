@@ -6,8 +6,8 @@ import br.com.fatec.oqfazer.api.entity.City;
 
 public interface CityService {
 
-	List<City> searchAllCities();
+	List<String> searchAllCities();
 	
-	List<City> searchCityByRegionId(Long regionId);
+	List<String> searchCityByRegionId(Long regionId);
 	
 }

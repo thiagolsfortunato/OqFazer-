@@ -13,7 +13,7 @@ public class ContextRegion implements Serializable{
 	
 	private RegionDTO region;
 	private List<RegionDTO> regions;
-	private List<City> cities;
+	private List<String> cities;
 	
 	public RegionDTO getRegion() {
 		return region;
@@ -31,11 +31,11 @@ public class ContextRegion implements Serializable{
 		this.regions = regions;
 	}
 
-	public List<City> getCities() {
+	public List<String> getCities() {
 		return cities;
 	}
 
-	public void setCities(List<City> cities) {
+	public void setCities(List<String> cities) {
 		this.cities = cities;
 	}
 }
