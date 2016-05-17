@@ -6,7 +6,8 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dao.EventCategory;
-import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.dao.EventDAO;
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.dto.EventDTO;
 import br.com.fatec.oqfazer.api.entity.Category;
@@ -21,16 +22,17 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 	private UserDTOConverter userDTOConverter;
 	private CategoryDTOConverter categoryDTOConverter;
 	private EventCategory eventCategory;
-	private Participation participation;
+	private ParticipationDAO participation;
 	private CategoryDAO categoryDAO;
 	private UserDAO userDAO;
 	
 	public EventDTOConverter() {
+		ImplFinder.getImpl(EventDAO.class);
 		this.regionDTOConverter = ImplFinder.getFinalImpl(RegionDTOConverter.class);
 		this.userDTOConverter = ImplFinder.getFinalImpl(UserDTOConverter.class);
 		this.categoryDTOConverter = ImplFinder.getFinalImpl(CategoryDTOConverter.class);
 		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
-		this.participation = ImplFinder.getImpl(Participation.class);
+		this.participation = ImplFinder.getImpl(ParticipationDAO.class);
 		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 		this.userDAO = ImplFinder.getImpl(UserDAO.class); 
 	}
@@ -99,11 +101,11 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 
 	@Override
 	public List<EventDTO> toDTO(List<Event> events) {
-		return this.toDTO(events, false);
+		return this.toDTO(events, true);
 	}
 	
 	public List<EventDTO> toDTOSimple(List<Event> events){
-		return this.toDTO(events,true);
+		return this.toDTO(events,false);
 	}
 
 	public List<EventDTO> toDTO(List<Event> events, boolean isSimple){
@@ -111,6 +113,6 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 		for(Event event : events){
 			eventDTO.add(this.toDTO(event, isSimple));
 		}
-		return null;
+		return eventDTO;
 	}
 }

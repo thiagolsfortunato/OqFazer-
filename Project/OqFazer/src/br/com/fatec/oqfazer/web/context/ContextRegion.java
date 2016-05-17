@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
+import br.com.fatec.oqfazer.api.entity.City;
 
 public class ContextRegion implements Serializable{
 
@@ -12,6 +13,7 @@ public class ContextRegion implements Serializable{
 	
 	private RegionDTO region;
 	private List<RegionDTO> regions;
+	private List<City> cities;
 	
 	public RegionDTO getRegion() {
 		return region;
@@ -27,5 +29,13 @@ public class ContextRegion implements Serializable{
 	
 	public void setRegions(List<RegionDTO> regions) {
 		this.regions = regions;
+	}
+
+	public List<City> getCities() {
+		return cities;
+	}
+
+	public void setCities(List<City> cities) {
+		this.cities = cities;
 	}
 }

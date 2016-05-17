@@ -12,7 +12,7 @@ import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
-import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
@@ -39,7 +39,7 @@ public class ScenarioListener implements ServletContextListener {
 	private RegionDAO regionDAO;
 	private UserDAO userDAO;
 	private EventCategory eventCategory;
-	private Participation participation;
+	private ParticipationDAO participation;
 	
 		
 	@Override
@@ -55,7 +55,7 @@ public class ScenarioListener implements ServletContextListener {
 		this.userDAO = ImplFinder.getImpl(UserDAO.class);
 		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
 		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
-		this.participation = ImplFinder.getImpl(Participation.class);
+		this.participation = ImplFinder.getImpl(ParticipationDAO.class);
 		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
 				
 		this.insertCategory();

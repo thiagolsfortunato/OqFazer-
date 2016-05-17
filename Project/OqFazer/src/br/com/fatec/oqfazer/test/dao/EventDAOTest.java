@@ -13,7 +13,7 @@ import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
-import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
 import br.com.fatec.oqfazer.api.entity.Category;
@@ -32,7 +32,7 @@ public class EventDAOTest extends TestBase {
 	private CategoryDAO categoryDAO;
 	private RegionDAO regionDAO;
 	private CityDAO cityDAO;
-	private Participation participation;
+	private ParticipationDAO participation;
 	private EventCategory eventCategory;
 	
 	private User user1, user2, user3;
@@ -48,7 +48,7 @@ public class EventDAOTest extends TestBase {
 		this.categoryDAO = ImplFinder.getImpl(CategoryDAO.class);
 		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
 		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
-		this.participation = ImplFinder.getImpl(Participation.class);
+		this.participation = ImplFinder.getImpl(ParticipationDAO.class);
 		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
 		
 		//USERS

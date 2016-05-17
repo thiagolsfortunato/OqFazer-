@@ -22,6 +22,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$http.get(urlPath + 'searchAllCities.action', {
 			cache : false
 		}).success(function(response) {
+			console.log(response);
 			buildListCities(response);
 		});
 	};
@@ -106,7 +107,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	}
 	
 	function buildListCities(response) {
-		$scope.cities = response.context.region.cities;
+		$scope.cities = response.context.cities;
 		console.log($scope.cities);
 		$scope.currentPage = 1;
 		$scope.$applyAsync();

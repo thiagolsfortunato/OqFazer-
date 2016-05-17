@@ -63,8 +63,6 @@ app.controller('UserController', function($scope, $http, $timeout) {
 			var data = {context : {
 				user : {id : id}
 			}};
-
-			console.log(data);
 			
 			var data1 = JSON.stringify(data);
 			jQuery.ajax({
