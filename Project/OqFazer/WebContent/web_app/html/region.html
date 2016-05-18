@@ -66,8 +66,8 @@
 									</div>
 									<div class="form-group">
 										<label for="nome">City:</label>
-										<select class="form-control" for="pwd" ng-model="region.city">Cities:
-											<option ng-repeat="city in cities" ng-value="city">{{ city }}</option>
+										<select class="form-control" for="pwd"  ng-model="region.cities[i]">Cities:
+											<option ng-repeat="(i, city) in cities" ng-value="city"">{{city}}</option>
 										</select>										
 									</div>
 								</form>
@@ -92,17 +92,6 @@
 	<script type="text/javascript" src="../js/region/region.js"></script>
 	<script type="text/javascript" src="../js/login/login.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-        $(document).ready(function() {
-            $('.selectpicker').selectpicker({ });
-            //auto open
-            $('[data-id=mySel]').trigger('click');
-            //stay open
-            $(document).on("click", function () {
-            	$('[data-id=mySel]').trigger('click');
-            });       
-        });
-    </script>	
 	<script type="text/javascript" src="../bootstrap/js/bootstrap-select.min.js"></script>
 </body>
 </html>

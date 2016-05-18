@@ -27,6 +27,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
+		$scope.cities.push($scope.region);
 		var data = {
 			context : {
 				region : $scope.region
@@ -134,5 +135,5 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$scope.loadRegions();
 		$scope.loadCities();
 	}, 0);
-
+	
 });
