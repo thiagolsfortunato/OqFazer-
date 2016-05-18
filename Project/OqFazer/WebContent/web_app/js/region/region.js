@@ -27,6 +27,7 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 	};
 
 	$scope.insert = function() {
+		$scope.cities.push($scope.region);
 		var data = {
 			context : {
 				region : $scope.region
@@ -71,7 +72,18 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		});
 	}
 
-	$scope.openModal = function(id) {
+	$scope.openModal = function(id,flag) {
+		if(flag == "update"){
+			$scope.update(id);
+		}else{
+			$scope.region = null;
+			$scope.cities = null;
+			$scope.loadCities();
+		}
+		jQuery('#modalForm').modal('show');
+	};
+
+	$scope.update = function(id){
 		if (id) {
 			var data = {
 				context : {
@@ -90,14 +102,14 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				success : function(response) {
 					console.log(response);
 					$scope.region = response.context.region;
-					$scope.cities = [];
-					$scope.cities = $scope.region.cities;
+					$scope.cities = angular.copy($scope.region.cities);
+					id = null;
 				}
 			});
 		}
-		jQuery('#modalForm').modal('show');
-	};
-
+	}
+	
+	
 	$scope.cancelModal = function() {
 		$scope.region = {};
 		closeModal();
@@ -123,5 +135,5 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$scope.loadRegions();
 		$scope.loadCities();
 	}, 0);
-
+	
 });

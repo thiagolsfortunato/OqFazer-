@@ -1,41 +1,36 @@
 var app = angular.module('fatec');
 
-app.controller('UserController', function($scope, $http, $timeout) {
-
-	var urlPath = "http://localhost:8085/OqFazer/User!";
+app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService', 
+                                 function($scope,$htpp,$timeout,$sce, userService) {
+	
 	TelaHelper.tela = 'user';
+	$scope.user = {};
 	$scope.users = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
-	$scope.user = {};
 	$scope.buildList = _buildList;
 
+	
+	function init(){
+		$scope.loadUsers();
+	}
+	
 	$scope.loadUsers = function() {
-		$http.get(urlPath + 'searchAll.action', {
-			cache : false
-		}).success(function(response) {
-	    	$scope.buildList(response);
+		userService.userSearchAll().then(function (response){
+			$scope.buildList(response);
 		});
 	};
 
+	
 	$scope.insert = function() {
 		var data = {context : {
 			user : $scope.user
 		}};
-				
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'insert.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: true,
-		    success: function (response) {
-		        $scope.cancelModal();
-		    	$scope.buildList(response);
-		    }
-		});
+		
+		userService.userInsert(data),then(function(response){
+			$scope.user = null;
+			$scope.loadUsers();
+		})
 	};
 	
 	$scope.deleta = function(id) {
@@ -43,40 +38,28 @@ app.controller('UserController', function($scope, $http, $timeout) {
 			user : {id : id}
 		}};
 		
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'delete.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: false,
-		    success: function (response) {
-		    	$scope.id = null;
-		    	$scope.buildList(response);
-		    }
-		});
-	}
+		userService.userDelete(data),then(function(response){
+			$scope.user = null;
+			$scope.loadUsers();
+		})
+	};
 	
-	$scope.openModal = function(id) {
-		if (id) {
-			var data = {context : {
-				user : {id : id}
-			}};
-			
-			var data1 = JSON.stringify(data);
-			jQuery.ajax({
-			    url: urlPath + 'update.action',
-			    data: data1,
-			    dataType: 'json',
-			    contentType: 'application/json',
-			    type: 'POST',
-			    async: false,
-			    success: function (response) {
-			        $scope.user = response.context.user;
-			        console.log(response.context.user);
-			    }
-			});
+	$scope.update = function(id) {
+		var data = {context : {
+			user : {id : id}
+		}};
+		
+		userService.upate(data), then(function(response){
+			$scope.region = response.context.region;
+		})
+	};
+	
+	$scope.openModal = function(id, flag) {
+		if(flag == "update"){
+			$scope.update(id);
+		}else{
+			$scope.user = null;
+			$scope.loadCities();
 		}
 		jQuery('#modalForm').modal('show');
 	};
@@ -100,4 +83,5 @@ app.controller('UserController', function($scope, $http, $timeout) {
 		$scope.loadUsers();
 	}, 0);
 	
-});
+	init()
+}]);
