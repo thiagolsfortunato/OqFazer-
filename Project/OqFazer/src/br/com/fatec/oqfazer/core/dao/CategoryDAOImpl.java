@@ -94,7 +94,6 @@ public class CategoryDAOImpl implements CategoryDAO {
 			} else {
 				update.setNull(2, Types.BIGINT);
 			}
-
 			update.setLong(3, category.getId());
 			update.execute();
 		} catch (Exception e) {

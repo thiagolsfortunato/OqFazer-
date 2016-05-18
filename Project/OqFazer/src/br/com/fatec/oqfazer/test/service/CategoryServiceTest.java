@@ -41,40 +41,46 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void deleteWithoutChildren(){
-		CategoryDTO dto = this.categoriesDTO.get(3l);
-		dto.setCategories(this.getCategories(3l));
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO saved = this.categoryService.insert(dto);
+		saved = this.categoryService.searchById(saved.getId());
+		//CategoryDTO dto = this.categoriesDTO.get(3l);
+		//dto.setCategories(this.getCategories(3l));
 		//CategoryDTO saved = this.categoryService.insert(dto);
-		if(dto.getCategoriesChildren()==null){
-			this.categoryService.delete(dto.getId());
+		if(saved.getCategoriesChildren()==null){
+			this.categoryService.delete(saved.getId());
 		} else {
 			System.out.println("Não é possível deletar, a categoria possui filhos!");
 		}
+		Assert.assertEquals(0, saved.getCategoriesChildren().size());
 	}
 	
 	@Test
 	public void deleteWithChildren(){
 		CategoryDTO dto = this.categoriesDTO.get(2l);
-		dto.setCategories(this.getCategories(2l));
 		
 		if(dto.getCategoriesChildren()!=null){
 			System.out.println("Não é possível deletar, a categoria possui filhos!");
 		} else {
 			this.categoryService.delete(dto.getId());
 		}
+		Assert.assertEquals(3, this.categoriesDTO.size());
 	}
 	
 	@Test
 	public void update(){
 		CategoryDTO dto = this.categoriesDTO.get(1l);
 		
+		dto.setId(new Long(1));
 		dto.setName("Show");
+		dto.setParentDTO(null);
 		
 		this.categoryService.update(dto);
 		dto = this.categoryService.searchById(dto.getId());
 		
 		Assert.assertEquals(new Long(1), dto.getId());
 		Assert.assertEquals("Show", dto.getName());
-		Assert.assertEquals(null, dto.getParentDTO());
+		Assert.assertEquals(new Long(0), dto.getParentDTO());
 	}
 	
 	@Test
