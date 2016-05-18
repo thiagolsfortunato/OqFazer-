@@ -3,8 +3,9 @@
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<title>Regions</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.min.css" ></link>
 	<link rel="stylesheet" href="../css/login/login.css" ></link>
-	<link rel="stylesheet" href="../css/region/region.css" ></link>
+	<link rel="stylesheet" href="../css/region/region.css" ></link>       
 </head>
 <body ng-app="fatec">
 	<ng-include src="'administrator.html'"></ng-include>
@@ -25,7 +26,7 @@
 						<td at-implicit at-sortable>{{ region.name }}</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="openModal(region.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="openModal(region.id,'update')" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-edit" title="Update"></span>
 								</a>
 							</p>
@@ -49,7 +50,7 @@
 			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
 			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
 			<br/>
-			<button type="button" class="btn btn-primary" ng-click="openModal()">New Region</button>
+			<button type="button" class="btn btn-primary" ng-click="openModal(0,'new')">New Region</button>
 			<div>
 				<div class="modal fade" id="modalForm" role="dialog">
 					<div class="modal-dialog">
@@ -67,7 +68,7 @@
 										<label for="nome">City:</label>
 										<select class="form-control" for="pwd" ng-model="region.city">Cities:
 											<option ng-repeat="city in cities" ng-value="city">{{ city }}</option>
-										</select>
+										</select>										
 									</div>
 								</form>
 							</div>
@@ -83,6 +84,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
@@ -90,5 +92,17 @@
 	<script type="text/javascript" src="../js/region/region.js"></script>
 	<script type="text/javascript" src="../js/login/login.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+        $(document).ready(function() {
+            $('.selectpicker').selectpicker({ });
+            //auto open
+            $('[data-id=mySel]').trigger('click');
+            //stay open
+            $(document).on("click", function () {
+            	$('[data-id=mySel]').trigger('click');
+            });       
+        });
+    </script>	
+	<script type="text/javascript" src="../bootstrap/js/bootstrap-select.min.js"></script>
 </body>
 </html>
