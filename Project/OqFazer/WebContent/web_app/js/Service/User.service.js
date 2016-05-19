@@ -40,7 +40,7 @@ app.factory('UserService', ['$http',function ($http) {
     
     function _userDelete(id){
     	var promess;
-    	var data = JSON.stringify(user);
+    	var data = JSON.stringify(id);
 		promess = jQuery.ajax({
 				    url: urlPath + 'delete.action',
 				    data: data,
@@ -57,7 +57,8 @@ app.factory('UserService', ['$http',function ($http) {
     
     function _userUpdate(id){
     	var promess;
-    	var data = JSON.stringify(user);
+    	var data = JSON.stringify(id);
+    	console.log(id);
     	promess = jQuery.ajax({
 				    url: urlPath + 'update.action',
 				    data: data,
