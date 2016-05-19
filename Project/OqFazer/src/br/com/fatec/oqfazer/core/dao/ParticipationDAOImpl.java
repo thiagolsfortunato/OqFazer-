@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.commons.dbutils.DbUtils;
+
 import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
@@ -120,7 +123,7 @@ public class ParticipationDAOImpl implements ParticipationDAO {
 				delete.execute();
 				delete.close();
 				for (Event event : events) {
-					String sqlInsert = "INSERT INTO "+ TABLE + " VALUES (?,?)";
+					String sqlInsert = "INSERT INTO "+ TABLE + " (PTC_USER_ID, PTC_EVENT_ID) " + " VALUES (?,?)";
 					insert = conn.prepareStatement(sqlInsert);
 					insert.setLong(1, userId);
 					insert.setLong(2, event.getId());

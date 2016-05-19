@@ -43,9 +43,10 @@ public class RegionServiceImpl implements RegionService, CityService {
 	}
 
 	@Override
-	public void delete(Long idRegionDTO) {
+	public Boolean delete(Long idRegionDTO) {
 		this.cityDAO.deleteCity(idRegionDTO);
-		this.regionDAO.deleteRegion(idRegionDTO);
+		boolean condition = this.regionDAO.deleteRegion(idRegionDTO);
+		return condition;
 	}
 	
 	@Override

@@ -229,5 +229,13 @@ public abstract class TestScenario extends TestBase {
 		}
 		return users;
 	}
+	
+	public List<RegionDTO> getRegionsDTO(Long...ids) {
+		List<RegionDTO> regions = Lists.newArrayList();
+		for (Long id: ids) {
+			regions.add(this.regionsDTO.get(id));
+		}
+		return regions;
+	}
 }
 

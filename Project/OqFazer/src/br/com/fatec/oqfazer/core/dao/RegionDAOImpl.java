@@ -49,15 +49,18 @@ public class RegionDAOImpl implements RegionDAO{
 	}
 
 	@Override
-	public void deleteRegion(Long id) {
+	public Boolean deleteRegion(Long id) {
 		Connection conn = null;
 		PreparedStatement delete = null;
+		boolean condition = false;
 		try{
 			conn = ConfigDBMapper.getDefaultConnection();
 			String sql = "DELETE FROM "+ Region.TABLE + " WHERE RGN_ID = ?;";
 			delete = conn.prepareStatement(sql);
 			delete.setLong(1, id);
 			delete.execute();
+			condition = true;
+			return condition;
 		}catch (Exception e) {
 			throw new RuntimeException(e);
 		} finally {

@@ -85,8 +85,10 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 		event.setRegistration_date(eventDTO.getRegistration_date());
 		event.setLocal(eventDTO.getLocal());
 		event.setImageURL(event.getImageURL());
-		event.setRegion(this.regionDTOConverter.toEntity(eventDTO.getRegion()));
-		event.setOwner(this.userDTOConverter.toEntity(eventDTO.getOwner()));		
+		if (eventDTO.getRegion() != null) event.setRegion(this.regionDTOConverter.toEntity(eventDTO.getRegion()));
+		else event.setRegion(null);
+		if (eventDTO.getOwner() != null) event.setOwner(this.userDTOConverter.toEntity(eventDTO.getOwner()));
+		else event.setOwner(null);
 		return event;
 	}
 

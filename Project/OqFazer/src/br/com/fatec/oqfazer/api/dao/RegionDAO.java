@@ -7,7 +7,7 @@ public interface RegionDAO {
 	
 	Long insertRegion(Region region);
 	
-	void deleteRegion(Long id);
+	Boolean deleteRegion(Long id);
 	
 	void updateRegion(Region region);
 	
