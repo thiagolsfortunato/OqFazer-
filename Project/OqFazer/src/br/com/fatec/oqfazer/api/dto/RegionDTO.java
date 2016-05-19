@@ -10,7 +10,7 @@ public class RegionDTO {
 	
 	private Long id;
 	private String name;
-	private List<String> cities = Lists.newArrayList();
+	private List<CityDTO> cities = Lists.newArrayList();
 	private List<RegionDTO> regions = Lists.newArrayList();
 	
 	//atribute screen
@@ -39,11 +39,11 @@ public class RegionDTO {
 		this.name = name;
 	}
 
-	public List<String> getCities() {
+	public List<CityDTO> getCities() {
 		return cities;
 	}
 
-	public void setCities(List<String> cities) {
+	public void setCities(List<CityDTO> cities) {
 		this.cities = cities;
 	}
 	

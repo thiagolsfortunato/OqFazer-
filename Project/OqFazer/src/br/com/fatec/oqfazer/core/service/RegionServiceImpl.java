@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
+import br.com.fatec.oqfazer.api.dto.CityDTO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
 import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
@@ -65,22 +66,14 @@ public class RegionServiceImpl implements RegionService, CityService {
 	}
 
 	@Override
-	public List<String> searchCityByRegionId(Long regionId) {
+	public List<CityDTO> searchCityByRegionId(Long regionId) {
 		List<City> cities = this.cityDAO.searchCityByRegionId(regionId);
-		List<String> citiesNome = Lists.newArrayList();
-		for (City city : cities) {
-			citiesNome.add(city.getNome());
-		}
-		return citiesNome;
+		return this.regionDTOConverter.toStringCity(cities);
 	}
 
 	@Override
-	public List<String> searchAllCities(){
-		List<City> cities = this.cityDAO.searchAllCity();
-		List<String> citiesNome = Lists.newArrayList();
-		for (City city : cities) {
-			citiesNome.add(city.getNome());
-		}
-		return citiesNome;
+	public List<CityDTO> searchAllCities(){
+		List<City> cities = Lists.newArrayList(City.values());
+		return this.regionDTOConverter.toStringCity(cities);
 	}
 }
