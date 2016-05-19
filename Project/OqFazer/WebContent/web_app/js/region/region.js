@@ -1,27 +1,35 @@
 var app = angular.module('fatec');
 
-app.controller('RegionController', function($scope, $http, $timeout) {
+app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionService', 
+                                 function($scope,$http,$timeout,$sce, regionService) {
 
-	var urlPath = "http://localhost:8085/OqFazer/Region!";
 	TelaHelper.tela = 'region';
 	$scope.regions = [];
 	$scope.cities = [];
+	$scope.citiesRegion = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.region = {};
+	$scope.insertCities = _insertCities;
 
+	
+	function _insertCities(city){
+		$scope.citiesRegion.push(city);
+	}
+	
+	function init(){
+		$scope.loadRegions();
+		$scope.loadCities();
+	}
+	
 	$scope.loadRegions = function() {
-		$http.get(urlPath + 'searchAll.action', {
-			cache : false
-		}).success(function(response) {
+		regionService.searchAll().then(function (response){
 			buildList(response);
 		});
 	};
 	
 	$scope.loadCities = function() {
-		$http.get(urlPath + 'searchAllCities.action', {
-			cache : false
-		}).success(function(response) {
+		regionService.searchAllCities().then(function (response){
 			buildListCities(response);
 		});
 	};
@@ -34,20 +42,11 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 			}
 		};
 		
-		var data1 = JSON.stringify(data);
-		console.log(data1);
-		jQuery.ajax({
-			url : urlPath + 'insert.action',
-			data : data1,
-			dataType : 'json',
-			contentType : 'application/json',
-			type : 'POST',
-			async : true,
-			success : function(response) {
-				$scope.cancelModal();
-				buildList(response);
-			}
-		});
+		regionService.insert(data).then(function(response){
+			$scope.region = null;
+			$scope.loadRegions();
+			$scope.cancelModal();
+		})
 	};
 
 	$scope.deleta = function(id) {
@@ -57,18 +56,10 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 			}
 		};
 
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-			url : urlPath + 'delete.action',
-			data : data1,
-			dataType : 'json',
-			contentType : 'application/json',
-			type : 'POST',
-			async : false,
-			success : function(response) {
-				$scope.id = null;
-				buildList(response);
-			}
+		regionService.deleta(data).then(function(response){
+			$scope.id = null;
+			$scope.region = null;
+			$scope.loadRegions();
 		});
 	}
 
@@ -91,38 +82,28 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 				}
 			};
 			
-			var data1 = JSON.stringify(data);
-			jQuery.ajax({
-				url : urlPath + 'update.action',
-				data : data1,
-				dataType : 'json',
-				contentType : 'application/json',
-				type : 'POST',
-				async : false,
-				success : function(response) {
-					console.log(response);
-					$scope.region = response.context.region;
-					$scope.cities = angular.copy($scope.region.cities);
-					id = null;
-				}
+			regionService.update(data).then(function(response){
+				$scope.citiesRegion = null;
+				$scope.region = response.context.region;
+				$scope.citiesRegion = angular.copy($scope.region.cities);
+				id = null;
 			});
 		}
 	}
-	
-	
+
 	$scope.cancelModal = function() {
 		$scope.region = {};
 		closeModal();
 	};
 
 	function buildList(response) {
-		$scope.regions = response.context.regions;
+		$scope.regions = response.data.context.regions;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
 	
 	function buildListCities(response) {
-		$scope.cities = response.context.cities;
+		$scope.cities = response.data.context.cities;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -136,4 +117,4 @@ app.controller('RegionController', function($scope, $http, $timeout) {
 		$scope.loadCities();
 	}, 0);
 	
-});
+}]);

@@ -1,7 +1,7 @@
 var app = angular.module('fatec');
 
-app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService', 
-                                 function($scope,$htpp,$timeout,$sce, userService) {
+app.controller('UserController',['$scope','$http','$timeout','$sce','UserService', 
+                                 function($scope,$http,$timeout,$sce, userService) {
 	
 	TelaHelper.tela = 'user';
 	$scope.user = {};
@@ -16,20 +16,29 @@ app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService
 	}
 	
 	$scope.loadUsers = function() {
-		userService.userSearchAll().then(function (response){
+		userService.searchAll().then(function (response){
 			$scope.buildList(response);
 		});
 	};
 
+	$scope.openModal = function(id, flag) {
+		if(flag == "update"){
+			$scope.update(id);
+		}else{
+			$scope.user = null;
+		}
+		jQuery('#modalForm').modal('show');
+	};
 	
 	$scope.insert = function() {
 		var data = {context : {
 			user : $scope.user
 		}};
 		
-		userService.userInsert(data),then(function(response){
+		userService.insert(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
+			$scope.cancelModal();
 		})
 	};
 	
@@ -38,7 +47,7 @@ app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService
 			user : {id : id}
 		}};
 		
-		userService.userDelete(data),then(function(response){
+		userService.deleta(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
 		})
@@ -48,29 +57,20 @@ app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService
 		var data = {context : {
 			user : {id : id}
 		}};
-		
-		userService.upate(data), then(function(response){
-			$scope.region = response.context.region;
+		console.log(data);
+		userService.update(data).then(function(response){
+			$scope.user = response.context.user;
 		})
 	};
 	
-	$scope.openModal = function(id, flag) {
-		if(flag == "update"){
-			$scope.update(id);
-		}else{
-			$scope.user = null;
-			$scope.loadCities();
-		}
-		jQuery('#modalForm').modal('show');
-	};
-
 	$scope.cancelModal = function() {
 		$scope.user = {};
 		closeModal();
 	};
 
 	function _buildList(response) {
-		$scope.users = response.context.users;
+		$scope.users = response.data.context.users;
+		console.log($scope.users);
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -83,5 +83,5 @@ app.controller('UserController',['$scope','$htpp','$timeout','$sce','UserService
 		$scope.loadUsers();
 	}, 0);
 	
-	init()
+	init();
 }]);
