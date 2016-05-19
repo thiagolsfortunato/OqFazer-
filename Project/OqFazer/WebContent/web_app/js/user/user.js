@@ -16,7 +16,7 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 	}
 	
 	$scope.loadUsers = function() {
-		userService.userSearchAll().then(function (response){
+		userService.searchAll().then(function (response){
 			$scope.buildList(response);
 		});
 	};
@@ -35,7 +35,7 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 			user : $scope.user
 		}};
 		
-		userService.userInsert(data).then(function(response){
+		userService.insert(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
 			$scope.cancelModal();
@@ -47,7 +47,7 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 			user : {id : id}
 		}};
 		
-		userService.userDelete(data).then(function(response){
+		userService.deleta(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
 		})
@@ -58,7 +58,7 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 			user : {id : id}
 		}};
 		console.log(data);
-		userService.userUpdate(data).then(function(response){
+		userService.update(data).then(function(response){
 			$scope.user = response.context.user;
 		})
 	};

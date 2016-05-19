@@ -5,10 +5,10 @@ app.factory('UserService', ['$http',function ($http) {
 	var urlPath = "http://localhost:8085/OqFazer/User!";
 	
     return {
-        userInsert : _userInsert,
-        userUpdate : _userUpdate,
-        userDelete : _userDelete,
-        userSearchAll : _userSearchAll
+        insert : _userInsert,
+        update : _userUpdate,
+        deleta : _userDelete,
+        searchAll : _userSearchAll
     };
     
     function _userSearchAll(){
