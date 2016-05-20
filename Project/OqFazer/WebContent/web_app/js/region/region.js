@@ -15,12 +15,17 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 
 	
 	function _insertCities(city) {
-		for (var c in $scope.citiesRegion) {
-			if(city.name == c.name){
-				return;
+		console.log('aqui');
+		var found = 0;
+		if($scope.citiesRegion == null) $scope.citiesRegion.push(city);
+		for (c in $scope.citiesRegion) {
+			if(city.name == $scope.citiesRegion[c].name){
+				found++;
 			}
-			$scope.citiesRegion.push(city);
-		}		
+		}
+		if(found == 0){
+			$scope.citiesRegion.push(city)
+		}
 	}
 	
 	function _deleteCities(index){
@@ -45,16 +50,17 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 	};
 
 	$scope.insert = function() {
-		$scope.cities.push($scope.region);
+		$scope.region.cities = angular.copy($scope.citiesRegion);
 		var data = {
 			context : {
 				region : $scope.region
 			}
 		};
 		
+		console.log(data);
 		regionService.insert(data).then(function(response){
 			$scope.region = null;
-			$scope.region.cities = angular.copy($scope.citiesRegion);
+			$scope.citiesRegion = null;
 			$scope.loadRegions();
 			$scope.cancelModal();
 		})
