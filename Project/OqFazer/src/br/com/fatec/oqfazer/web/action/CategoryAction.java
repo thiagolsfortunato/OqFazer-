@@ -15,31 +15,31 @@ public class CategoryAction extends OqFazerWebAction {
 	private CategoryService service;
 	
 	public CategoryAction() {
-		this.service = ImplFinder.getFinalImpl(CategoryService.class);
+		this.service = ImplFinder.getImpl(CategoryService.class);
 	}
 	
 	public String searchAll(){
-		this.context.setCategoriesDTO(this.service.searchAll());
+		this.context.setCategories(this.service.searchAll());
 		return IT_WORKED;
 	}
 	
 	public String insert(){
-		if(this.context.getCategoryDTO().getId() != null){
-			this.service.update(this.context.getCategoryDTO());
+		if(this.context.getCategory().getId() != null){
+			this.service.update(this.context.getCategory());
 		}else{
-			this.service.insert(this.context.getCategoryDTO());
+			this.service.insert(this.context.getCategory());
 		}
 		return this.searchAll();
 	}
 	
 	public String update(){
-		CategoryDTO categoryDTO = this.service.searchById(this.context.getCategoryDTO().getId());
-		this.context.setCategoryDTO(categoryDTO);
+		CategoryDTO categoryDTO = this.service.searchById(this.context.getCategory().getId());
+		this.context.setCategory(categoryDTO);
 		return this.searchAll();
 	}
 	
 	public String delete(){
-		this.service.delete(this.context.getCategoryDTO().getId());
+		this.service.delete(this.context.getCategory().getId());
 		return this.searchAll();
 	}
 

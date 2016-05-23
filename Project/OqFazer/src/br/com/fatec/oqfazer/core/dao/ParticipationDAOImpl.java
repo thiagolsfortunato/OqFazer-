@@ -5,14 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Collections;
 import java.util.List;
+
 import org.apache.commons.dbutils.DbUtils;
+
 import com.google.common.collect.Lists;
-import br.com.fatec.oqfazer.api.dao.Participation;
+
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.dbmapper.ConfigDBMapper;
 
-public class ParticipationDAOImpl implements Participation {
+public class ParticipationDAOImpl implements ParticipationDAO {
 
 	public static final String TABLE = "PARTICIPATION";
 	public static final String COL_ID_EVENT = "PTC_EVENT_ID";
@@ -109,17 +112,18 @@ public class ParticipationDAOImpl implements Participation {
 	public void updateEventParticipations(long userId, List<Event> events) {
 		if(!events.isEmpty()){
 			events.removeAll(Collections.singleton(null));
-			Connection conn = ConfigDBMapper.getDefaultConnection();
+			Connection conn = null;
 			PreparedStatement delete = null;
 			PreparedStatement insert = null;
 			try{
-				String sqlDelete = "DELETE * FROM "+ TABLE +" WHERE "+ COL_ID_USER +" = ?";
+				conn = ConfigDBMapper.getDefaultConnection();
+				String sqlDelete = "DELETE FROM "+ TABLE +" WHERE "+ COL_ID_USER +" = ?;";
 				delete = conn.prepareStatement(sqlDelete);
 				delete.setLong(1, userId);
 				delete.execute();
 				delete.close();
 				for (Event event : events) {
-					String sqlInsert = "INSERT INTO "+ TABLE + " VALUES (?,?)";
+					String sqlInsert = "INSERT INTO "+ TABLE + " (PTC_USER_ID, PTC_EVENT_ID) " + " VALUES (?,?)";
 					insert = conn.prepareStatement(sqlInsert);
 					insert.setLong(1, userId);
 					insert.setLong(2, event.getId());
@@ -143,7 +147,7 @@ public class ParticipationDAOImpl implements Participation {
 			PreparedStatement delete = null;
 			PreparedStatement insert = null;
 			try{
-				String sqlDelete = "DELETE * FROM "+ TABLE +" WHERE "+ COL_ID_EVENT +" = ?";
+				String sqlDelete = "DELETE FROM "+ TABLE +" WHERE "+ COL_ID_EVENT +" = ?";
 				delete = conn.prepareStatement(sqlDelete);
 				delete.setLong(1, eventId);
 				delete.execute();

@@ -1,0 +1,7 @@
+@import url("../comum/comum.css");
+
+div.conteudo {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 20%;
+}

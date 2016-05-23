@@ -93,7 +93,7 @@ public class CityDAOImpl implements CityDAO {
 			PreparedStatement delete = null;
 			PreparedStatement insert = null;
 			try {
-				String sqlDelete = "DELETE * FROM " + City.TABLE + " WHERE " + City.COL_ID + " = ?";
+				String sqlDelete = "DELETE FROM " + City.TABLE + " WHERE " + City.COL_ID + " = ?";
 				delete = conn.prepareStatement(sqlDelete);
 				delete.setLong(1, regionId);
 				delete.execute();

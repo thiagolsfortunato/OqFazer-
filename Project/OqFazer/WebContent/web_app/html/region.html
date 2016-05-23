@@ -1,42 +1,45 @@
 <html>
 <head>
-	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Regions</title>
-	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
-	<link rel="stylesheet" href="../css/login/login.css" ></link>
+<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Regions</title>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"></link>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap-select.min.css"></link>
+<link rel="stylesheet" href="../css/login/login.css"></link>
+<link rel="stylesheet" href="../css/region/region.css"></link>
 </head>
 <body ng-app="fatec">
-
+	<ng-include src="'administrator.html'"></ng-include>
 	<div ng-controller="RegionController" ng-cloak="true" class="conteudo">
-		<div id="tabela" class="tab-pane fade in active" ><br/>
-
-			<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
-				cellspacing="0" width="100%" at-table at-paginated at-list="regions" at-config="config">
-
+		<div id="tabela" class="tab-pane fade in active">
+			<br />
+			<table id="tabelaAngular"
+				class="table table-striped table-bordered table-responsive"
+				cellspacing="0" width="100%" at-table at-paginated at-list="regions"
+				at-config="config">
 				<thead>
 					<th>ID</th>
 					<th>Nome</th>
-					<th>Descrição</th>
-					<th colspan="2">
-					</th>
+					<th colspan="2"></th>
 				</thead>
 				<tbody>
-					<tr ng-repeat="region in regions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
-						ng-if="grupos.length != 0">
+					<tr
+						ng-repeat="region in regions.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
+						ng-if="regions.length != 0">
 						<td at-implicit at-sortable>{{ region.id }}</td>
 						<td at-implicit at-sortable>{{ region.name }}</td>
-						<td at-implicit at-sortable>{{ region.city.nama }}</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="openModal(region.id)" href="#" class="btn btn-danger btn-small">
-									<span class="glyphicon glyphicon-edit" title="Update"></span>
+								<a ng-click="openModal(region.id,'update')" href="#"
+									class="btn btn-danger btn-small"> <span
+									class="glyphicon glyphicon-edit" title="Update"></span>
 								</a>
 							</p>
 						</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="delete(region.id)" href="#" class="btn btn-danger btn-small">
-									<span class="glyphicon glyphicon-remove" title="Delete"></span>
+								<a ng-click="deleta(region.id)" href="#"
+									class="btn btn-danger btn-small"> <span
+									class="glyphicon glyphicon-remove" title="Delete"></span>
 								</a>
 							</p>
 						</td>
@@ -48,11 +51,13 @@
 					</tr>
 				</tbody>
 			</table>
-			<uib-pagination boundary-links="true" total-items="regions.length" ng-model="currentPage" 
-			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
-			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
-			<br/>
-			<button type="button" class="btn btn-primary" ng-click="openModal()">New Region</button>
+			<uib-pagination boundary-links="true" total-items="regions.length"
+				ng-model="currentPage" items-per-page="itemsPerPage"
+				class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;"
+				first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
+			<br />
+			<button type="button" class="btn btn-primary"
+				ng-click="openModal(0,'new')">New Region</button>
 			<div>
 				<div class="modal fade" id="modalForm" role="dialog">
 					<div class="modal-dialog">
@@ -63,20 +68,47 @@
 							<div class="modal-body">
 								<form role="form">
 									<div class="form-group">
-										<label for="nome">Name:</label>
-										<input type="text" class="form-control" ng-model="region.name">
+										<label for="nome">Name:</label> <input type="text"
+											class="form-control" ng-model="region.name">
 									</div>
 									<div class="form-group">
-										<label for="pwd">City:</label>
-										<input type="text" class="form-control" ng-model="region.city.name">
+										<label for="nome">City:</label>
+										<div class="row">
+											<div class="col-md-8">
+												<select class="form-control" width="70%" for="pwd" ng-model="city">Cities:
+													<option ng-repeat="(i, city) in cities" ng-value="city"">{{city}}</option>
+												</select>
+											</div>
+											<div class="col-md-4">
+												<button type="button" class="btn btn-success" ng-click="insertCities(city)">Add</button>
+											</div>
+										</div>
 									</div>
+									<table id="tabelaAngularCities"
+										class="table table-striped table-bordered table-responsive"
+										cellspacing="0" width="80%" at-table at-paginated
+										at-list="citiesRegion" at-config="config">
+										<thead>
+											<th>Cities</th>
+										</thead>
+										<tbody>
+											<tr	ng-repeat="city in citiesRegion" ng-if="regions.length != 0">
+												<td at-implicit at-sortable>{{city}}</td>
+											</tr>
+											<tr ng-if="citiesRegion.length == 0">
+												<td colspan="5" class="semRegistros">
+													<p>No Cities</p>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+
+
 								</form>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" 
-									ng-click="cancelModal()">Cancel</button>
-								<button type="button" class="btn btn-success" 
-									ng-click="insert()">Save</button>
+								<button type="button" class="btn btn-danger" ng-click="cancelModal()">Cancel</button>
+								<button type="button" class="btn btn-success" ng-click="insert()">Save</button>
 							</div>
 						</div>
 					</div>
@@ -84,12 +116,16 @@
 			</div>
 		</div>
 	</div>
+
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
 	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
+	<script type="text/javascript" src="../js/Service/Region.service.js"></script>
 	<script type="text/javascript" src="../js/region/region.js"></script>
 	<script type="text/javascript" src="../js/login/login.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript"
+		src="../bootstrap/js/bootstrap-select.min.js"></script>
 </body>
 </html>

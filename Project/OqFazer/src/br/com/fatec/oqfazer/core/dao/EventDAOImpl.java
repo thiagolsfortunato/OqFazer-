@@ -187,6 +187,7 @@ public class EventDAOImpl implements EventDAO{
 		try{
 			String sql = "SELECT * FROM "+ Event.TABLE +" WHERE "+ Event.COL_OWNER_ID+" = ? ORDER BY "+Event.COL_ID;
 			search = conn.prepareStatement(sql);
+			search.setLong(1, idUser);
 			ResultSet rs = search.executeQuery();
 			if(rs != null){
 				events = this.buildEvents(rs);

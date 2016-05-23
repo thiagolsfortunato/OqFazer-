@@ -3,19 +3,27 @@
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>OqFazer</title>
 	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/comum/comum.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/login/login.css"></link>
 </head>
 <body ng-app="fatec">
+ 	<div class="index">
+		<div ng-controller="LoginController">
+			<ng-include src="'login.html'"></ng-include>
+			<ng-include src="'administrator.html'"></ng-include>
+			<ng-include src="'event.html'"></ng-include>
+		</div>		
+	</div>
 	
-		<ng-include src="'administrator.html'"></ng-include>	
-
+	<ng-include src="'template/footer.html'"></ng-include>
 	
 	<script type="text/javascript" src="../js/angular.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
-	<script type="text/javascript" src="../js/user/user.js"></script>
 	<script type="text/javascript" src="../js/login/login.js"></script>
+	<script type="text/javascript" src="../js/event/event.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+
 </body>
 </html>

@@ -55,16 +55,16 @@ public class CategoryDTO {
 		return this.categories;
 	}
 
-	public void setCategories(List<CategoryDTO> categoriesDTO) {
-		this.categories = categoriesDTO;
+	public void setCategories(CategoryDTO categoryDTO) {
+		this.categories.add(categoryDTO);
 	}
 	
 	public Set<Long> getCategoriesChildren(){
 		return this.categoriesChildren;
 	}
 	
-	public void setCategoriesChildren (Set<Long> categoriesChildren) {
-		this.categoriesChildren = categoriesChildren;
+	public void setCategoriesChildren (Long categoryChild) {
+		this.categoriesChildren.add(categoryChild);
 	}
 	
 }

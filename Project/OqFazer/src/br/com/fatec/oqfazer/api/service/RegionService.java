@@ -9,7 +9,7 @@ public interface RegionService {
 	
 	void update(RegionDTO regionDTO);
 	
-	void delete(Long idRegionDTO);
+	Boolean delete(Long idRegionDTO);
 	
 	void delete(RegionDTO regionDTO);
 	

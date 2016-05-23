@@ -1,24 +1,22 @@
-<nav class="navbar navbar-default"
->
+<nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<ul class="nav navbar-nav">
 		
-			<!-- Uma expressão agular '{{CONTEUDO}}' serve para executarmos código 
-				angular em qualquer parte do HTML, aqui é chamada a função isAtivo do 
-				LoginController, login.js linha 28  -->
-				
-				
-			<li class="{{isAtivo('events')}}">
-				<a href="../event.html">Events</a>
+		<!-- Uma expressão agular '{{CONTEUDO}}' serve para executarmos código 
+			angular em qualquer parte do HTML, aqui é chamada a função isAtivo do 
+			LoginController, login.js linha 28  -->
+			
+			<li class="{{isActive('events')}}">
+				<a href="event.html">Events</a>
 			</li>
-			<li class="{{isAtivo('users')}}">
-				<a href="../user.html">Users</a>
+			<li class="{{isActive('users')}}">
+				<a href="user.html">Users</a>
 			</li>
-			<li class="{{isAtivo('Category')}}">
-				<a href="../category.html">Category</a>
+			<li class="{{isActive('Category')}}">
+				<a href="category.html">Category</a>
 			</li>
-			<li class="{{isAtivo('Region')}}">
-				<a href="../region.html">Region</a>
+			<li class="{{isActive('Region')}}">
+				<a href="region.html">Region</a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

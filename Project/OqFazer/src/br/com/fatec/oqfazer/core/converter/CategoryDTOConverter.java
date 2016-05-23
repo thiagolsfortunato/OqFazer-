@@ -27,18 +27,21 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	
 	public CategoryDTO toDTO(Category entityCategory, boolean convertDependences){
 		CategoryDTO dtoCategory = this.toDTOSimple(entityCategory);
+		dtoCategory.setCategories(dtoCategory);
 		Long id = entityCategory.getId();
 		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategoriesChildren(id);
 			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
 			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
 			
-			Set<Long> categoriesChildren = Sets.newLinkedHashSet();
-			for (CategoryDTO dto: categoriesDTO){
-				categoriesChildren.add(dto.getId());
+			if (categoriesDTO != null){
+				for (CategoryDTO dto: categoriesDTO){
+					dtoCategory.setCategoriesChildren(dto.getId());
+				}
 			}
-			
-			dtoCategory.setCategoriesChildren(categoriesChildren);
+			CategoryDTO dtoParent = new CategoryDTO();
+			dtoParent.setId(entityCategory.getParent());
+			dtoParent.setCategoriesChildren(entityCategory.getId());
 		}
 		return dtoCategory;
 	}

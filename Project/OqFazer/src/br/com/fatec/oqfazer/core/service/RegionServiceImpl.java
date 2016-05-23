@@ -2,19 +2,23 @@ package br.com.fatec.oqfazer.core.service;
 
 import java.util.List;
 
+import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
+import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
+import br.com.fatec.oqfazer.api.service.CityService;
 import br.com.fatec.oqfazer.api.service.RegionService;
 import br.com.fatec.oqfazer.core.converter.RegionDTOConverter;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 
-public class RegionServiceImpl implements RegionService{
+public class RegionServiceImpl implements RegionService, CityService {
 	
 	private RegionDAO regionDAO;
-	private RegionDTOConverter regionDTOConverter;
 	private CityDAO cityDAO;
+	private RegionDTOConverter regionDTOConverter;
 	
 	public RegionServiceImpl() {
 		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
@@ -26,7 +30,7 @@ public class RegionServiceImpl implements RegionService{
 	public RegionDTO insert(RegionDTO regionDTO){
 		Region region = this.regionDTOConverter.toEntity(regionDTO);
 		Long id = this.regionDAO.insertRegion(region);
-		this.cityDAO.insertCity(id, regionDTO.getCities());
+		this.cityDAO.insertCity(id, this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
 		regionDTO.setId(id);
 		return regionDTO;
 	}
@@ -35,21 +39,22 @@ public class RegionServiceImpl implements RegionService{
 	public void update(RegionDTO regionDTO) {
 		Region region = this.regionDTOConverter.toEntity(regionDTO);
 		this.regionDAO.updateRegion(region);
-		this.cityDAO.updateCity(region.getId(), regionDTO.getCities());
+		this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
 	}
 
 	@Override
-	public void delete(Long idRegionDTO) {
-		this.regionDAO.deleteRegion(idRegionDTO);
+	public Boolean delete(Long idRegionDTO) {
 		this.cityDAO.deleteCity(idRegionDTO);
+		boolean condition = this.regionDAO.deleteRegion(idRegionDTO);
+		return condition;
 	}
 	
 	@Override
 	public void delete(RegionDTO regionDTO) {
 		this.regionDAO.deleteRegion(regionDTO.getId());
-		this.cityDAO.deleteCity(regionDTO.getId(), regionDTO.getCities());
+		this.cityDAO.deleteCity(regionDTO.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
 	}
-
+	
 	@Override
 	public List<RegionDTO> searchAll() {
 		return this.regionDTOConverter.toDTO(this.regionDAO.searchAllRegions());
@@ -60,4 +65,23 @@ public class RegionServiceImpl implements RegionService{
 		return this.regionDTOConverter.toDTO(this.regionDAO.searchRegionById(idRegionDTO));
 	}
 
+	@Override
+	public List<String> searchCityByRegionId(Long regionId) {
+		List<City> cities = this.cityDAO.searchCityByRegionId(regionId);
+		List<String> citiesNome = Lists.newArrayList();
+		for (City city : cities) {
+			citiesNome.add(city.getNome());
+		}
+		return citiesNome;
+	}
+
+	@Override
+	public List<String> searchAllCities(){
+		List<City> cities = this.cityDAO.searchAllCity();
+		List<String> citiesNome = Lists.newArrayList();
+		for (City city : cities) {
+			citiesNome.add(city.getNome());
+		}
+		return citiesNome;
+	}
 }

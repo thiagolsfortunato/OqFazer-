@@ -5,7 +5,7 @@ import java.util.List;
 
 import br.com.fatec.oqfazer.api.dao.EventCategory;
 import br.com.fatec.oqfazer.api.dao.EventDAO;
-import br.com.fatec.oqfazer.api.dao.Participation;
+import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dto.CategoryDTO;
 import br.com.fatec.oqfazer.api.dto.EventDTO;
 import br.com.fatec.oqfazer.api.dto.UserDTO;
@@ -22,7 +22,7 @@ public class EventServiceImpl implements EventService{
 	
 	private EventDAO eventDao;
 	private EventCategory eventCategory;
-	private Participation participation;	
+	private ParticipationDAO participation;	
 	
 	private EventDTOConverter eventConverter;
 	private CategoryDTOConverter categoryConverter;
@@ -31,7 +31,7 @@ public class EventServiceImpl implements EventService{
 	public EventServiceImpl(){
 		this.eventDao = ImplFinder.getImpl(EventDAO.class);
 		this.eventCategory = ImplFinder.getImpl(EventCategory.class);
-		this.participation = ImplFinder.getImpl(Participation.class);
+		this.participation = ImplFinder.getImpl(ParticipationDAO.class);
 		
 		this.eventConverter = ImplFinder.getFinalImpl(EventDTOConverter.class);
 		this.categoryConverter = ImplFinder.getFinalImpl(CategoryDTOConverter.class);
