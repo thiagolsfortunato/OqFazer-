@@ -102,7 +102,7 @@ public class CityDAOImpl implements CityDAO {
 					String sqlInsert = "INSERT INTO " + City.TABLE + " VALUES (?,?)";
 					insert = conn.prepareStatement(sqlInsert);
 					insert.setLong(1, regionId);
-					insert.setString(2, city.getNome());
+					insert.setString(2, city.name());
 					insert.execute();
 				}
 			} catch (Exception e) {

@@ -20,4 +20,6 @@ public interface EventDAO {
 	List<Long> searchEvents(Long id);
 
 	List<Event> searchEventsByIdUser(Long idUser);
+	
+	List<Event> searchEvenstsByIdRegion(Long idRegion);
 }
