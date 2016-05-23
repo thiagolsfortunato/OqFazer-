@@ -38,12 +38,11 @@ public class UserServiceTest extends TestScenario {
 	public void delete(){
 		UserDTO dto = this.usersDTO.get(3l);
 		dto.setMyEvents(this.getEvents(3l));
+		dto.setParticipationEvents(this.getEvents(3l));
 		
 		UserDTO saved = this.userService.insert(dto);
 		
 		this.userService.delete(saved.getId());
-		
-		Assert.assertEquals(null, saved.getId());
 	}
 	
 	@Test
@@ -68,8 +67,8 @@ public class UserServiceTest extends TestScenario {
 		List<UserDTO> users = this.userService.searchAll();
 		
 		Assert.assertEquals(3, users.size());
-		Assert.assertEquals("William", users.get(0).getName());
-		Assert.assertEquals("Thiago", users.get(1).getName());
-		Assert.assertEquals("Carlos", users.get(2).getName());
+		Assert.assertEquals("user1", users.get(0).getName());
+		Assert.assertEquals("user2", users.get(1).getName());
+		Assert.assertEquals("user3", users.get(2).getName());
 	}
 }
