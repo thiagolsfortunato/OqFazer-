@@ -25,7 +25,7 @@
 					<tr ng-repeat="category in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
 						ng-if="category.length != 0">
 						<td at-implicit at-sortable>{{ category.id }}</td>
-						<td at-implicit at-sortable>{{ category.nome }}</td>
+						<td at-implicit at-sortable>{{ category.name }}</td>
 						<td at-implicit at-sortable>{{ category.category.nome }}</td>
 						<td class="btnCell">
 							<p>
@@ -90,6 +90,7 @@
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
 	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
+	<script type="text/javascript" src="../js/Service/Category.service.js"></script>
 	<script type="text/javascript" src="../js/category/category.js"></script>
 	<script type="text/javascript" src="../js/login/login.js"></script>
 	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>

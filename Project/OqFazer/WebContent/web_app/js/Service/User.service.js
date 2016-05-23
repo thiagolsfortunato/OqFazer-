@@ -58,7 +58,6 @@ app.factory('UserService', ['$http',function ($http) {
     function _userUpdate(id){
     	var promess;
     	var data = JSON.stringify(id);
-    	console.log(id);
     	promess = jQuery.ajax({
 				    url: urlPath + 'update.action',
 				    data: data,
