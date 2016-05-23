@@ -3,6 +3,7 @@ package br.com.fatec.oqfazer.web.context;
 import java.io.Serializable;
 import java.util.List;
 
+import br.com.fatec.oqfazer.api.dto.CityDTO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
 import br.com.fatec.oqfazer.api.entity.City;
 
@@ -13,7 +14,7 @@ public class ContextRegion implements Serializable{
 	
 	private RegionDTO region;
 	private List<RegionDTO> regions;
-	private List<String> cities;
+	private List<CityDTO> cities;
 	
 	public RegionDTO getRegion() {
 		return region;
@@ -31,11 +32,11 @@ public class ContextRegion implements Serializable{
 		this.regions = regions;
 	}
 
-	public List<String> getCities() {
+	public List<CityDTO> getCities() {
 		return cities;
 	}
 
-	public void setCities(List<String> cities) {
+	public void setCities(List<CityDTO> cities) {
 		this.cities = cities;
 	}
 }

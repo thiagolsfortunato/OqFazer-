@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
+import br.com.fatec.oqfazer.api.dto.CityDTO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
 import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.entity.Region;
@@ -66,22 +67,21 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return regionsDTO;
 	}
 	
-	public List<City> toEntityCity (List<String> citiesString){
+	public List<City> toEntityCity (List<CityDTO> citiesString){
 		List<City> cities = Lists.newArrayList();
-		for (City city : City.values()) {
-			for(String cityString : citiesString){
-				if(city.getNome().equals(cityString)){
-					cities.add(city);
-				}		
-			}
+		for(CityDTO cityString : citiesString){
+			cities.add(City.valueOf(cityString.getName()));
 		}
 		return cities;
 	}
 
-	public List<String> toStringCity (List<City> citiesEnum){
-		List<String> cities = Lists.newArrayList();
+	public List<CityDTO> toStringCity (List<City> citiesEnum){
+		List<CityDTO> cities = Lists.newArrayList();
 		for (City city : citiesEnum) {
-			cities.add(city.getNome());
+			CityDTO cityDTO = new CityDTO();
+			cityDTO.setName(city.name());
+			cityDTO.setNome(city.getNome());
+			cities.add(cityDTO);
 		}
 		return cities;
 	}

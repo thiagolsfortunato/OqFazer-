@@ -11,10 +11,25 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 	$scope.itemsPerPage = 5
 	$scope.region = {};
 	$scope.insertCities = _insertCities;
+	$scope.deleteCities = _deleteCities;
 
 	
-	function _insertCities(city){
-		$scope.citiesRegion.push(city);
+	function _insertCities(city) {
+		console.log('aqui');
+		var found = 0;
+		if($scope.citiesRegion == null) $scope.citiesRegion.push(city);
+		for (c in $scope.citiesRegion) {
+			if(city.name == $scope.citiesRegion[c].name){
+				found++;
+			}
+		}
+		if(found == 0){
+			$scope.citiesRegion.push(city)
+		}
+	}
+	
+	function _deleteCities(index){
+		$scope.citiesRegion.splice(index,1);
 	}
 	
 	function init(){
@@ -35,15 +50,17 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 	};
 
 	$scope.insert = function() {
-		$scope.cities.push($scope.region);
+		$scope.region.cities = angular.copy($scope.citiesRegion);
 		var data = {
 			context : {
 				region : $scope.region
 			}
 		};
 		
+		console.log(data);
 		regionService.insert(data).then(function(response){
 			$scope.region = null;
+			$scope.citiesRegion = null;
 			$scope.loadRegions();
 			$scope.cancelModal();
 		})
@@ -92,7 +109,8 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 	}
 
 	$scope.cancelModal = function() {
-		$scope.region = {};
+		$scope.region = null;
+		$scope.citiesRegion = null;
 		closeModal();
 	};
 
