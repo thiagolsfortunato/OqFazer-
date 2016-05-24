@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 		User entityUser = this.userConverter.toEntity(userDTO);
 		Long id = this.userDAO.insertUser(entityUser);
 		List<EventDTO> eventsList = userDTO.getParticipationEvents();
-		if (eventsList == null)
+		if (eventsList != null)
 			this.updateParticipations(id, eventsList);
 		userDTO.setId(id);
 		return userDTO;

@@ -176,26 +176,29 @@ public abstract class TestScenario extends TestBase {
 		Event event3 = new Event(null, "event3", "desc event3", new Date(), new Date(), "local evn3", "image2", this.regions.get(1l), this.users.get(3l));
 		
 		Long e1Id = this.eventDAO.inserEvent(event1);
+		this.participation.insertParticipation(e1Id, this.userDAO.searchUserById(e1Id).getId());
 		this.userParticipations.put(e1Id, this.userDAO.searchUserById(e1Id));
 		this.userParticipations.put(e1Id, this.userDAO.searchUserById(e1Id));
 		this.categoryEvent.put(e1Id, this.categoryDAO.searchCategoryById(e1Id));
 		this.events.put(1l, this.eventDAO.searchEventById(e1Id));
 		
 		Long e2Id = this.eventDAO.inserEvent(event2);
+		this.participation.insertParticipation(e2Id, this.userDAO.searchUserById(e2Id).getId());
 		this.userParticipations.put(e2Id, this.userDAO.searchUserById(e2Id));
 		this.userParticipations.put(e2Id, this.userDAO.searchUserById(e2Id));
 		this.categoryEvent.put(e2Id, this.categoryDAO.searchCategoryById(e2Id));		
 		this.events.put(2l, this.eventDAO.searchEventById(e2Id));
 				
 		Long e3Id = this.eventDAO.inserEvent(event3);
+		this.participation.insertParticipation(e3Id, this.userDAO.searchUserById(e3Id).getId());
 		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
 		this.userParticipations.put(e3Id, this.userDAO.searchUserById(e3Id));
 		this.categoryEvent.put(e3Id, this.categoryDAO.searchCategoryById(e3Id));	
 		this.events.put(3l, this.eventDAO.searchEventById(e3Id));
 		
-		this.eventsDTO.put(1l, this.eventDTOConverter.toDTOSimple(this.events.get(e1Id)));
-		this.eventsDTO.put(2l, this.eventDTOConverter.toDTOSimple(this.events.get(e2Id)));
-		this.eventsDTO.put(3l, this.eventDTOConverter.toDTOSimple(this.events.get(e3Id)));
+		this.eventsDTO.put(1l, this.eventDTOConverter.toDTO(this.events.get(e1Id)));
+		this.eventsDTO.put(2l, this.eventDTOConverter.toDTO(this.events.get(e2Id)));
+		this.eventsDTO.put(3l, this.eventDTOConverter.toDTO(this.events.get(e3Id)));
 	}
 	
 	protected List<EventDTO> getEvents(Long... ids){
@@ -228,6 +231,14 @@ public abstract class TestScenario extends TestBase {
 			users.add(this.usersDTO.get(id));
 		}
 		return users;
+	}
+	
+	public List<RegionDTO> getRegionsDTO(Long...ids) {
+		List<RegionDTO> regions = Lists.newArrayList();
+		for (Long id: ids) {
+			regions.add(this.regionsDTO.get(id));
+		}
+		return regions;
 	}
 }
 

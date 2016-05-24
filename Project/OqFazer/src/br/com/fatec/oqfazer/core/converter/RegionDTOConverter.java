@@ -21,7 +21,6 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		cityDao = ImplFinder.getImpl(CityDAO.class);
 	}
 	
-	@Override
 	public RegionDTO toDTO(Region region) {
 		RegionDTO regionDTO = this.toDTOSimple(region);
 		List<City> cities = cityDao.searchCityByRegionId(region.getId());
@@ -36,7 +35,6 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return regionDTO;
 	}
 
-	@Override
 	public Region toEntity(RegionDTO regionDTO) {
 		Region region = new Region();
 		region.setId(regionDTO.getId());
@@ -45,7 +43,6 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return region;
 	}
 
-	@Override
 	public List<Region> toEntity(List<RegionDTO> regionsDTO) {
 		List<Region> regions = Lists.newArrayList();
 		for(RegionDTO regionDTO : regionsDTO){
@@ -54,7 +51,6 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return regions;
 	}
 	
-	@Override
 	public List<RegionDTO> toDTO(List<Region> regions) {
 		return this.toDTO(regions, false);
 	}

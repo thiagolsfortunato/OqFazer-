@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import br.com.fatec.oqfazer.api.entity.City;
-
 public class RegionDTO {
 	
 	private Long id;
