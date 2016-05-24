@@ -29,8 +29,6 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		return TelaHelper.screen == screen ? 'active' : '';
 	};
 	
-	
-	
 	// função que realiza o login no sistema
 	$scope.doLogin = function() {
 		$scope.showMessageError = false;

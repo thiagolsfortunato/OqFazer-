@@ -70,7 +70,6 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 
 	function _buildList(response) {
 		$scope.users = response.data.context.users;
-		console.log($scope.users);
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}

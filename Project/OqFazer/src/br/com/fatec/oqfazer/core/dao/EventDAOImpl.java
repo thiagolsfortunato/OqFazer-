@@ -201,6 +201,29 @@ public class EventDAOImpl implements EventDAO{
 		return events;
 	}
 	
+	@Override
+	public List<Event> searchEvenstsByIdRegion(Long idRegion){
+		List<Event> events = Lists.newArrayList();
+		Connection conn = ConfigDBMapper.getDefaultConnection();
+		PreparedStatement search = null;
+		try{
+			String sql = "SELECT * FROM "+ Event.TABLE +" WHERE "+ Event.COL_REGION_ID +" = ? ORDER BY "+Event.COL_ID;
+			search = conn.prepareStatement(sql);
+			search.setLong(1, idRegion);
+			ResultSet rs = search.executeQuery();
+			if(rs != null){
+				events = this.buildEvents(rs);
+			}
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}finally{
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}
+		return events;
+		
+	}
+	
 	private Event buildEvent(ResultSet rs) throws SQLException{
 		Event event = new Event();
 		event.setId(rs.getLong(Event.COL_ID));

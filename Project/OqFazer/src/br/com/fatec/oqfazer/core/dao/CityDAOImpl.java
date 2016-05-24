@@ -102,7 +102,7 @@ public class CityDAOImpl implements CityDAO {
 					String sqlInsert = "INSERT INTO " + City.TABLE + " VALUES (?,?)";
 					insert = conn.prepareStatement(sqlInsert);
 					insert.setLong(1, regionId);
-					insert.setString(2, city.getNome());
+					insert.setString(2, city.name());
 					insert.execute();
 				}
 			} catch (Exception e) {
@@ -160,7 +160,29 @@ public class CityDAOImpl implements CityDAO {
 			DbUtils.closeQuietly(conn);
 		}
 	}
-
+	
+	@Override
+	public City searchCityByName(String name){
+		Connection conn = null;
+		PreparedStatement search = null;
+		try {
+			conn = ConfigDBMapper.getDefaultConnection();
+			String sql = "SELECT CTY_NAME FROM " + City.TABLE + " WHERE " + City.COL_NAME + " = ?";
+			search = conn.prepareStatement(sql);
+			search.setString(1, name);
+			ResultSet rs = search.executeQuery();
+			if(rs.next()){
+				return City.valueOf(rs.getString("CTY_NAME"));
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			DbUtils.closeQuietly(search);
+			DbUtils.closeQuietly(conn);
+		}		
+		return null;
+	}
+	
 	@Override
 	public List<City> searchAllCity() {
 		Connection conn = null;

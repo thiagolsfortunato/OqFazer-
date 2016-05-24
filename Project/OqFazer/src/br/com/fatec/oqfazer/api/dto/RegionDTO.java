@@ -12,7 +12,7 @@ public class RegionDTO {
 	private List<RegionDTO> regions = Lists.newArrayList();
 	
 	//atribute screen
-	private int option = 0;
+	private String erro = null;
 	
 	public RegionDTO(){};
 	
@@ -57,11 +57,11 @@ public class RegionDTO {
 		return "Region[" + this.id + " - " + this.name + " ]"; 
 	}
 
-	public int getOption() {
-		return option;
+	public String getErro() {
+		return erro;
 	}
 
-	public void setOption(int option) {
-		this.option = option;
+	public void setErro(String erro) {
+		this.erro = erro;
 	}
 }
