@@ -1,6 +1,9 @@
 package br.com.fatec.oqfazer.web.action;
 
+import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
+import br.com.fatec.oqfazer.api.entity.City;
 import br.com.fatec.oqfazer.api.service.CityService;
 import br.com.fatec.oqfazer.api.service.RegionService;
 import br.com.fatec.oqfazer.web.context.ContextRegion;
@@ -27,7 +30,7 @@ public class RegionAction extends OqFazerWebAction{
 	}
 	
 	public String searchAllCities(){
-		this.context.setCities(this.serviceCity.searchAllCities());
+		this.context.setCities(this.serviceCity.searchAllCities());		
 		return IT_WORKED;
 	}
 	

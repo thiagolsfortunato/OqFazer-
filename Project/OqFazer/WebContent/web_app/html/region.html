@@ -68,33 +68,38 @@
 							<div class="modal-body">
 								<form role="form">
 									<div class="form-group">
-										<label for="nome">Name:</label> <input type="text"
-											class="form-control" ng-model="region.name">
+										<label for="nome">Name:</label> <input type="text" 	class="form-control" ng-model="region.name">
 									</div>
 									<div class="form-group">
 										<label for="nome">City:</label>
 										<div class="row">
 											<div class="col-md-8">
-												<select class="form-control" width="70%" for="pwd" ng-model="city">Cities:
-													<option ng-repeat="(i, city) in cities" ng-value="city"">{{city}}</option>
-												</select>
+												<select class="form-control" ng-model="citySelected" width="70%" ng-options="city as city.nome for city in cities"></select>
 											</div>
 											<div class="col-md-4">
-												<button type="button" class="btn btn-success" ng-click="insertCities(city)">Add</button>
+												<button type="button" class="btn btn-success" ng-click="insertCities(citySelected)">Add</button>
 											</div>
 										</div>
 									</div>
-									<table id="tabelaAngularCities"
-										class="table table-striped table-bordered table-responsive"
-										cellspacing="0" width="80%" at-table at-paginated
-										at-list="citiesRegion" at-config="config">
+									<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
+										   cellspacing="0" width="80%" at-table at-paginated at-list="citiesRegion" at-config="config">
 										<thead>
 											<th>Cities</th>
+											<th colspan="1"></th>
 										</thead>
 										<tbody>
-											<tr	ng-repeat="city in citiesRegion" ng-if="regions.length != 0">
-												<td at-implicit at-sortable>{{city}}</td>
+											<tr ng-repeat="city in citiesRegion track by $index" ng-if="citiesRegion.length != 0">
+												<td at-implicit at-sortable>{{city.nome}}</td>
+												<td class="btnCell">
+													<p>
+														<a ng-click="deleteCities($index)" href="#"
+															class="btn btn-danger btn-small"> <span
+															class="glyphicon glyphicon-remove" title="Delete"></span>
+														</a>
+													</p>
+												</td>
 											</tr>
+											
 											<tr ng-if="citiesRegion.length == 0">
 												<td colspan="5" class="semRegistros">
 													<p>No Cities</p>
@@ -102,13 +107,13 @@
 											</tr>
 										</tbody>
 									</table>
-
-
 								</form>
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" ng-click="cancelModal()">Cancel</button>
-								<button type="button" class="btn btn-success" ng-click="insert()">Save</button>
+								<button type="button" class="btn btn-danger"
+									ng-click="cancelModal()">Cancel</button>
+								<button type="button" class="btn btn-success"
+									ng-click="insert()">Save</button>
 							</div>
 						</div>
 					</div>
