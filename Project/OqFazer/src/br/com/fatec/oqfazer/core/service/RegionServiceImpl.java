@@ -32,36 +32,38 @@ public class RegionServiceImpl implements RegionService, CityService {
 	
 	@Override
 	public RegionDTO insert(RegionDTO regionDTO){
-		Region region = this.regionDTOConverter.toEntity(regionDTO);
-		Long id = this.regionDAO.insertRegion(region);
-		try{
+		if(this.cityNotRegistered(regionDTO.getCities())){
+			Region region = this.regionDTOConverter.toEntity(regionDTO);
+			Long id = this.regionDAO.insertRegion(region);
 			this.cityDAO.insertCity(id, this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
-		}catch(Exception e){
-			String[] a = e.getMessage().split(" ");
-			if(a[2].equals("constraint")){
-				regionDTO.setErro("Não foi possível salvar esta região, pois contem cidades ja cadastradas");
-			}
+			regionDTO.setId(id);
+		}else{
+			regionDTO.setErro("Cidade já cadastrada em outra Região");
 		}
-		regionDTO.setId(id);
 		return regionDTO;
 	}
 
 	@Override
 	public void update(RegionDTO regionDTO) {
-		Region region = this.regionDTOConverter.toEntity(regionDTO);
-		this.regionDAO.updateRegion(region);
-		this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+		List<CityDTO> newCities = Lists.newArrayList();
+		for (CityDTO cityDTO : regionDTO.getCities()) {
+			if(!cityDTO.getCreateSystem()) newCities.add(cityDTO);
+		}
+		
+		if(this.cityNotRegistered(newCities)){
+			Region region = this.regionDTOConverter.toEntity(regionDTO);
+			this.regionDAO.updateRegion(region);
+			this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+		}else{
+			regionDTO.setErro("Cidade já cadastrada em outra Região");
+		}
 	}
 
 	@Override
 	public void delete(Long idRegionDTO) {
 		if(this.eventDAO.searchEvenstsByIdRegion(idRegionDTO).isEmpty()){
 			this.cityDAO.deleteCity(idRegionDTO);
-			try{
-				this.regionDAO.deleteRegion(idRegionDTO);
-			}catch(Exception e){
-				System.out.println(e.getMessage());
-			}
+			this.regionDAO.deleteRegion(idRegionDTO);
 		}
 	}
 	
@@ -85,7 +87,11 @@ public class RegionServiceImpl implements RegionService, CityService {
 	@Override
 	public List<CityDTO> searchCityByRegionId(Long regionId) {
 		List<City> cities = this.cityDAO.searchCityByRegionId(regionId);
-		return this.regionDTOConverter.toStringCity(cities);
+		List<CityDTO> citiesDTO = this.regionDTOConverter.toStringCity(cities);
+		for (CityDTO cityDTO : citiesDTO) {
+			cityDTO.setCreateSystem(true);
+		}
+		return citiesDTO;
 	}
 
 	@Override
@@ -93,4 +99,15 @@ public class RegionServiceImpl implements RegionService, CityService {
 		List<City> cities = Lists.newArrayList(City.values());
 		return this.regionDTOConverter.toStringCity(cities);
 	}
+	
+	private boolean cityNotRegistered(List<CityDTO> cityDTO) {
+		List<City> cities = this.regionDTOConverter.toEntityCity(cityDTO);
+		for (City city : cities) {
+			if(this.cityDAO.searchCityByName(city.name()) != null){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }

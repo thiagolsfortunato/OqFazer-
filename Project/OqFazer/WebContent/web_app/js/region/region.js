@@ -57,8 +57,12 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 		};
 		
 		regionService.insert(data).then(function(response){
+			console.log(response);
+			if(response.context.region.erro != null){
+				alert(response.context.region.erro);
+			}			
 			$scope.region = {};
-			$scope.citiesRegion = [];
+			$scope.citiesRegion = null;
 			$scope.loadRegions();
 			$scope.cancelModal();
 		})
@@ -98,6 +102,10 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 			};
 			
 			regionService.update(data).then(function(response){
+				if(response.context.region.erro != null){
+					alert(response.context.region.erro);
+				}	
+				
 				$scope.citiesRegion = null;
 				$scope.region = response.context.region;
 				$scope.citiesRegion = angular.copy($scope.region.cities);

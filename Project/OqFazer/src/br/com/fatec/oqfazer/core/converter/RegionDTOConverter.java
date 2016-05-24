@@ -59,6 +59,7 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return this.toDTO(regions, false);
 	}
 	
+	
 	public List<RegionDTO> toDTOSimples(List<Region> regions) {
 		return this.toDTO(regions, true);
 	}
