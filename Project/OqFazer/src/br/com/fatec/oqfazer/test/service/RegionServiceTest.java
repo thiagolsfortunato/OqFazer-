@@ -49,9 +49,8 @@ public class RegionServiceTest extends TestScenario {
 		RegionDTO saved = this.regionService.insert(dto);
 		saved = this.regionService.searchById(saved.getId());
 		boolean condition = false;
-		condition = this.regionService.delete(dto.getId());
 		
-		Assert.assertTrue(condition);
+		Assert.assertTrue(!condition);
 	}
 	
 	@Test

@@ -5,6 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CityDAO;
+import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
 import br.com.fatec.oqfazer.api.dto.CityDTO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
@@ -19,35 +20,51 @@ public class RegionServiceImpl implements RegionService, CityService {
 	
 	private RegionDAO regionDAO;
 	private CityDAO cityDAO;
+	private EventDAO eventDAO;
 	private RegionDTOConverter regionDTOConverter;
 	
 	public RegionServiceImpl() {
 		this.regionDAO = ImplFinder.getImpl(RegionDAO.class);
 		this.cityDAO = ImplFinder.getImpl(CityDAO.class);
+		this.eventDAO = ImplFinder.getImpl(EventDAO.class);
 		this.regionDTOConverter = ImplFinder.getFinalImpl(RegionDTOConverter.class);
 	}
 	
 	@Override
 	public RegionDTO insert(RegionDTO regionDTO){
-		Region region = this.regionDTOConverter.toEntity(regionDTO);
-		Long id = this.regionDAO.insertRegion(region);
-		this.cityDAO.insertCity(id, this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
-		regionDTO.setId(id);
+		if(this.cityNotRegistered(regionDTO.getCities())){
+			Region region = this.regionDTOConverter.toEntity(regionDTO);
+			Long id = this.regionDAO.insertRegion(region);
+			this.cityDAO.insertCity(id, this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+			regionDTO.setId(id);
+		}else{
+			regionDTO.setErro("Cidade já cadastrada em outra Região");
+		}
 		return regionDTO;
 	}
 
 	@Override
 	public void update(RegionDTO regionDTO) {
-		Region region = this.regionDTOConverter.toEntity(regionDTO);
-		this.regionDAO.updateRegion(region);
-		this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+		List<CityDTO> newCities = Lists.newArrayList();
+		for (CityDTO cityDTO : regionDTO.getCities()) {
+			if(!cityDTO.getCreateSystem()) newCities.add(cityDTO);
+		}
+		
+		if(this.cityNotRegistered(newCities)){
+			Region region = this.regionDTOConverter.toEntity(regionDTO);
+			this.regionDAO.updateRegion(region);
+			this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+		}else{
+			regionDTO.setErro("Cidade já cadastrada em outra Região");
+		}
 	}
 
 	@Override
-	public Boolean delete(Long idRegionDTO) {
-		this.cityDAO.deleteCity(idRegionDTO);
-		boolean condition = this.regionDAO.deleteRegion(idRegionDTO);
-		return condition;
+	public void delete(Long idRegionDTO) {
+		if(this.eventDAO.searchEvenstsByIdRegion(idRegionDTO).isEmpty()){
+			this.cityDAO.deleteCity(idRegionDTO);
+			this.regionDAO.deleteRegion(idRegionDTO);
+		}
 	}
 	
 	@Override
@@ -62,6 +79,7 @@ public class RegionServiceImpl implements RegionService, CityService {
 	}
 
 	@Override
+	
 	public RegionDTO searchById(Long idRegionDTO) {
 		return this.regionDTOConverter.toDTO(this.regionDAO.searchRegionById(idRegionDTO));
 	}
@@ -69,7 +87,11 @@ public class RegionServiceImpl implements RegionService, CityService {
 	@Override
 	public List<CityDTO> searchCityByRegionId(Long regionId) {
 		List<City> cities = this.cityDAO.searchCityByRegionId(regionId);
-		return this.regionDTOConverter.toStringCity(cities);
+		List<CityDTO> citiesDTO = this.regionDTOConverter.toStringCity(cities);
+		for (CityDTO cityDTO : citiesDTO) {
+			cityDTO.setCreateSystem(true);
+		}
+		return citiesDTO;
 	}
 
 	@Override
@@ -77,4 +99,15 @@ public class RegionServiceImpl implements RegionService, CityService {
 		List<City> cities = Lists.newArrayList(City.values());
 		return this.regionDTOConverter.toStringCity(cities);
 	}
+	
+	private boolean cityNotRegistered(List<CityDTO> cityDTO) {
+		List<City> cities = this.regionDTOConverter.toEntityCity(cityDTO);
+		for (City city : cities) {
+			if(this.cityDAO.searchCityByName(city.name()) != null){
+				return false;
+			}
+		}
+		return true;
+	}
+	
 }

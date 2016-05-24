@@ -1,6 +1,5 @@
 package br.com.fatec.oqfazer.core.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.fatec.oqfazer.api.dao.EventDAO;
