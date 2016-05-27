@@ -8,6 +8,8 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	$scope.itemsPerPage = 5
 	$scope.category = {};
 	$scope.categories = [];
+	$scope.test = [];
+	$scope.categories.categoriesParent = [];
 	$scope.buildList = _buildList;
 
 	function init(){
@@ -17,7 +19,7 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	$scope.loadCategories = function() {
 		categoryService.searchAll().then(function (response){
 			$scope.buildList(response);
-		});
+		});	
 	};
 
 	$scope.openModal = function(id, flag) {
@@ -30,12 +32,8 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 		
 	$scope.insert = function() {
-		var data = {
-			context : {
-				category : $scope.category
-			}
+		var data = {context : {category : $scope.category}
 		};
-
 		categoryService.insert(data).then(function(response){
 			$scope.category = null;
 			$scope.loadCategories();
@@ -44,13 +42,7 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 
 	$scope.deleta = function(id) {
-		var data = {
-			context : {
-				category : {
-					id : id
-				}
-			}
-		};
+		var data = {context : {category : {id : id}}};
 
 		categoryService.deleta(data).then(function(response){
 			$scope.category = null;
@@ -65,19 +57,32 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 
 	function _buildList(response) {
-		console.log(response);
 		$scope.categories = response.data.context.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
+		
+		for(cat in $scope.categories){
+			if($scope.categories[cat].parentDTO != 0){
+				_searchById($scope.categories[cat].parentDTO);
+			}			
+		}		
+		console.log($scope.categories);
+		console.log($scope.test);
 	}
-
+	
+	function _searchById(id){
+		var data = {context : {category : {id : id}}};
+		categoryService.searchById(data).then(function(response){
+			$scope.test.push(response.context.category);
+		})
+	}
+	
 	function closeModal() {
 		jQuery('#modalForm').modal('hide');
 	}
-	;
 
 	setTimeout(function() {
-		$scope.loadCategories();
+		$scope.loadCategories();		
 	}, 0);
 
 }]);
