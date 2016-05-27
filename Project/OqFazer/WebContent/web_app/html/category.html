@@ -17,16 +17,18 @@
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Category</th>
+					<th>Paretent Category</th>
 					<th colspan="2">
 					</th>
 				</thead>
 				<tbody>
 					<tr ng-repeat="category in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
-						ng-if="category.length != 0">
+						ng-if="category.length != 0"> 
 						<td at-implicit at-sortable>{{ category.id }}</td>
 						<td at-implicit at-sortable>{{ category.name }}</td>
-						<td at-implicit at-sortable>{{ category.category.nome }}</td>
+						<div ng-repeat="categoryParent in categories.categoriesParent">
+							<td at-implicit at-sortable ng-if="categoryParent.name != '' ">{{ categoryParent.name }}</td>
+						</div>
 						<td class="btnCell">
 							<p>
 								<a ng-click="openModal(category.id)" href="#" class="btn btn-danger btn-small">

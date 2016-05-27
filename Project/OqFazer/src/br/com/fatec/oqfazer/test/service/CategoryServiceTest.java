@@ -24,19 +24,19 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insertCategoryWithChildren(){
-		CategoryDTO sertanejoDto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO sertanejoDto = new CategoryDTO(null, "Sertanejo", (long) 1);
 		CategoryDTO sertanejoEntidade = this.categoryService.insert(sertanejoDto);
 		
 		CategoryDTO uversitarioDto = new CategoryDTO(null, "Universitario", sertanejoEntidade.getId());
 		CategoryDTO universitarioEntidade = this.categoryService.insert(uversitarioDto);
-		universitarioEntidade = this.categoryService.searchById(universitarioEntidade.getId());
 		
+		universitarioEntidade = this.categoryService.searchById(universitarioEntidade.getId());
 		sertanejoEntidade = this.categoryService.searchById(sertanejoEntidade.getId());
+		
+		Assert.assertEquals(1, sertanejoEntidade.getCategoriesChildren().size());
 		Assert.assertEquals(new Long(5), universitarioEntidade.getId());
 		Assert.assertEquals("Universitario", universitarioEntidade.getName());
 		Assert.assertEquals(new Long(4), universitarioEntidade.getParentDTO());
-		
-		Assert.assertEquals(1, sertanejoEntidade.getCategoriesChildren().size());
 	}
 	
 	@Test
