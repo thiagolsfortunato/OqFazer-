@@ -32,8 +32,10 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 		
 	$scope.insert = function() {
-		var data = {context : {category : $scope.category}
-		};
+		$scope.category.parentDTO = $scope.category.categorySelected.id
+		$scope.category.categorySelected = null;
+		var data = {context : {category : $scope.category}};
+		console.log(data);
 		categoryService.insert(data).then(function(response){
 			$scope.category = null;
 			$scope.loadCategories();
@@ -66,8 +68,6 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 				_searchById($scope.categories[cat].parentDTO);
 			}			
 		}		
-		console.log($scope.categories);
-		console.log($scope.test);
 	}
 	
 	function _searchById(id){
