@@ -9,12 +9,17 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	$scope.itemsPerPage = 5
 	$scope.event = {};
 	
+	function init(){
+		$scope.loadEvents();
+	}
+	
 	$scope.loadEvents = function() {
 		$http.get(urlPath + 'searchAll.action', {
 			cache : false
 		}).success(function(response) {
 	    	buildList(response);
 		});
+		
 	};
 
 	$scope.insert = function() {
@@ -44,7 +49,12 @@ app.controller('EventController', function($scope, $http, $timeout) {
 				event : {id : id}
 		}};
 		
-		var data1 = JSON.stringify(data);
+		eventService.deleta(data).then(function(response){
+			$scope.event = null;
+			$scope.loadEvents();
+		})
+		
+		/*var data1 = JSON.stringify(data);
 		jQuery.ajax({
 		    url: urlPath + 'delete.action',
 		    data: data1,
@@ -56,10 +66,10 @@ app.controller('EventController', function($scope, $http, $timeout) {
 		    	$scope.id = null;
 		    	buildLista(response);
 		    }
-		});
+		});*/
 	}
 	
-	$scope.openModal = function(id) {
+	$scope.openModal = function(id, flag) {
 		if (id) {
 			var data = {
 				context : {
@@ -89,7 +99,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	function buildList(response) {
-		$scope.event = response.context.eventsDTO;
+		$scope.events = response.context.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -101,5 +111,7 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	setTimeout(function() {
 		$scope.loadEvents();
 	}, 0);
+	
+	init();
 	
 });
