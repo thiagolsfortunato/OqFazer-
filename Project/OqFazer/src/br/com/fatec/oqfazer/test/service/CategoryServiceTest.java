@@ -11,7 +11,7 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insertCategoryWithoutChildren(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", null);
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
 		
@@ -24,10 +24,10 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void insertCategoryWithChildren(){
-		CategoryDTO sertanejoDto = new CategoryDTO(null, "Sertanejo", (long) 1);
+		CategoryDTO sertanejoDto = new CategoryDTO(null, "Sertanejo", null);
 		CategoryDTO sertanejoEntidade = this.categoryService.insert(sertanejoDto);
 		
-		CategoryDTO uversitarioDto = new CategoryDTO(null, "Universitario", sertanejoEntidade.getId());
+		CategoryDTO uversitarioDto = new CategoryDTO(null, "Universitario", sertanejoEntidade);
 		CategoryDTO universitarioEntidade = this.categoryService.insert(uversitarioDto);
 		
 		universitarioEntidade = this.categoryService.searchById(universitarioEntidade.getId());
@@ -41,7 +41,7 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void deleteWithoutChildren(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", null);
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
 		//CategoryDTO dto = this.categoriesDTO.get(3l);
@@ -85,11 +85,11 @@ public class CategoryServiceTest extends TestScenario {
 	
 	@Test
 	public void searchAll(){
-		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", (long)1);
+		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", null);
 		CategoryDTO saved = this.categoryService.insert(dto);
 		saved = this.categoryService.searchById(saved.getId());
 		
-		CategoryDTO dto1 = new CategoryDTO(null, "Universitario", (long)4);
+		CategoryDTO dto1 = new CategoryDTO(null, "Universitario", dto);
 		CategoryDTO saved1 = this.categoryService.insert(dto1);
 		saved1 = this.categoryService.searchById(saved1.getId());
 		

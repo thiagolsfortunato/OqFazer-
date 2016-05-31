@@ -35,7 +35,7 @@ public class RegionServiceImpl implements RegionService, CityService {
 		if(this.cityNotRegistered(regionDTO.getCities())){
 			Region region = this.regionDTOConverter.toEntity(regionDTO);
 			Long id = this.regionDAO.insertRegion(region);
-			this.cityDAO.insertCity(id, this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+			this.cityDAO.insertCity(id, this.regionDTOConverter.toEnumCity(regionDTO.getCities()));
 			regionDTO.setId(id);
 		}else{
 			regionDTO.setErro("Cidade já cadastrada em outra Região");
@@ -53,7 +53,7 @@ public class RegionServiceImpl implements RegionService, CityService {
 		if(this.cityNotRegistered(newCities)){
 			Region region = this.regionDTOConverter.toEntity(regionDTO);
 			this.regionDAO.updateRegion(region);
-			this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+			this.cityDAO.updateCity(region.getId(), this.regionDTOConverter.toEnumCity(regionDTO.getCities()));
 		}else{
 			regionDTO.setErro("Cidade já cadastrada em outra Região");
 		}
@@ -70,7 +70,7 @@ public class RegionServiceImpl implements RegionService, CityService {
 	@Override
 	public void delete(RegionDTO regionDTO) {
 		this.regionDAO.deleteRegion(regionDTO.getId());
-		this.cityDAO.deleteCity(regionDTO.getId(), this.regionDTOConverter.toEntityCity(regionDTO.getCities()));
+		this.cityDAO.deleteCity(regionDTO.getId(), this.regionDTOConverter.toEnumCity(regionDTO.getCities()));
 	}
 	
 	@Override
@@ -101,7 +101,7 @@ public class RegionServiceImpl implements RegionService, CityService {
 	}
 	
 	private boolean cityNotRegistered(List<CityDTO> cityDTO) {
-		List<City> cities = this.regionDTOConverter.toEntityCity(cityDTO);
+		List<City> cities = this.regionDTOConverter.toEnumCity(cityDTO);
 		for (City city : cities) {
 			if(this.cityDAO.searchCityByName(city.name()) != null){
 				return false;

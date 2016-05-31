@@ -27,21 +27,19 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	
 	public CategoryDTO toDTO(Category entityCategory, boolean convertDependences){
 		CategoryDTO dtoCategory = this.toDTOSimple(entityCategory);
-		dtoCategory.setCategories(dtoCategory);
 		Long id = entityCategory.getId();
 		if(id != null && convertDependences){
 			List<Long> idsCategories = this.categoryDAO.searchCategoriesChildren(id);
-			List<Category> entityCategories = this.categoryDAO.searchCategoriesByListIds(idsCategories);
-			List<CategoryDTO> categoriesDTO = this.toDTO(entityCategories);
-			
-			if (categoriesDTO != null){
-				for (CategoryDTO dto: categoriesDTO){
-					dtoCategory.setCategoriesChildren(dto.getId());
-				}
+				
+			if(!idsCategories.isEmpty()){
+				for (Long idCategory : idsCategories) {
+					dtoCategory.setCategoriesChildren(idCategory);
+				}				
 			}
-			CategoryDTO dtoParent = new CategoryDTO();
-			dtoParent.setId(entityCategory.getParent());
-			dtoParent.setCategoriesChildren(entityCategory.getId());
+			
+//			CategoryDTO dtoParent = new CategoryDTO();
+//			dtoParent.setId(entityCategory.getParent());
+//			dtoParent.setCategoriesChildren(entityCategory.getId());
 		}
 		return dtoCategory;
 	}
@@ -50,9 +48,10 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		CategoryDTO dtoCategory = new CategoryDTO();
 		dtoCategory.setId(entityCategory.getId());
 		dtoCategory.setName(entityCategory.getName());
-		if(entityCategory.getParent()!= null){
-			dtoCategory.setParentDTO(entityCategory.getParent());
+		if(entityCategory.getParent() != 0){
+			dtoCategory.setParentDTO(this.toDTOSimple(this.categoryDAO.searchCategoryById(entityCategory.getParent())));
 		}
+		
 		return dtoCategory;
 	}
 
@@ -90,7 +89,7 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 		Category entity = new Category();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		if (dto.getParentDTO()!=null) entity.setParent(dto.getParentDTO());
+		if (dto.getParentDTO()!= null) entity.setParent(dto.getParentDTO().getId());
 		return entity;
 	}
 

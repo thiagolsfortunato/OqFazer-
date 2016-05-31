@@ -7,6 +7,7 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5
 	$scope.category = {};
+	$scope.category.categoryParent = {};
 	$scope.categories = [];
 	$scope.test = [];
 	$scope.categories.categoriesParent = [];
@@ -33,19 +34,27 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 		
 	$scope.insert = function() {
 		$scope.category.parentDTO = $scope.category.categorySelected.id
-		$scope.category.categorySelected = null;
+		delete $scope.category.categorySelected;
 		var data = {context : {category : $scope.category}};
-		console.log(data);
+		
 		categoryService.insert(data).then(function(response){
 			$scope.category = null;
 			$scope.loadCategories();
 			$scope.cancelModal();
 		})
 	};
+	
+	$scope.update = function(id){
+		var data = {context : {category : {id : id}}}
+
+		categoryService.update(data).then(function(response){
+			console.log(response.context.category);
+			$scope.category = response.context.category;
+		});
+	}
 
 	$scope.deleta = function(id) {
 		var data = {context : {category : {id : id}}};
-
 		categoryService.deleta(data).then(function(response){
 			$scope.category = null;
 			$scope.loadCategory();
@@ -59,22 +68,17 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 
 	function _buildList(response) {
+		console.log(response.data.context.categories);
 		$scope.categories = response.data.context.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
-		
-		for(cat in $scope.categories){
-			if($scope.categories[cat].parentDTO != 0){
-				_searchById($scope.categories[cat].parentDTO);
-			}			
-		}		
 	}
 	
-	function _searchById(id){
+	$scope.searchById = function(id) {
 		var data = {context : {category : {id : id}}};
 		categoryService.searchById(data).then(function(response){
-			$scope.test.push(response.context.category);
-		})
+			$scope.category = response.context.category;
+		})		
 	}
 	
 	function closeModal() {

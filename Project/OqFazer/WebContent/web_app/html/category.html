@@ -17,7 +17,7 @@
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Paretent Category</th>
+					<th>Parent Category</th>
 					<th colspan="2">
 					</th>
 				</thead>
@@ -26,11 +26,11 @@
 						ng-if="category.length != 0"> 
 						<td at-implicit at-sortable>{{ category.id }}</td>
 						<td at-implicit at-sortable>{{ category.name }}</td>
-						<td at-implicit at-sortable ng-if="category.parentDTO != 0 ">{{ category.parentDTO }}</td>
-						<td at-implicit at-sortable ng-if="category.parentDTO == 0 ">Not Exist Parent</td>
+						<td at-implicit at-sortable ng-if="category.parentDTO != null ">{{ category.parentDTO.name }}</td>
+						<td at-implicit at-sortable ng-if="category.parentDTO == null ">does not exist</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="openModal(category.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="openModal(category.id,'update')" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-edit" title="Update"></span>
 								</a>
 							</p>
@@ -70,7 +70,7 @@
 									</div>
 									<div class="form-group">
 										<label for="pwd">Parent Category:</label>
-										<select class="form-control" ng-model="category.categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>
+										<select class="form-control" ng-model="category.parentDTO" width="70%" ng-options="category as category.name for category in categories"></select>
 									</div>
 								</form>
 							</div>

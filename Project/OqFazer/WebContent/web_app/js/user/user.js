@@ -57,7 +57,7 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 		var data = {context : {
 			user : {id : id}
 		}};
-		console.log(data);
+		
 		userService.update(data).then(function(response){
 			$scope.user = response.context.user;
 		})
