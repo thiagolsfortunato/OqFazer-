@@ -23,6 +23,11 @@ public class CategoryAction extends OqFazerWebAction {
 		return IT_WORKED;
 	}
 	
+	public String searchById(){
+		this.context.setCategory(this.service.searchById(this.context.getCategory().getId()));
+		return IT_WORKED;
+	}
+	
 	public String insert(){
 		if(this.context.getCategory().getId() != null){
 			this.service.update(this.context.getCategory());

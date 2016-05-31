@@ -10,7 +10,7 @@ public class CategoryDTO {
 	
 	private Long id;
 	private String name;
-	private Long parent;
+	private Long parentDTO;
 	
 	private List<CategoryDTO> categories = Lists.newArrayList();
 	private Set<Long> categoriesChildren = Sets.newHashSet();
@@ -20,7 +20,7 @@ public class CategoryDTO {
 	public CategoryDTO(Long id, String name, Long parent) {
 		this.id = id;
 		this.name = name;
-		this.parent = parent;
+		this.parentDTO = parent;
 	}
 
 	public Long getId() {
@@ -40,11 +40,11 @@ public class CategoryDTO {
 	}
 
 	public Long getParentDTO() {
-		return parent;
+		return parentDTO;
 	}
 
 	public void setParentDTO(Long parent) {
-		this.parent = parent;
+		this.parentDTO = parent;
 	}
 	
 	public String toString(){

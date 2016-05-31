@@ -70,11 +70,11 @@ public class CategoryDTOConverter implements DTOConverter<Category, CategoryDTO>
 	
 	@Override
 	public List<CategoryDTO> toDTO(List<Category> categories) {
-		return this.toDTO(categories, false);
+		return this.toDTO(categories, true);
 	}
 	
 	public List<CategoryDTO> toDTOSimple(List<Category> categories){
-		return this.toDTO(categories, true);
+		return this.toDTO(categories, false);
 	}
 
 	private List<CategoryDTO> toDTO(List<Category> entities, boolean isSimple) {

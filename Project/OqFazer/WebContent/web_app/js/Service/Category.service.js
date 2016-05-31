@@ -8,7 +8,8 @@ app.factory('CategoryService', ['$http',function ($http) {
         insert : _categoryInsert,
         update : _categoryUpdate,
         deleta : _categoryDelete,
-        searchAll : _categorySearchAll
+        searchAll : _categorySearchAll,
+        searchById : _searchById
     };
     
     function _categorySearchAll(){
@@ -20,6 +21,23 @@ app.factory('CategoryService', ['$http',function ($http) {
 				  });
     	return promess;
     }
+
+     function _searchById(id){
+    	var promess;
+    	var data = JSON.stringify(id)
+    	promess = jQuery.ajax({
+    				url: urlPath + 'searchById.action',
+				    data: data,
+				    dataType: 'json',
+				    contentType: 'application/json',
+				    type: 'POST',
+				    async: true,
+				    success: function (response) {
+				        return promess;
+				    }
+				});
+    	return promess;
+    }    
     
     function _categoryInsert(category){
     	var promess;
