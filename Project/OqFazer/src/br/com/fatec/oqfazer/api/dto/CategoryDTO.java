@@ -15,6 +15,9 @@ public class CategoryDTO {
 	private List<CategoryDTO> categories = Lists.newArrayList();
 	private Set<Long> categoriesChildren = Sets.newHashSet();
 	
+	//atribute screen
+	private String erro = null;
+	
 	public CategoryDTO(){};
 	
 	public CategoryDTO(Long id, String name, CategoryDTO parentDTO) {
@@ -65,5 +68,13 @@ public class CategoryDTO {
 	
 	public void setCategoriesChildren (Long categoryChild) {
 		this.categoriesChildren.add(categoryChild);
+	}
+
+	public String getErro() {
+		return erro;
+	}
+
+	public void setErro(String erro) {
+		this.erro = erro;
 	}	
 }

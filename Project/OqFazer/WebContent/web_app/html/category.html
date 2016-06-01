@@ -37,7 +37,7 @@
 						</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="delete(category.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="deleta(category.id)" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-remove" title="Delete"></span>
 								</a>
 							</p>
@@ -70,7 +70,7 @@
 									</div>
 									<div class="form-group">
 										<label for="pwd">Parent Category:</label>
-										<select class="form-control" ng-model="category.parentDTO" width="70%" ng-options="category as category.name for category in categories"></select>
+										<select class="form-control" ng-model="category.categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>
 									</div>
 								</form>
 							</div>

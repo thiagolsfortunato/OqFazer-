@@ -33,31 +33,48 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 		
 	$scope.insert = function() {
-		$scope.category.parentDTO = $scope.category.categorySelected.id
-		delete $scope.category.categorySelected;
-		var data = {context : {category : $scope.category}};
-		
-		categoryService.insert(data).then(function(response){
-			$scope.category = null;
-			$scope.loadCategories();
-			$scope.cancelModal();
-		})
+		var flag = true;
+		if($scope.category.categorySelected != null){
+			if($scope.category.id != $scope.category.categorySelected.id){
+				$scope.category.parentDTO = $scope.category.categorySelected;
+				delete $scope.category.categorySelected;
+				
+				var data = {context : {category : $scope.category}};
+				categoryService.insert(data).then(function(response){
+					$scope.category = null;
+					$scope.loadCategories();
+					$scope.cancelModal();
+				})
+			}
+		}else{
+			alert('Select diferent category')
+			return 
+		}
 	};
+	
+	function buildTree(listTree, category){
+		if(category.parentDTO == null){
+			return listTree;
+		}else{
+			listTree.push(category.id)
+			buildTree(listTree, category.parenDTO);
+		}
+	}
 	
 	$scope.update = function(id){
 		var data = {context : {category : {id : id}}}
-
 		categoryService.update(data).then(function(response){
-			console.log(response.context.category);
+			console.log(response);
+			$scope.category.categorySelected = response.context.category.parentDTO;
 			$scope.category = response.context.category;
 		});
 	}
-
+	
 	$scope.deleta = function(id) {
 		var data = {context : {category : {id : id}}};
 		categoryService.deleta(data).then(function(response){
 			$scope.category = null;
-			$scope.loadCategory();
+			$scope.loadCategories();
 		})
 	};
 
@@ -68,7 +85,7 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 	};
 
 	function _buildList(response) {
-		console.log(response.data.context.categories);
+		console.log(response);
 		$scope.categories = response.data.context.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
