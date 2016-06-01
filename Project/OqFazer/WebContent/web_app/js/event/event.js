@@ -89,7 +89,8 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	};
 
 	function buildList(response) {
-		$scope.event = response.context.eventsDTO;
+		console.log(response.context.events);
+		$scope.events = response.context.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
