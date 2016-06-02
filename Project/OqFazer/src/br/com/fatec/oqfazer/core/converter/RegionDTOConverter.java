@@ -39,7 +39,7 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		Region region = new Region();
 		region.setId(regionDTO.getId());
 		region.setName(regionDTO.getName());
-		List<City> city = this.toEntityCity(regionDTO.getCities()); // ver o que vai fazer aqui !!! 
+		List<City> city = this.toEnumCity(regionDTO.getCities()); // ver o que vai fazer aqui !!! 
 		return region;
 	}
 
@@ -68,7 +68,7 @@ public class RegionDTOConverter implements DTOConverter<Region, RegionDTO> {
 		return regionsDTO;
 	}
 	
-	public List<City> toEntityCity (List<CityDTO> citiesString){
+	public List<City> toEnumCity (List<CityDTO> citiesString){
 		List<City> cities = Lists.newArrayList();
 		for(CityDTO cityString : citiesString){
 			cities.add(City.valueOf(cityString.getName()));

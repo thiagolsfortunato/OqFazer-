@@ -10,17 +10,20 @@ public class CategoryDTO {
 	
 	private Long id;
 	private String name;
-	private Long parentDTO;
+	private CategoryDTO parentDTO;
 	
 	private List<CategoryDTO> categories = Lists.newArrayList();
 	private Set<Long> categoriesChildren = Sets.newHashSet();
 	
+	//atribute screen
+	private String erro = null;
+	
 	public CategoryDTO(){};
 	
-	public CategoryDTO(Long id, String name, Long parent) {
+	public CategoryDTO(Long id, String name, CategoryDTO parentDTO) {
 		this.id = id;
 		this.name = name;
-		this.parentDTO = parent;
+		this.parentDTO = parentDTO;
 	}
 
 	public Long getId() {
@@ -39,11 +42,11 @@ public class CategoryDTO {
 		this.name = name;
 	}
 
-	public Long getParentDTO() {
+	public CategoryDTO getParentDTO() {
 		return parentDTO;
 	}
 
-	public void setParentDTO(Long parent) {
+	public void setParentDTO(CategoryDTO parent) {
 		this.parentDTO = parent;
 	}
 	
@@ -66,5 +69,12 @@ public class CategoryDTO {
 	public void setCategoriesChildren (Long categoryChild) {
 		this.categoriesChildren.add(categoryChild);
 	}
-	
+
+	public String getErro() {
+		return erro;
+	}
+
+	public void setErro(String erro) {
+		this.erro = erro;
+	}	
 }

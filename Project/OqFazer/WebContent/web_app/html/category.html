@@ -17,7 +17,7 @@
 				<thead>
 					<th>ID</th>
 					<th>Name</th>
-					<th>Paretent Category</th>
+					<th>Parent Category</th>
 					<th colspan="2">
 					</th>
 				</thead>
@@ -26,19 +26,18 @@
 						ng-if="category.length != 0"> 
 						<td at-implicit at-sortable>{{ category.id }}</td>
 						<td at-implicit at-sortable>{{ category.name }}</td>
-						<div ng-repeat="categoryParent in categories.categoriesParent">
-							<td at-implicit at-sortable ng-if="categoryParent.name != '' ">{{ categoryParent.name }}</td>
-						</div>
+						<td at-implicit at-sortable ng-if="category.parentDTO != null ">{{ category.parentDTO.name }}</td>
+						<td at-implicit at-sortable ng-if="category.parentDTO == null ">does not exist</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="openModal(category.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="openModal(category.id,'update')" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-edit" title="Update"></span>
 								</a>
 							</p>
 						</td>
 						<td class="btnCell">
 							<p>
-								<a ng-click="delete(category.id)" href="#" class="btn btn-danger btn-small">
+								<a ng-click="deleta(category.id)" href="#" class="btn btn-danger btn-small">
 									<span class="glyphicon glyphicon-remove" title="Delete"></span>
 								</a>
 							</p>
@@ -67,11 +66,11 @@
 								<form role="form">
 									<div class="form-group">
 										<label for="nome">Name:</label>
-										<input type="text" class="form-control" ng-model="category.nome">
+										<input type="text" class="form-control" ng-model="category.name">
 									</div>
 									<div class="form-group">
-										<label for="pwd">Category:</label>
-										<input type="text" class="form-control" ng-model="category.category">
+										<label for="pwd">Parent Category:</label>
+										<select class="form-control" ng-model="category.categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>
 									</div>
 								</form>
 							</div>
