@@ -1,46 +1,34 @@
 var app = angular.module('fatec');
 
-app.controller('EventController', function($scope, $http, $timeout) {
+app.controller('EventController', ['$scope','$http','$timeout','$sce','EventService', 
+                                      function($scope,$http,$timeout,$sce, eventService) {
 
-	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';
-	$scope.events = [];
 	$scope.currentPage = 1;
-	$scope.itemsPerPage = 5
+	$scope.itemsPerPage = 10
 	$scope.event = {};
+	$scope.events = [];
+	$scope.buildList = _buildList;
 	
 	function init(){
 		$scope.loadEvents();
 	}
 	
 	$scope.loadEvents = function() {
-		$http.get(urlPath + 'searchAll.action', {
-			cache : false
-		}).success(function(response) {
-	    	buildList(response);
-		});
+		eventService.searchAll().then(function (response){
+			$scope.buildList(response);
+		});	
 		
 	};
 
 	$scope.insert = function() {
-		var data = {
-			context : {
-				event : $scope.event
-		}};
-		
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'insert.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: true,
-		    success: function (response) {
-		        $scope.cancelModal();
-		    	buildList(response);
-		    }
-		});
+		var data = {context : {event : $scope.event}
+		};
+		eventService.insert(data).then(function(response){
+			$scope.event = null;
+			$scope.loadEvents();
+			$scope.cancelModal();
+		})
 	};
 	
 	$scope.deleta = function(id) {
@@ -70,25 +58,10 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	}
 	
 	$scope.openModal = function(id, flag) {
-		if (id) {
-			var data = {
-				context : {
-					event : {id : id}
-				}
-			};
-
-			var data1 = JSON.stringify(data);
-			jQuery.ajax({
-			    url: urlPath + 'update.action',
-			    data: data1,
-			    dataType: 'json',
-			    contentType: 'application/json',
-			    type: 'POST',
-			    async: false,
-			    success: function (response) {
-			        $scope.event = response.context.eventsDTO;
-			    }
-			});
+		if(flag == "update"){
+			$scope.update(id);
+		}else{
+			$scope.event = {};
 		}
 		jQuery('#modalForm').modal('show');
 	};
@@ -98,9 +71,8 @@ app.controller('EventController', function($scope, $http, $timeout) {
 		closeModal();
 	};
 
-	function buildList(response) {
-		console.log(response.context.events);
-		$scope.events = response.context.events;
+	function _buildList(response) {
+		$scope.events = response.data.context.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -112,7 +84,5 @@ app.controller('EventController', function($scope, $http, $timeout) {
 	setTimeout(function() {
 		$scope.loadEvents();
 	}, 0);
-	
-	init();
-	
-});
+		
+}]);
