@@ -9,16 +9,25 @@
 </head>
 <body ng-app="oqfazer">
  	<div class="index">
+ 		<ng-include src="'login.html'"></ng-include>
  		<ng-include src="'template/footer.html'"></ng-include>	
  	</div>	
 	
 	<script type="text/javascript" src="../js/external/angular.min.js"></script>
+	<script type="text/javascript" src="../js/external/angular-route.js"></script>
+	<script type="text/javascript" src="../js/external/angular-local-storage.min.js"></script>
 	<script type="text/javascript" src="../js/external/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/comum/comum.js"></script>
 	<script type="text/javascript" src="../js/external/ui-bootstrap.js"></script>
-	<script type="text/javascript" src="../js/app/comum/comum.js"></script>
-	<script type="text/javascript" src="../js/app/login/login.js"></script>
-	<script type="text/javascript" src="../js/app/administrator/event.js"></script>
 	<script type="text/javascript" src="../js/external/bootstrap.min.js"></script>
-
+	<script type="text/javascript" src="../js/service/category.service.js"></script>
+	<script type="text/javascript" src="../js/service/event.service.js"></script>
+	<script type="text/javascript" src="../js/service/region.service.js"></script>
+	<script type="text/javascript" src="../js/service/user.service.js"></script>
+	<script type="text/javascript" src="../js/controller/login/login.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/category.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/event.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/region.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/user.controller.js"></script>
 </body>
 </html>

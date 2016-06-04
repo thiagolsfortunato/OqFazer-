@@ -1,3 +1,4 @@
+OqFazerController.controller('RegionController', function($scope,$http,$timeout,$sce,regionService) {
 
 	TelaHelper.tela = 'region';
 	$scope.regions = [];

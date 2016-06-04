@@ -1,3 +1,4 @@
+window.publication =  angular.module('oqfazer', ['ui.bootstrap','LocalStorageModule','ngRoute','OqFazerController']);
 
 publication.config(function($routeProvider){
 	
@@ -16,6 +17,7 @@ publication.config(function($routeProvider){
 
 	.when('/home', {templateUrl: path + 'index.html',controller: 'OqFazerController'})
 
+	.otherwise({redirectTo: '/event'});	  
 });
 
 var StorageHelper = (function(){

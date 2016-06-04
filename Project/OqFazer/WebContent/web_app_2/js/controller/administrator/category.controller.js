@@ -1,3 +1,4 @@
+OqFazerController.controller('CategoryController', function($scope,$http,$timeout,$sce,categoryService) {
 
 	TelaHelper.tela = 'category';
 	$scope.currentPage = 1;
