@@ -1,6 +1,4 @@
-var app = angular.module('fatec');
-
-app.factory('UserService', ['$http',function ($http) {
+publication.factory('UserService', ['$http',function ($http) {
 
 	var urlPath = "http://localhost:8085/OqFazer/User!";
 	

@@ -1,6 +1,4 @@
-var app = angular.module('fatec');
-
-app.factory('CategoryService', ['$http',function ($http) {
+publication.factory('CategoryService', ['$http',function ($http) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Category!";
 	

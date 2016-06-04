@@ -1,6 +1,4 @@
-var app = angular.module('fatec');
-
-app.factory('RegionService', ['$http',function ($http) {
+publication.factory('RegionService', ['$http',function ($http) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Region!";
 	

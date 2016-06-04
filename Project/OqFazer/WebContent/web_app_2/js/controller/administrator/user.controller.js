@@ -1,8 +1,5 @@
-var app = angular.module('fatec');
+OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce,userService) {
 
-app.controller('UserController',['$scope','$http','$timeout','$sce','UserService', 
-                                 function($scope,$http,$timeout,$sce, userService) {
-	
 	TelaHelper.tela = 'user';
 	$scope.user = {};
 	$scope.users = [];
@@ -10,7 +7,6 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 	$scope.itemsPerPage = 5
 	$scope.buildList = _buildList;
 
-	
 	function init(){
 		$scope.loadUsers();
 	}
@@ -83,4 +79,4 @@ app.controller('UserController',['$scope','$http','$timeout','$sce','UserService
 	}, 0);
 	
 	init();
-}]);
+});

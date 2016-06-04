@@ -1,99 +1,77 @@
-<html>
-<head>
-	<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>Category</title>
-	<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css" ></link>
-	<link rel="stylesheet" href="../css/login/login.css" ></link>
-	<link rel="stylesheet" href="../css/category/category.css" ></link>
-</head>
-<body ng-app="fatec">
-	<ng-include src="'administrator.html'"></ng-include>
-	<div ng-controller="CategoryController" ng-cloak="true" class="conteudo">
-		<div id="table" class="tab-pane fade in active" ><br/>
+<div class="conteudo">
+	<div id="table" class="tab-pane fade in active" ><br/>
+		<table id="tableAngular" class="table table-striped table-bordered table-responsive" 
+			cellspacing="0" width="100%" at-table at-paginated at-list="categories" at-config="config">
 
-			<table id="tableAngular" class="table table-striped table-bordered table-responsive" 
-				cellspacing="0" width="100%" at-table at-paginated at-list="categories" at-config="config">
-
-				<thead>
-					<th>ID</th>
-					<th>Name</th>
-					<th>Parent Category</th>
-					<th colspan="2">
-					</th>
-				</thead>
-				<tbody>
-					<tr ng-repeat="category in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
-						ng-if="category.length != 0"> 
-						<td at-implicit at-sortable>{{ category.id }}</td>
-						<td at-implicit at-sortable>{{ category.name }}</td>
-						<td at-implicit at-sortable ng-if="category.parentDTO != null ">{{ category.parentDTO.name }}</td>
-						<td at-implicit at-sortable ng-if="category.parentDTO == null ">does not exist</td>
-						<td class="btnCell">
-							<p>
-								<a ng-click="openModal(category.id,'update')" href="#" class="btn btn-danger btn-small">
-									<span class="glyphicon glyphicon-edit" title="Update"></span>
-								</a>
-							</p>
-						</td>
-						<td class="btnCell">
-							<p>
-								<a ng-click="deleta(category.id)" href="#" class="btn btn-danger btn-small">
-									<span class="glyphicon glyphicon-remove" title="Delete"></span>
-								</a>
-							</p>
-						</td>
-					</tr>
-					<tr ng-if="categories.length == 0">
-						<td colspan="5" class="semRegistros">
-							<p>No categories</p>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<uib-pagination boundary-links="true" total-items="events.length" ng-model="currentPage" 
-			items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
-			first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
-			<br/>
-			<button type="button" class="btn btn-primary" ng-click="openModal()">New Category</button>
-			<div>
-				<div class="modal fade" id="modalForm" role="dialog">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h4>Registration Category</h4>
-							</div>
-							<div class="modal-body">
-								<form role="form">
-									<div class="form-group">
-										<label for="nome">Name:</label>
-										<input type="text" class="form-control" ng-model="category.name">
-									</div>
-									<div class="form-group">
-										<label for="pwd">Parent Category:</label>
-										<select class="form-control" ng-model="category.categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>
-									</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-danger" 
-									ng-click="cancelModal()">Cancel</button>
-								<button type="button" class="btn btn-success" 
-									ng-click="insert()">Save</button>
-							</div>
+			<thead>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Parent Category</th>
+				<th colspan="2">
+				</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="category in categories.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
+					ng-if="category.length != 0"> 
+					<td at-implicit at-sortable>{{ category.id }}</td>
+					<td at-implicit at-sortable>{{ category.name }}</td>
+					<td at-implicit at-sortable ng-if="category.parentDTO != null ">{{ category.parentDTO.name }}</td>
+					<td at-implicit at-sortable ng-if="category.parentDTO == null ">does not exist</td>
+					<td class="btnCell">
+						<p>
+							<a ng-click="openModal(category.id,'update')" href="#" class="btn btn-danger btn-small">
+								<span class="glyphicon glyphicon-edit" title="Update"></span>
+							</a>
+						</p>
+					</td>
+					<td class="btnCell">
+						<p>
+							<a ng-click="deleta(category.id)" href="#" class="btn btn-danger btn-small">
+								<span class="glyphicon glyphicon-remove" title="Delete"></span>
+							</a>
+						</p>
+					</td>
+				</tr>
+				<tr ng-if="categories.length == 0">
+					<td colspan="5" class="semRegistros">
+						<p>No categories</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<uib-pagination boundary-links="true" total-items="events.length" ng-model="currentPage" 
+		items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
+		first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
+		<br/>
+		<button type="button" class="btn btn-primary" ng-click="openModal()">New Category</button>
+		<div>
+			<div class="modal fade" id="modalForm" role="dialog">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4>Registration Category</h4>
+						</div>
+						<div class="modal-body">
+							<form role="form">
+								<div class="form-group">
+									<label for="nome">Name:</label>
+									<input type="text" class="form-control" ng-model="category.name">
+								</div>
+								<div class="form-group">
+									<label for="pwd">Parent Category:</label>
+									<select class="form-control" ng-model="category.categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" 
+								ng-click="cancelModal()">Cancel</button>
+							<button type="button" class="btn btn-success" 
+								ng-click="insert()">Save</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript" src="../js/angular.min.js"></script>
-	<script type="text/javascript" src="../js/jquery.min.js"></script>
-	<script type="text/javascript" src="../js/comum/comum.js"></script>
-	<script type="text/javascript" src="../js/ui-bootstrap.js"></script>
-	<script type="text/javascript" src="../js/Service/Category.service.js"></script>
-	<script type="text/javascript" src="../js/category/category.js"></script>
-	<script type="text/javascript" src="../js/login/login.js"></script>
-	<script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-</body>
-</html>
+</div>

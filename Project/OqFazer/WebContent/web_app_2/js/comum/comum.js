@@ -1,25 +1,21 @@
-window.publication =  angular.module('oqfazer', ['ngAnimate', 'ui.bootstrap','ngRoute','oqFazerController']);
-
-angular.module('oqfazer', ['ui.bootstrap']);
 
 publication.config(function($routeProvider){
 	
 	var path = '/OqFazer/web_app_2/html/';
 	$routeProvider
 	  
-    .when('/event', {templateUrl: 'game.view.html',controller: 'eventController'})
+    .when('/event', {templateUrl: 'game.view.html',controller: 'EventController'})
     
-    .when('/category', {templateUrl: 'category.view.html',controller: 'categoryController'})
+    .when('/category', {templateUrl: 'category.view.html',controller: 'CategoryController'})
     
-    .when('/user', {templateUrl: 'user.view.html',controller: 'userControllerList'})
+    .when('/user', {templateUrl: 'user.view.html',controller: 'UserControllerList'})
     
-    .when('/region', {templateUrl: 'region.view.html',controller: 'regionController'})
+    .when('/region', {templateUrl: 'region.view.html',controller: 'RegionController'})
    
-	.when('/home', {templateUrl: path + 'index.html',controller: 'oqFazerController'})
-	
-	.otherwise({
-    redirectTo: '/'
-  });	  
+	.when('/login', {templateUrl: path + 'index.html',controller: 'LoginController'})
+
+	.when('/home', {templateUrl: path + 'index.html',controller: 'OqFazerController'})
+
 });
 
 var StorageHelper = (function(){
@@ -55,4 +51,4 @@ jQuery(document).on('mouseup','.btn', function(){
     $(this).blur();
 });
 
-window.oqFazerController = angular.module('oqFazerController', []);
+window.OqFazerController = angular.module('OqFazerController', []);

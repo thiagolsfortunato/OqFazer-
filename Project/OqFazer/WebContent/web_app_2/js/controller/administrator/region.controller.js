@@ -1,7 +1,3 @@
-var app = angular.module('fatec');
-
-app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionService', 
-                                 function($scope,$http,$timeout,$sce, regionService) {
 
 	TelaHelper.tela = 'region';
 	$scope.regions = [];
@@ -141,4 +137,4 @@ app.controller('RegionController',['$scope','$http','$timeout','$sce','RegionSer
 		$scope.loadCities();
 	}, 0);
 	
-}]);
+});

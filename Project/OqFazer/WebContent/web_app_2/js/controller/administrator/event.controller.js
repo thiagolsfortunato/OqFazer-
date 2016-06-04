@@ -1,6 +1,3 @@
-var app = angular.module('fatec');
-
-app.controller('EventController', function($scope, $http, $timeout) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';

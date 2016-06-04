@@ -1,7 +1,3 @@
-var app = angular.module('fatec');
-
-app.controller('CategoryController', ['$scope','$http','$timeout','$sce','CategoryService', 
-                                      function($scope,$http,$timeout,$sce, categoryService) {
 
 	TelaHelper.tela = 'category';
 	$scope.currentPage = 1;
@@ -106,4 +102,4 @@ app.controller('CategoryController', ['$scope','$http','$timeout','$sce','Catego
 		$scope.loadCategories();		
 	}, 0);
 
-}]);
+});
