@@ -5,13 +5,18 @@
 		</ul>
 		<div ng-if="!isLogado">
  			<ul class="nav navbar-nav navbar-right">
- 				<li><button type="button" class="btn btn-primary logoutBtn" ng-click="openModalLogin()">Login</button></li>
+ 				<li>
+ 					<button type="button" class="btn btn-primary logoutBtn" ng-click="openModalLogin()">Login</button>
+ 				</li>
 			</ul>
 		</div>
 		<div ng-if="isLogado">
  			<ul class="nav navbar-nav navbar-right">
 				<li><p class="navbar-text">{{getMensageApresentation()}}</p></li>
-				<li><button type="button" class="btn btn-primary logoutBtn" ng-click="doLogout()">Log Out</button></li>
+				<li>
+					<button type="button" class="btn btn-primary logoutBtn" ng-click="doLogout()">Log Out</button>
+				</li>
+					
 			</ul>
 		</div>
 	</div>

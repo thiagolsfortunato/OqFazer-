@@ -1,4 +1,4 @@
-OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce,eventService) {
+OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	TelaHelper.tela = 'event';

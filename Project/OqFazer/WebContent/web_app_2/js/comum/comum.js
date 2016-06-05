@@ -2,20 +2,20 @@ window.publication =  angular.module('oqfazer', ['ui.bootstrap','LocalStorageMod
 
 publication.config(function($routeProvider){
 	
-	var path = '/OqFazer/web_app_2/html/';
+	var path = '/OqFazer/web_app_2/html/administrator/views/';
 	$routeProvider
 	  
-    .when('/event', {templateUrl: 'game.view.html',controller: 'EventController'})
+    .when('/event', {templateUrl: path+'event.view.html',controller: 'EventController'})
     
-    .when('/category', {templateUrl: 'category.view.html',controller: 'CategoryController'})
+    .when('/category', {templateUrl: path+'category.view.html',controller: 'CategoryController'})
     
-    .when('/user', {templateUrl: 'user.view.html',controller: 'UserControllerList'})
+    .when('/user', {templateUrl: path+'user.view.html',controller: 'UserController'})
     
-    .when('/region', {templateUrl: 'region.view.html',controller: 'RegionController'})
+    .when('/region', {templateUrl: path+'region.view.html',controller: 'RegionController'})
    
-	.when('/login', {templateUrl: path + 'index.html',controller: 'LoginController'})
+	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'})
 
-	.when('/home', {templateUrl: path + 'index.html',controller: 'OqFazerController'})
+	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
 
 	.otherwise({redirectTo: '/event'});	  
 });
