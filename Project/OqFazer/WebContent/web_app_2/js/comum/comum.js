@@ -17,7 +17,7 @@ publication.config(function($routeProvider){
 
 	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
 
-	.otherwise({redirectTo: '/event'});	  
+	.otherwise({redirectTo: '/'});	  
 });
 
 var StorageHelper = (function(){

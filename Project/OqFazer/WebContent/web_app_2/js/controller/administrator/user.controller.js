@@ -4,7 +4,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.user = {};
 	$scope.users = [];
 	$scope.currentPage = 1;
-	$scope.itemsPerPage = 5
+	$scope.itemsPerPage = 5;
 	$scope.buildList = _buildList;
 
 	function init(){
@@ -27,9 +27,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	};
 	
 	$scope.insert = function() {
-		var data = {context : {
-			user : $scope.user
-		}};
+		var data = {context : {user : $scope.user}};
 		
 		userService.insert(data).then(function(response){
 			$scope.user = null;
@@ -39,9 +37,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {context : {
-			user : {id : id}
-		}};
+		var data = {context : {user : {id : id}}};
 		
 		userService.deleta(data).then(function(response){
 			$scope.user = null;
@@ -50,9 +46,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	};
 	
 	$scope.update = function(id) {
-		var data = {context : {
-			user : {id : id}
-		}};
+		var data = {context : {user : {id : id}}};
 		
 		userService.update(data).then(function(response){
 			$scope.user = response.context.user;

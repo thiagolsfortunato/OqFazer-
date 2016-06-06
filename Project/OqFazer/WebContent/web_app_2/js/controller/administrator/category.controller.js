@@ -6,7 +6,6 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	$scope.category = {};
 	$scope.category.categoryParent = {};
 	$scope.categories = [];
-	$scope.test = [];
 	$scope.categories.categoriesParent = [];
 	$scope.buildList = _buildList;
 
