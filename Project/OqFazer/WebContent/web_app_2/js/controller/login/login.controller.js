@@ -1,4 +1,4 @@
-OqFazerController.controller('LoginController', function($scope,$http,$timeout,$sce) {
+OqFazerController.controller('LoginController', function($scope,$http,$timeout,$sce, loginService) {
 
 	var CHAVE_STORAGE = 'user';
 	var urlPath = "http://localhost:8085/OqFazer/Login!";
@@ -19,31 +19,20 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			user : $scope.user
 		}};
 		
-		var data1 = JSON.stringify(data);
-		
-		jQuery.ajax({
-		    url: urlPath + 'login.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: false,
-		    success: function (response) {
-		    	var user = response.context.user
-		    	console.log(user);
-		    	if (user == null) {
-	    			$scope.showMessageError = true;
-	    			return;
-		    	}
-		    	$scope.user = user;
-		    	StorageHelper.setItem(CHAVE_STORAGE, user);
-		    	$scope.isLogado = true;
-		    	closeModal();
-		    }
+		categoryService.doLogin(data).then(function(response){
+			var user = response.context.user
+	    	console.log(user);
+	    	if (user == null) {
+    			$scope.showMessageError = true;
+    			return;
+	    	}
+	    	$scope.user = user;
+	    	StorageHelper.setItem(CHAVE_STORAGE, user);
+	    	$scope.isLogado = true;
+	    	closeModal();
 		});
 	};
 	
-	// 
 	$scope.getMensageApresentation = function() {
 		return $sce.trustAsHtml("Olá, " + $scope.user.name);
 	}
@@ -53,19 +42,10 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			user : $scope.user
 		}};
 		
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'logout.action',
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    data: data1,
-		    type: 'POST',
-		    async: false,
-		    success: function (response) {
-				StorageHelper.removeItem(CHAVE_STORAGE);
-				$scope.user = {};
-				$scope.isLogado = false;
-		    }
+		categoryService.doLogin(data).then(function(response){
+			StorageHelper.removeItem(CHAVE_STORAGE);
+			$scope.user = {};
+			$scope.isLogado = false;
 		});
 	};
 	
