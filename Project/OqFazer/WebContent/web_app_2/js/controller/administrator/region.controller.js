@@ -1,4 +1,4 @@
-OqFazerController.controller('RegionController', function($scope,$http,$timeout,$sce,regionService) {
+OqFazerController.controller('RegionController', function($scope,$http,$timeout,$sce,RegionService) {
 
 	TelaHelper.tela = 'region';
 	$scope.regions = [];
@@ -34,13 +34,13 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 	}
 	
 	$scope.loadRegions = function() {
-		regionService.searchAll().then(function (response){
+		RegionService.searchAll().then(function (response){
 			buildList(response);
 		});
 	};
 	
 	$scope.loadCities = function() {
-		regionService.searchAllCities().then(function (response){
+		RegionService.searchAllCities().then(function (response){
 			buildListCities(response);
 		});
 	};
@@ -53,7 +53,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 			}
 		};
 		
-		regionService.insert(data).then(function(response){
+		RegionService.insert(data).then(function(response){
 			console.log(response);
 			if(response.context.region.erro != null){
 				alert(response.context.region.erro);
@@ -72,7 +72,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 			}
 		};
 
-		regionService.deleta(data).then(function(response){
+		RegionService.deleta(data).then(function(response){
 			$scope.id = null;
 			$scope.region = [];
 			$scope.loadRegions();
@@ -98,7 +98,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 				}
 			};
 			
-			regionService.update(data).then(function(response){
+			RegionService.update(data).then(function(response){
 				if(response.context.region.erro != null){
 					alert(response.context.region.erro);
 				}	

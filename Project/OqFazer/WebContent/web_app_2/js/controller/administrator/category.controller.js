@@ -1,4 +1,4 @@
-OqFazerController.controller('CategoryController', function($scope,$http,$timeout,$sce,categoryService) {
+OqFazerController.controller('CategoryController', function($scope,$http,$timeout,$sce,CategoryService) {
 
 	TelaHelper.tela = 'category';
 	$scope.currentPage = 1;
@@ -14,7 +14,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	}
 	
 	$scope.loadCategories = function() {
-		categoryService.searchAll().then(function (response){
+		CategoryService.searchAll().then(function (response){
 			$scope.buildList(response);
 		});	
 	};
@@ -36,7 +36,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 				delete $scope.category.categorySelected;
 				
 				var data = {context : {category : $scope.category}};
-				categoryService.insert(data).then(function(response){
+				CategoryService.insert(data).then(function(response){
 					$scope.category = null;
 					$scope.loadCategories();
 					$scope.cancelModal();
@@ -59,7 +59,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	
 	$scope.update = function(id){
 		var data = {context : {category : {id : id}}}
-		categoryService.update(data).then(function(response){
+		CategoryService.update(data).then(function(response){
 			console.log(response);
 			$scope.category.categorySelected = response.context.category.parentDTO;
 			$scope.category = response.context.category;
@@ -68,7 +68,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	
 	$scope.deleta = function(id) {
 		var data = {context : {category : {id : id}}};
-		categoryService.deleta(data).then(function(response){
+		CategoryService.deleta(data).then(function(response){
 			$scope.category = null;
 			$scope.loadCategories();
 		})
@@ -89,7 +89,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	
 	$scope.searchById = function(id) {
 		var data = {context : {category : {id : id}}};
-		categoryService.searchById(data).then(function(response){
+		CategoryService.searchById(data).then(function(response){
 			$scope.category = response.context.category;
 		})		
 	}

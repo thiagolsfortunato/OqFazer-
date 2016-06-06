@@ -1,4 +1,4 @@
-OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce,userService) {
+OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce,UserService) {
 
 	TelaHelper.tela = 'user';
 	$scope.user = {};
@@ -12,7 +12,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	}
 	
 	$scope.loadUsers = function() {
-		userService.searchAll().then(function (response){
+		UserService.searchAll().then(function (response){
 			$scope.buildList(response);
 		});
 	};
@@ -29,7 +29,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.insert = function() {
 		var data = {context : {user : $scope.user}};
 		
-		userService.insert(data).then(function(response){
+		UserService.insert(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
 			$scope.cancelModal();
@@ -39,7 +39,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.deleta = function(id) {
 		var data = {context : {user : {id : id}}};
 		
-		userService.deleta(data).then(function(response){
+		UserService.deleta(data).then(function(response){
 			$scope.user = null;
 			$scope.loadUsers();
 		})
@@ -48,7 +48,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.update = function(id) {
 		var data = {context : {user : {id : id}}};
 		
-		userService.update(data).then(function(response){
+		UserService.update(data).then(function(response){
 			$scope.user = response.context.user;
 		})
 	};
