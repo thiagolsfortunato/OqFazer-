@@ -1,94 +1,63 @@
-OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce) {
+OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, eventService) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
+	
 	TelaHelper.tela = 'event';
 	$scope.events = [];
-	$scope.currentPage = 1;
-	$scope.itemsPerPage = 5
 	$scope.event = {};
+	$scope.currentPage = 1;
+	$scope.itemsPerPage = 5;
+	$scope.buildList = _buildList;
 	
 	function init(){
 		$scope.loadEvents();
 	}
 	
 	$scope.loadEvents = function() {
-		$http.get(urlPath + 'searchAll.action', {
-			cache : false
-		}).success(function(response) {
-	    	buildList(response);
-		});
-		
+		eventService.searchAll().then(function (response){
+			$scope.buildList(response);
+		});		
 	};
 
+	$scope.openModal = function(id, flag) {
+		if(flag == "update"){
+			$scope.update(id);
+		}else{
+			$scope.user = null;
+		}
+		jQuery('#modalForm').modal('show');
+	};
+	
 	$scope.insert = function() {
-		var data = {
-			context : {
-				event : $scope.event
+		var data = {context : {
+			event : $scope.event
 		}};
 		
-		var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'insert.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: true,
-		    success: function (response) {
-		        $scope.cancelModal();
-		    	buildList(response);
-		    }
-		});
+		eventService.insert(data).then(function(response){
+			$scope.event = null;
+			$scope.loadEvents();
+			$scope.cancelModal();
+		})
 	};
 	
 	$scope.deleta = function(id) {
-		var data = {
-			context : {
-				event : {id : id}
+		var data = {context : {
+			event : {id : id}
 		}};
 		
 		eventService.deleta(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
 		})
-		
-		/*var data1 = JSON.stringify(data);
-		jQuery.ajax({
-		    url: urlPath + 'delete.action',
-		    data: data1,
-		    dataType: 'json',
-		    contentType: 'application/json',
-		    type: 'POST',
-		    async: false,
-		    success: function (response) {
-		    	$scope.id = null;
-		    	buildLista(response);
-		    }
-		});*/
-	}
+	};
 	
-	$scope.openModal = function(id, flag) {
-		if (id) {
-			var data = {
-				context : {
-					event : {id : id}
-				}
-			};
-
-			var data1 = JSON.stringify(data);
-			jQuery.ajax({
-			    url: urlPath + 'update.action',
-			    data: data1,
-			    dataType: 'json',
-			    contentType: 'application/json',
-			    type: 'POST',
-			    async: false,
-			    success: function (response) {
-			        $scope.event = response.context.eventsDTO;
-			    }
-			});
-		}
-		jQuery('#modalForm').modal('show');
+	
+	$scope.update = function(id) {
+		var data = {context : {event : {id : id}}};
+		
+		eventService.update(data).then(function(response){
+			$scope.event = response.context.event;
+		})
 	};
 
 	$scope.cancelModal = function() {
