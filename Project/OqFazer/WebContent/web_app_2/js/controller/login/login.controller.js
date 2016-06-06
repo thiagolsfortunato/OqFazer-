@@ -1,4 +1,4 @@
-OqFazerController.controller('LoginController', function($scope,$http,$timeout,$sce, loginService) {
+OqFazerController.controller('LoginController', function($scope,$http,$timeout,$sce, LoginService) {
 
 	var CHAVE_STORAGE = 'user';
 	var urlPath = "http://localhost:8085/OqFazer/Login!";
@@ -11,7 +11,6 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 		return TelaHelper.screen == screen ? 'active' : '';
 	};
 	
-	
 	$scope.doLogin = function() {
 		$scope.showMessageError = false;
 		
@@ -19,17 +18,19 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			user : $scope.user
 		}};
 		
-		categoryService.doLogin(data).then(function(response){
+		LoginService.doLogin(data).then(function(response){
 			var user = response.context.user
 	    	console.log(user);
 	    	if (user == null) {
     			$scope.showMessageError = true;
+    			$scope.$applyAsync();
     			return;
 	    	}
 	    	$scope.user = user;
 	    	StorageHelper.setItem(CHAVE_STORAGE, user);
 	    	$scope.isLogado = true;
 	    	closeModal();
+	    	$scope.$applyAsync();
 		});
 	};
 	
@@ -42,10 +43,11 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			user : $scope.user
 		}};
 		
-		categoryService.doLogin(data).then(function(response){
+		LoginService.doLogin(data).then(function(response){
 			StorageHelper.removeItem(CHAVE_STORAGE);
 			$scope.user = {};
 			$scope.isLogado = false;
+			$scope.$applyAsync();
 		});
 	};
 	
@@ -81,10 +83,6 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 	function closeModal() {
 		jQuery('#modalFormLogin').modal('hide');
 	};
-	
-	$scope.getMensagemApresentacao = function() {
-		return $sce.trustAsHtml("Olá, " + $scope.usuario.nome);
-	}
 	
 	setTimeout(function() {
 		$scope.isLogged();

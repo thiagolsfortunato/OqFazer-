@@ -5,7 +5,7 @@ publication.factory('LoginService', ['$http',function ($http) {
 	
 	return {
         doLogin : _doLogin,
-        doLogout : _categoryUpdate,
+        doLogout : _doLogout,
     };
     
     function _doLogin(user){
@@ -40,6 +40,5 @@ publication.factory('LoginService', ['$http',function ($http) {
 				    }
 				});
     	return promess;
-    }  
-    
+    }     
 }]);

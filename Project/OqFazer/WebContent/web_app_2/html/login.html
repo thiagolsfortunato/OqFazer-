@@ -16,12 +16,8 @@
 				<li>
 					<button type="button" class="btn btn-primary logoutBtn" ng-click="doLogout()">Log Out</button>
 				</li>
-					
 			</ul>
 		</div>
-	</div>
-	<div class="alert alert-danger" role="alert" ng-show="showMessageError">
-		<p>user/password invalid</p>
 	</div>	 		
 	<div>
 		<div class="modal fade" id="modalFormLogin" role="dialog">
@@ -41,6 +37,9 @@
 								<input type="password" class="form-control" ng-model="user.password">
 							</div>
 						</form>
+						<div class="alert alert-danger" role="alert" ng-show="showMessageError">
+							<p>user/password invalid</p>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-danger" 
