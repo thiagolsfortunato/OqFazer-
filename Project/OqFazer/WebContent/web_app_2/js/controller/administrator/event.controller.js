@@ -1,4 +1,4 @@
-OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, eventService) {
+OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, EventService) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	
@@ -7,15 +7,14 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	$scope.event = {};
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
-	$scope.buildList = _buildList;
 	
 	function init(){
 		$scope.loadEvents();
 	}
 	
 	$scope.loadEvents = function() {
-		eventService.searchAll().then(function (response){
-			$scope.buildList(response);
+		EventService.searchAll().then(function (response){
+			buildList(response);
 		});		
 	};
 
@@ -33,7 +32,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 			event : $scope.event
 		}};
 		
-		eventService.insert(data).then(function(response){
+		EventService.insert(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
 			$scope.cancelModal();
@@ -45,7 +44,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 			event : {id : id}
 		}};
 		
-		eventService.deleta(data).then(function(response){
+		EventService.deleta(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
 		})
@@ -55,7 +54,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	$scope.update = function(id) {
 		var data = {context : {event : {id : id}}};
 		
-		eventService.update(data).then(function(response){
+		EventService.update(data).then(function(response){
 			$scope.event = response.context.event;
 		})
 	};
@@ -66,8 +65,8 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	};
 
 	function buildList(response) {
-		console.log(response.context.events);
-		$scope.events = response.context.events;
+		console.log(response.data.context.events);
+		$scope.events = response.data.context.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}

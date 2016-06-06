@@ -7,6 +7,8 @@ publication.config(function($routeProvider){
 	  
     .when('/event', {templateUrl: path+'event.view.html',controller: 'EventController'})
     
+    .when('/eventList', {templateUrl: path+'eventList.view.html',controller: 'EventController'})
+    
     .when('/category', {templateUrl: path+'category.view.html',controller: 'CategoryController'})
     
     .when('/user', {templateUrl: path+'user.view.html',controller: 'UserController'})
@@ -17,7 +19,7 @@ publication.config(function($routeProvider){
 
 	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
 
-	.otherwise({redirectTo: '/'});	  
+	.otherwise({redirectTo: '/event'});	  
 });
 
 var StorageHelper = (function(){

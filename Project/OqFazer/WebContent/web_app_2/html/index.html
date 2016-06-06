@@ -5,12 +5,13 @@
 	<link rel="stylesheet" href="../css/external/bootstrap/bootstrap.min.css" ></link>
 	<link rel="stylesheet" type="text/css" href="../css/app/comum/comum.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/app/login/login.css"></link>
-	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>
+	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>	
 </head>
 <body ng-app="oqfazer">
  	<div class="index">
- 		<ng-include src="'login.html'"></ng-include>
- 		<ng-include src="'administrator/views/event.view.html'"></ng-include>
+ 		<div ng-controller="LoginController">
+ 			<ng-include src="'login.html'"></ng-include>
+ 		</div>
  		<ng-include src="'template/footer.html'"></ng-include>
  		<div ng-view></div>	
  	</div>	
@@ -26,6 +27,7 @@
 	<script type="text/javascript" src="../js/service/event.service.js"></script>
 	<script type="text/javascript" src="../js/service/region.service.js"></script>
 	<script type="text/javascript" src="../js/service/user.service.js"></script>
+	<script type="text/javascript" src="../js/service/login.service.js"></script>
 	<script type="text/javascript" src="../js/controller/login/login.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/event.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/category.controller.js"></script>
