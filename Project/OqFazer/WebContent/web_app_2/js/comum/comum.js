@@ -5,15 +5,15 @@ publication.config(function($routeProvider){
 	var path = '/OqFazer/web_app_2/html/administrator/views/';
 	$routeProvider
 	  
-    .when('/event', {templateUrl: path+'event.view.html',controller: 'EventController'})
+    .when('/events', {templateUrl: path+'event.view.html',controller: 'EventController'})
     
     .when('/eventList', {templateUrl: path+'eventList.view.html',controller: 'EventController'})
     
-    .when('/category', {templateUrl: path+'category.view.html',controller: 'CategoryController'})
+    .when('/categories', {templateUrl: path+'category.view.html',controller: 'CategoryController'})
     
-    .when('/user', {templateUrl: path+'user.view.html',controller: 'UserController'})
+    .when('/users', {templateUrl: path+'user.view.html',controller: 'UserController'})
     
-    .when('/region', {templateUrl: path+'region.view.html',controller: 'RegionController'})
+    .when('/regions', {templateUrl: path+'region.view.html',controller: 'RegionController'})
    
 	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'})
 
@@ -22,7 +22,7 @@ publication.config(function($routeProvider){
 	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
 	
 	
-	.otherwise({redirectTo: '/event'});	  
+	.otherwise({redirectTo: '/events'});	  
 });
 
 var StorageHelper = (function(){
