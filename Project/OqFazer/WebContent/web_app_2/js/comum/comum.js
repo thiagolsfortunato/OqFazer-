@@ -5,22 +5,27 @@ publication.config(function($routeProvider){
 	var path = '/OqFazer/web_app_2/html/administrator/views/';
 	$routeProvider
 	  
-    .when('/events', {templateUrl: path+'event.view.html',controller: 'EventController'})
+    .when('/events', {templateUrl: path+'event.view.html',controller: 'EventController'}) //adm
     
-    .when('/eventList', {templateUrl: path+'eventList.view.html',controller: 'EventController'})
+    .when('/categories', {templateUrl: path+'category.view.html',controller: 'CategoryController'}) //adm
     
-    .when('/categories', {templateUrl: path+'category.view.html',controller: 'CategoryController'})
+    .when('/users', {templateUrl: path+'user.view.html',controller: 'UserController'}) //adm
     
-    .when('/users', {templateUrl: path+'user.view.html',controller: 'UserController'})
+    .when('/regions', {templateUrl: path+'region.view.html',controller: 'RegionController'}) //adm
     
-    .when('/regions', {templateUrl: path+'region.view.html',controller: 'RegionController'})
-   
-	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'})
-
-	.when('/administrator', {templateUrl: 'administrator.html',controller: 'AdministratorController'})
+    .when('/eventList', {templateUrl: path+'app/eventList.view.html',controller: 'EventController'}) // all events
+    
+    .when('/myCount', {templateUrl: path+'app/myCount.view.html',controller: 'UserController'}) //desc user
+    
+    .when('/descriptionEvent', {templateUrl: path+'app/descriptionEvent.view.html',controller: 'EventController'}) // desc event
+    
+    .when('/myEvents', {templateUrl: path+'app/eventList.view.html',controller: 'UserController'}) // set with event by owner
+    
+    .when('/myParticipation', {templateUrl: path+'app/eventList.view.html',controller: 'UserController'}) //set with list participation
+    
+	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'}) //login
 	
-	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
-	
+	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'}) //home
 	
 	.otherwise({redirectTo: '/events'});	  
 });
