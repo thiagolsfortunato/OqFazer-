@@ -65,7 +65,6 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	};
 
 	function buildList(response) {
-		console.log(response.data.context.events);
 		$scope.events = response.data.context.events;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();

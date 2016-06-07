@@ -54,7 +54,6 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 		};
 		
 		RegionService.insert(data).then(function(response){
-			console.log(response);
 			if(response.context.region.erro != null){
 				alert(response.context.region.erro);
 			}			

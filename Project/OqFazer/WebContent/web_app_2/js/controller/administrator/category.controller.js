@@ -66,7 +66,6 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	$scope.update = function(id){
 		var data = {context : {category : {id : id}}}
 		CategoryService.update(data).then(function(response){
-			console.log(response);
 			$scope.category.categorySelected = response.context.category.parentDTO;
 			$scope.category = response.context.category;
 		});
@@ -87,7 +86,6 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	};
 
 	function _buildList(response) {
-		console.log(response);
 		$scope.categories = response.data.context.categories;
 		$scope.currentPage = 1;
 		$scope.$applyAsync();

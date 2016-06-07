@@ -76,11 +76,11 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 
 	$scope.cancelModalLogin = function() {
 		$scope.user = {};
-		closeModal();
+		closeModalLogin();
 		$scope.isLogado = false;
 	};
 	
-	function closeModal() {
+	function closeModalLogin() {
 		jQuery('#modalFormLogin').modal('hide');
 	};
 	

@@ -49,9 +49,7 @@
 		items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
 		first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
 		<br/>
-		<div ng-if="isLogado">
-			<button type="button" class="btn btn-primary" ng-click="openModalEvent()">New Event</button>
-		</div>
+		<button type="button" class="btn btn-primary" ng-click="openModalEvent()">New Event</button>
 		<div>
 			<div class="modal fade" id="modalFormEvent" role="dialog">
 				<div class="modal-dialog">
