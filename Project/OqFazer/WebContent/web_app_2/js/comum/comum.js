@@ -17,8 +17,11 @@ publication.config(function($routeProvider){
    
 	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'})
 
+	.when('/administrator', {templateUrl: 'administrator.html',controller: 'AdministratorController'})
+	
 	.when('/home', {templateUrl: 'index.html',controller: 'OqFazerController'})
-
+	
+	
 	.otherwise({redirectTo: '/event'});	  
 });
 
