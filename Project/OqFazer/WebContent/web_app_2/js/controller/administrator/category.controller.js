@@ -19,13 +19,13 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 		});	
 	};
 
-	$scope.openModal = function(id, flag) {
+	$scope.openModalCategory = function(id, flag) {
 		if(flag == "update"){
 			$scope.update(id);
 		}else{
 			$scope.category = {};
 		}
-		jQuery('#modalForm').modal('show');
+		jQuery('#modalFormCategory').modal('show');
 	};
 		
 	$scope.insert = function() {
@@ -39,13 +39,19 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 				CategoryService.insert(data).then(function(response){
 					$scope.category = null;
 					$scope.loadCategories();
-					$scope.cancelModal();
+					$scope.cancelModalCategory();
 				})
+			}else{
+				alert('Select diferent category')
+				return 
 			}
 		}else{
-			alert('Select diferent category')
-			return 
-		}
+			CategoryService.insert(data).then(function(response){
+				$scope.category = null;
+				$scope.loadCategories();
+				$scope.cancelModalCategory();
+			})
+		}		
 	};
 	
 	function buildTree(listTree, category){
@@ -75,9 +81,9 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	};
 
 	
-	$scope.cancelModal = function() {
+	$scope.cancelModalCategory = function() {
 		$scope.category = {};
-		closeModal();
+		closeModalCategory();
 	};
 
 	function _buildList(response) {
@@ -94,8 +100,8 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 		})		
 	}
 	
-	function closeModal() {
-		jQuery('#modalForm').modal('hide');
+	function closeModalCategory() {
+		jQuery('#modalFormCategory').modal('hide');
 	}
 
 	setTimeout(function() {

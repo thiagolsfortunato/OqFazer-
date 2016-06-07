@@ -17,13 +17,13 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 		});
 	};
 
-	$scope.openModal = function(id, flag) {
+	$scope.openModalUser = function(id, flag) {
 		if(flag == "update"){
 			$scope.update(id);
 		}else{
 			$scope.user = null;
 		}
-		jQuery('#modalForm').modal('show');
+		jQuery('#modalFormUser').modal('show');
 	};
 	
 	$scope.insert = function() {
@@ -53,9 +53,9 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 		})
 	};
 	
-	$scope.cancelModal = function() {
+	$scope.cancelModalUser = function() {
 		$scope.user = {};
-		closeModal();
+		closeModalUser();
 	};
 
 	function _buildList(response) {
@@ -64,8 +64,8 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 		$scope.$applyAsync();
 	}
 	
-	function closeModal() {
-		jQuery('#modalForm').modal('hide');
+	function closeModalUser() {
+		jQuery('#modalFormUser').modal('hide');
 	};
 	
 	setTimeout(function() {

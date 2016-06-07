@@ -18,13 +18,13 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		});		
 	};
 
-	$scope.openModal = function(id, flag) {
+	$scope.openModalEvent = function(id, flag) {
 		if(flag == "update"){
 			$scope.update(id);
 		}else{
 			$scope.user = null;
 		}
-		jQuery('#modalForm').modal('show');
+		jQuery('#modalFormEvent').modal('show');
 	};
 	
 	$scope.insert = function() {
@@ -35,7 +35,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		EventService.insert(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
-			$scope.cancelModal();
+			$scope.cancelModalEvent();
 		})
 	};
 	
@@ -59,9 +59,9 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		})
 	};
 
-	$scope.cancelModal = function() {
+	$scope.cancelModalEvent = function() {
 		$scope.event = {};
-		closeModal();
+		closeModalEvent();
 	};
 
 	function buildList(response) {
@@ -71,8 +71,8 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		$scope.$applyAsync();
 	}
 	
-	function closeModal() {
-		jQuery('#modalForm').modal('hide');
+	function closeModalEvent() {
+		jQuery('#modalFormEvent').modal('hide');
 	};
 	
 	setTimeout(function() {

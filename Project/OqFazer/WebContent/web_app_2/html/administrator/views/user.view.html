@@ -22,7 +22,7 @@
 					<td at-implicit at-sortable>{{ user.phone }}</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="openModal(user.id,'update')" href="#" class="btn btn-danger btn-small">
+							<a ng-click="openModalUser(user.id,'update')" href="#" class="btn btn-danger btn-small">
 								<span class="glyphicon glyphicon-edit" title="Update"></span>
 							</a>
 						</p>
@@ -46,9 +46,9 @@
 		items-per-page="itemsPerPage" class="pagination-sm" previous-text="&lsaquo;" next-text="&rsaquo;" 
 		first-text="&laquo;" last-text="&raquo;" ng-change="pageChange()"></uib-pagination>
 		<br/>
-		<button type="button" class="btn btn-primary" ng-click="openModal()">New User</button>
+		<button type="button" class="btn btn-primary" ng-click="openModalUser()">New User</button>
 		<div>
-			<div class="modal fade" id="modalForm" role="dialog">
+			<div class="modal fade" id="modalFormUser" role="dialog">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -76,7 +76,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-danger" 
-								ng-click="cancelModal()">Cancel</button>
+								ng-click="cancelModalUser()">Cancel</button>
 							<button type="button" class="btn btn-success" 
 								ng-click="insert()">Salve</button>
 						</div>

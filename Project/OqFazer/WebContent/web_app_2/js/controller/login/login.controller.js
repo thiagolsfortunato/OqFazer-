@@ -29,7 +29,7 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 	    	$scope.user = user;
 	    	StorageHelper.setItem(CHAVE_STORAGE, user);
 	    	$scope.isLogado = true;
-	    	closeModal();
+	    	closeModalLogin();
 	    	$scope.$applyAsync();
 		});
 	};
@@ -74,7 +74,7 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 		jQuery('#modalFormLogin').modal('show');
 	};
 
-	$scope.cancelModal = function() {
+	$scope.cancelModalLogin = function() {
 		$scope.user = {};
 		closeModal();
 		$scope.isLogado = false;

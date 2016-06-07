@@ -61,7 +61,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 			$scope.region = {};
 			$scope.citiesRegion = null;
 			$scope.loadRegions();
-			$scope.cancelModal();
+			$scope.cancelModalRegion();
 		})
 	};
 
@@ -79,7 +79,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 		});
 	}
 
-	$scope.openModal = function(id,flag) {
+	$scope.openModalRegion = function(id,flag) {
 		if(flag == "update"){
 			$scope.update(id);
 		}else{
@@ -87,7 +87,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 			$scope.cities = [];
 			$scope.loadCities();
 		}
-		jQuery('#modalForm').modal('show');
+		jQuery('#modalFormRegion').modal('show');
 	};
 
 	$scope.update = function(id){
@@ -111,10 +111,10 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 		}
 	}
 
-	$scope.cancelModal = function() {
+	$scope.cancelModalRegion = function() {
 		$scope.region = {};
 		$scope.citiesRegion = [];
-		closeModal();
+		closeModalRegion();
 	};
 
 	function buildList(response) {
@@ -129,8 +129,8 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 		$scope.$applyAsync();
 	}
 
-	function closeModal() {
-		jQuery('#modalForm').modal('hide');
+	function closeModalRegion() {
+		jQuery('#modalFormRegion').modal('hide');
 	}
 
 	setTimeout(function() {
