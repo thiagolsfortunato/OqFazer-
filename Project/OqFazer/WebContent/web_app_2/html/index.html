@@ -18,7 +18,9 @@
  			<div ng-if="user.isAdmin">
  				<ng-include src="'template/menu_adm.html'"></ng-include>
  			</div>
- 			<ng-include src="'template/menu_user.html'"></ng-include>
+ 			<div ng-if="!user.isAdmin">
+ 				<ng-include src="'template/menu_user.html'"></ng-include>
+ 			</div>
  		</div>
  		<ng-include src="'template/footer.html'"></ng-include>
  		<div ng-view></div>	

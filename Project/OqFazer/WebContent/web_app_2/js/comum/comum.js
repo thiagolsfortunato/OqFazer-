@@ -2,26 +2,27 @@ window.publication =  angular.module('oqfazer', ['ui.bootstrap','LocalStorageMod
 
 publication.config(function($routeProvider){
 	
-	var path = '/OqFazer/web_app_2/html/administrator/views/';
+	var pathAdministrator = '/OqFazer/web_app_2/html/administrator/';
+	var pathApp = '/OqFazer/web_app_2/html/app/';
 	$routeProvider
 	  
-    .when('/events', {templateUrl: path+'event.view.html',controller: 'EventController'}) //adm
+    .when('/events', {templateUrl: pathAdministrator+'event.view.html',controller: 'EventController'}) //adm
     
-    .when('/categories', {templateUrl: path+'category.view.html',controller: 'CategoryController'}) //adm
+    .when('/categories', {templateUrl: pathAdministrator+'category.view.html',controller: 'CategoryController'}) //adm
     
-    .when('/users', {templateUrl: path+'user.view.html',controller: 'UserController'}) //adm
+    .when('/users', {templateUrl: pathAdministrator+'user.view.html',controller: 'UserController'}) //adm
     
-    .when('/regions', {templateUrl: path+'region.view.html',controller: 'RegionController'}) //adm
+    .when('/regions', {templateUrl: pathAdministrator+'region.view.html',controller: 'RegionController'}) //adm
     
-    .when('/eventList', {templateUrl: path+'app/eventList.view.html',controller: 'EventController'}) // all events
+    .when('/eventList', {templateUrl: pathApp+'eventList.view.html',controller: 'EventController'}) // all events
     
-    .when('/myCount', {templateUrl: path+'app/myCount.view.html',controller: 'UserController'}) //desc user
+    .when('/myCount', {templateUrl: pathApp+'myCount.view.html',controller: 'UserController'}) //desc user
     
-    .when('/descriptionEvent', {templateUrl: path+'app/descriptionEvent.view.html',controller: 'EventController'}) // desc event
+    .when('/descriptionEvent', {templateUrl: pathApp+'descriptionEvent.view.html',controller: 'EventController'}) // desc event
     
-    .when('/myEvents', {templateUrl: path+'app/eventList.view.html',controller: 'UserController'}) // set with event by owner
+    .when('/myEvents', {templateUrl: pathApp+'eventList.view.html',controller: 'UserController'}) // set with event by owner
     
-    .when('/myParticipation', {templateUrl: path+'app/eventList.view.html',controller: 'UserController'}) //set with list participation
+    .when('/myParticipations', {templateUrl: pathApp+'eventList.view.html',controller: 'UserController'}) //set with list participation
     
 	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'}) //login
 	
