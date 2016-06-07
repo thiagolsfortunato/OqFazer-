@@ -1,20 +1,38 @@
-<div ng-if="isLogado">
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<ul class="nav navbar-nav">
-				<li class="{{isActive('Event')}}">
-					<a href="#/event">Events</a>
-				</li>
-				<li class="{{isActive('User')}}">
-					<a href="#/user">Users</a>
-				</li>
-				<li class="{{isActive('Category')}}">
-					<a href="#/category">Category</a>
-				</li>
-				<li class="{{isActive('Region')}}">
-					<a href="#/region">Region</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-</div>
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>OqFazer</title>
+	<link rel="stylesheet" href="../css/external/bootstrap/bootstrap.min.css" ></link>
+	<link rel="stylesheet" type="text/css" href="../css/app/comum/comum.css"></link>
+	<link rel="stylesheet" type="text/css" href="../css/app/login/login.css"></link>
+	<link rel="stylesheet" type="text/css" href="../css/administrator/index.css"></link>	
+</head>
+<body ng-app="oqfazer">
+ 	<div class="adminitrator">
+ 		<div ng-controller="LoginController">
+ 			<ng-include src="'login.html'"></ng-include>
+ 			<ng-include src="'menu_adm.html'"></ng-include>
+ 		</div>
+ 		<ng-include src="'template/footer.html'"></ng-include>
+ 		<div ng-view></div>	
+ 	</div>	
+	
+	<script type="text/javascript" src="../js/external/angular.min.js"></script>
+	<script type="text/javascript" src="../js/external/angular-route.js"></script>
+	<script type="text/javascript" src="../js/external/angular-local-storage.min.js"></script>
+	<script type="text/javascript" src="../js/external/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/comum/comum.js"></script>
+	<script type="text/javascript" src="../js/external/ui-bootstrap.js"></script>
+	<script type="text/javascript" src="../js/external/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/service/category.service.js"></script>
+	<script type="text/javascript" src="../js/service/event.service.js"></script>
+	<script type="text/javascript" src="../js/service/region.service.js"></script>
+	<script type="text/javascript" src="../js/service/user.service.js"></script>
+	<script type="text/javascript" src="../js/service/login.service.js"></script>
+	<script type="text/javascript" src="../js/controller/login/login.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/event.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/category.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/region.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/administrator/user.controller.js"></script>
+</body>
+</html>
