@@ -26,6 +26,7 @@ public class LoginAction extends OqFazerWebAction {
 
 		if (userFound != null) {
 			userFound.setStartSession(new Date().getTime());
+			if(userFound.getName().equals("admin")) userFound.setIsAdmin(true);
 			this.getSession().put("usuario", userFound);
 		}
 		this.context.setUser(userFound);

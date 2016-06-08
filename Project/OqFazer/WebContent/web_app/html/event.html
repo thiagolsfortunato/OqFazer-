@@ -19,7 +19,7 @@
 					<th>Event Date</th>
 					<th>Local</th>
 					<th>Region</th>
-					<th>Onwer</th>
+					<th>Owner</th>
 					<th colspan="2"></th>
 				</thead>
 				<tbody>
@@ -30,8 +30,8 @@
 							<td at-implicit at-sortable>{{ event.description }}</td>
 							<td at-implicit at-sortable>{{ event.event_date }}</td>
 							<td at-implicit at-sortable>{{ event.local }}</td>
-							<td at-implicit at-sortable>{{ event.region }}</td>
-							<td at-implicit at-sortable>{{ event.owner }}</td>
+							<td at-implicit at-sortable>{{ event.region.name }}</td>
+							<td at-implicit at-sortable>{{ event.owner.name }}</td>
 						<td class="btnCell">
 							<p>
 								<a ng-click="openModal(event.id)" href="#" class="btn btn-danger btn-small">

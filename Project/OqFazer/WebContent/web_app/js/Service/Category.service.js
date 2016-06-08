@@ -31,7 +31,7 @@ app.factory('CategoryService', ['$http',function ($http) {
 				    dataType: 'json',
 				    contentType: 'application/json',
 				    type: 'POST',
-				    async: true,
+				    async: false,
 				    success: function (response) {
 				        return promess;
 				    }

@@ -18,8 +18,7 @@ public class User {
 	private String password;
 	private String email;
 	private int phone;
-	
-	
+		
 	public User(){};	
 	
 	public User(Long id, String name, String password, String email, int phone) {

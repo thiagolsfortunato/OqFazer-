@@ -64,12 +64,12 @@ app.controller('LoginController', ['$scope', '$http', '$timeout', '$sce',
 		    	console.log(user);
 		    	if (user == null) {
 	    			$scope.showMessageError = true;
-	    			closeModal();
 	    			return;
 		    	}
 		    	$scope.user = user;
 		    	StorageHelper.setItem(CHAVE_STORAGE, user);
 		    	$scope.isLogado = true;
+		    	closeModal();
 		    }
 		});
 	};

@@ -14,12 +14,6 @@
 			<interceptor name="cookieProvider" class="org.apache.struts2.interceptor.CookieProviderInterceptor"/>
 		</interceptors>
 
-		<action name="Test!*" class="br.com.fatec.oqfazer.web.action.TestAction"
-			method="{1}">
-			<result name="html">/web_app/html/index.html</result>
-			<result name="jsp">index.jsp</result>
-		</action>
-
 		<action name="*!*" class="br.com.fatec.oqfazer.web.action.{1}Action"
 			method="{2}">
 			<interceptor-ref name="cookie"></interceptor-ref>
