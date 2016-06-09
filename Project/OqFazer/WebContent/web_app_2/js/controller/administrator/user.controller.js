@@ -1,4 +1,4 @@
-OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce,UserService) {
+OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce, UserService, LoginService ) {
 
 	TelaHelper.tela = 'user';
 	$scope.user = {};
@@ -6,9 +6,12 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	$scope.buildList = _buildList;
-
+	
 	function init(){
+		$scope.user = LoginService.sendUser;
+		console.log($scope.user);
 		$scope.loadUsers();
+		$scope.$applyAsync();
 	}
 	
 	$scope.loadUsers = function() {
@@ -27,13 +30,17 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	};
 	
 	$scope.insert = function() {
-		var data = {context : {user : $scope.user}};
-		
-		UserService.insert(data).then(function(response){
-			$scope.user = null;
-			$scope.loadUsers();
-			$scope.cancelModal();
-		})
+		if($scope.user.name != null){
+			var data = {context : {user : $scope.user}};
+			UserService.insert(data).then(function(response){
+				$scope.user = null;
+				$scope.loadUsers();
+				$scope.cancelModalUser();
+				$scope.$applyAsync();
+			})
+		}else{
+			alert("Fail Operation");
+		}
 	};
 	
 	$scope.deleta = function(id) {

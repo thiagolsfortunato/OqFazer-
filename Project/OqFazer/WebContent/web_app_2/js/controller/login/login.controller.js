@@ -20,13 +20,13 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 		
 		LoginService.doLogin(data).then(function(response){
 			var user = response.context.user
-	    	console.log(user);
 	    	if (user == null) {
     			$scope.showMessageError = true;
     			$scope.$applyAsync();
     			return;
 	    	}
 	    	$scope.user = user;
+	    	LoginService.sendUser = $scope.user;
 	    	StorageHelper.setItem(CHAVE_STORAGE, user);
 	    	$scope.isLogado = true;
 	    	closeModalLogin();

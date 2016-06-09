@@ -9,6 +9,8 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	$scope.itemsPerPage = 5;
 	
 	function init(){
+		//$scope.event = LoginUser.sendUser.myEvents;
+		//$scope.event = LoginUser.sendUser.myParticipation;
 		$scope.loadEvents();
 	}
 	
