@@ -20,9 +20,9 @@ publication.config(function($routeProvider){
     
     .when('/descriptionEvent', {templateUrl: pathApp+'descriptionEvent.view.html',controller: 'EventController'}) // desc event
     
-    .when('/myEvents', {templateUrl: pathApp+'eventList.view.html',controller: 'UserController'}) // set with event by owner
+    .when('/myEvents', {templateUrl: pathApp+'myEvents.view.html',controller: 'UserController'}) // set with event by owner
     
-    .when('/myParticipations', {templateUrl: pathApp+'eventList.view.html',controller: 'UserController'}) //set with list participation
+    .when('/myParticipations', {templateUrl: pathApp+'myParticipationsEvents.view.html',controller: 'UserController'}) //set with list participation
     
 	.when('/login', {templateUrl: 'login.html',controller: 'LoginController'}) //login
 	

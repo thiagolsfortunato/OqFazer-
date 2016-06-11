@@ -1,0 +1,20 @@
+<div ng-if="isLogado">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="{{isActive('Event')}}">
+					<a href="#/events">Events</a>
+				</li>
+				<li class="{{isActive('User')}}">
+					<a href="#/users">Users</a>
+				</li>
+				<li class="{{isActive('Category')}}">
+					<a href="#/categories">Category</a>
+				</li>
+				<li class="{{isActive('Region')}}">
+					<a href="#/regions">Region</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</div>

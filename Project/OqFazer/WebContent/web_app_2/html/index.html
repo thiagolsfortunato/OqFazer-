@@ -5,7 +5,8 @@
 	<link rel="stylesheet" href="../css/external/bootstrap/bootstrap.min.css" ></link>
 	<link rel="stylesheet" type="text/css" href="../css/app/comum/comum.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/app/login/login.css"></link>
-	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>	
+	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>
+	<link rel="stylesheet" type="text/css" href="../css/app/index/filter.css"></link>	
 	<link rel="stylesheet" type="text/css" href="../css/administrator/user.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/category.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/event.css"></link>
@@ -21,6 +22,9 @@
  			<div ng-if="!user.isAdmin">
  				<ng-include src="'template/menu_user.html'"></ng-include>
  			</div>
+ 		</div>
+ 		<div ng-controller="Filter">
+ 				<ng-include src="'template/filter.html'"></ng-include>
  		</div>
  		<ng-include src="'template/footer.html'"></ng-include>
  		<div ng-view></div>	
