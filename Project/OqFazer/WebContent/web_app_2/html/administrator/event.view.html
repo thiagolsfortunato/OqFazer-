@@ -67,21 +67,26 @@
 									<label for="nome">Description:</label>
 									<input type="text" class="form-control" ng-model="event.description">
 								</div>
-								<div class="form-group">
+								<div class="form-group date-width">
 									<label for="nome">Event Date:</label>
-									<input type="text" class="form-control" ng-model="event.event_date">
+									<div class='input-group date' id='datepicker'>
+										<input type="text" class="form-control"/>
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
 								</div>
 								<div class="form-group">
 									<label for="nome">Local:</label>
-									<input type="text" class="form-control" ng-model="event.local">
+									<input type="text" class="form-control"  ng-model="event.local">
 								</div>
 								<div class="form-group">
-									<label for="nome">Region:</label>
-									<input type="text" class="form-control" ng-model="event.region">
+									<label for="pwd">Region:</label>
+									<select class="form-control" ng-model="region.regionSelected" width="70%" ng-options="region as region.name for region in regions"></select>
 								</div>
 								<div class="form-group">
 									<label for="pwd">Owner:</label>
-									<input type="text" class="form-control" ng-model="event.owner">
+									<select class="form-control" ng-model="user.userSelected" width="70%" ng-options="user as user.name for user in users"></select>
 								</div>
 							</form>
 						</div>

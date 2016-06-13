@@ -35,12 +35,14 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 	
 	$scope.loadRegions = function() {
 		RegionService.searchAll().then(function (response){
+			
 			buildList(response);
 		});
 	};
 	
 	$scope.loadCities = function() {
 		RegionService.searchAllCities().then(function (response){
+			RegionService.sendRegions = response.data.context.regions;
 			buildListCities(response);
 		});
 	};

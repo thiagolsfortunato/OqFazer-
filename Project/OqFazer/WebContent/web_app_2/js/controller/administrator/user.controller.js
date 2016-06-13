@@ -9,13 +9,13 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	
 	function init(){
 		$scope.user = LoginService.sendUser;
-		console.log($scope.user);
 		$scope.loadUsers();
 		$scope.$applyAsync();
 	}
 	
 	$scope.loadUsers = function() {
 		UserService.searchAll().then(function (response){
+			UserService.sendUsers = response.data.context.users
 			$scope.buildList(response);
 		});
 	};

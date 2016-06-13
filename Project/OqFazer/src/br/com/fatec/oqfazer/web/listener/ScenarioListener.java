@@ -114,17 +114,6 @@ public class ScenarioListener implements ServletContextListener {
 	}
 	
 	private void insertEvent(){
-		this.event1 = new Event();
-		event1.setId((long) 1);
-		event1.setName("Show da Banda");
-		event1.setDescription("Show da banda fulana");
-		event1.setRegistration_date(new Date());
-		event1.setEvent_date(new Date());
-		event1.setLocal("Rua José");
-		event1.setImageURL(null);
-		event1.setRegion(region1);
-		event1.setOwner(u1);
-		
 		this.event2 = new Event();
 		event2.setId((long) 2);
 		event2.setName("Show da Banda2");
@@ -135,6 +124,17 @@ public class ScenarioListener implements ServletContextListener {
 		event2.setImageURL(null);
 		event2.setRegion(region2);
 		event2.setOwner(u2);
+		
+		this.event1 = new Event();
+		event1.setId((long) 1);
+		event1.setName("Show da Banda");
+		event1.setDescription("Show da banda fulana");
+		event1.setRegistration_date(new Date());
+		event1.setEvent_date(new Date());
+		event1.setLocal("Rua José");
+		event1.setImageURL(null);
+		event1.setRegion(region1);
+		event1.setOwner(u3);
 					
 		long evn1 = this.eventDAO.inserEvent(event1);
 		long evn2 = this.eventDAO.inserEvent(event2);
