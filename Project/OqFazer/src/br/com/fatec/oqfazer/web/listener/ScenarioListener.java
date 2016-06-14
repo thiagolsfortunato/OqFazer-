@@ -1,5 +1,6 @@
 package br.com.fatec.oqfazer.web.listener;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -113,24 +114,39 @@ public class ScenarioListener implements ServletContextListener {
 		System.out.println("insert user - OK");
 	}
 	
+	@SuppressWarnings("deprecation")
 	private void insertEvent(){
 		this.event2 = new Event();
+		
+		Calendar c1 = Calendar.getInstance();
+		c1.set(Calendar.YEAR, 2016);
+		c1.set(Calendar.MONTH, Calendar.APRIL);
+		c1.set(Calendar.DAY_OF_MONTH, 21);
+		Date d1 = c1.getTime();		
+		
 		event2.setId((long) 2);
 		event2.setName("Show da Banda2");
 		event2.setDescription("Show da banda fulana2");
 		event2.setRegistration_date(new Date());
-		event2.setEvent_date(new Date());
+		event2.setEvent_date(d1);
 		event2.setLocal("Rua joão");
 		event2.setImageURL(null);
 		event2.setRegion(region2);
 		event2.setOwner(u2);
 		
 		this.event1 = new Event();
+		
+		Calendar c2 = Calendar.getInstance();
+		c2.set(Calendar.YEAR, 2016);
+		c2.set(Calendar.MONTH, Calendar.OCTOBER);
+		c2.set(Calendar.DAY_OF_MONTH, 10);
+		Date d2 = c2.getTime();
+		
 		event1.setId((long) 1);
 		event1.setName("Show da Banda");
 		event1.setDescription("Show da banda fulana");
 		event1.setRegistration_date(new Date());
-		event1.setEvent_date(new Date());
+		event1.setEvent_date(d2);
 		event1.setLocal("Rua José");
 		event1.setImageURL(null);
 		event1.setRegion(region1);
