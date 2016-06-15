@@ -23,7 +23,7 @@ public class UserServiceTest extends TestScenario {
 		Assert.assertEquals("William", saved.getName());
 		Assert.assertEquals("william01", saved.getPassword());
 		Assert.assertEquals("william@test", saved.getEmail());
-		Assert.assertEquals(33334444, saved.getPhone());
+		Assert.assertEquals(new Integer(33334444), saved.getPhone());
 		//Assert.assertTrue(saved.getIsOwner());
 		
 		//Assert.assertEquals(1, saved.getMyEvents().size());

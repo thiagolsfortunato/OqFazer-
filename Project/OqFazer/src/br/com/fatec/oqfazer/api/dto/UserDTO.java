@@ -9,9 +9,10 @@ public class UserDTO {
 	private String name;
 	private String password;
 	private String email;
-	private int phone;
+	private Integer phone;
 	private List<EventDTO> participationEvents = Lists.newArrayList();
 	private List<EventDTO> myEvents = Lists.newArrayList();
+	private Boolean isAdmin = false;
 	
 	//atributes screen 
 	private Boolean isOwner;
@@ -60,11 +61,11 @@ public class UserDTO {
 		this.email = email;
 	}
 
-	public int getPhone() {
+	public Integer getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(Integer phone) {
 		this.phone = phone;
 	}
 	
@@ -109,5 +110,13 @@ public class UserDTO {
 
 	public void setStartSession(Long startSession) {
 		this.startSession = startSession;
+	}
+
+	public Boolean getIsAdmin() {
+		return isAdmin;
+	}
+
+	public void setIsAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 }
