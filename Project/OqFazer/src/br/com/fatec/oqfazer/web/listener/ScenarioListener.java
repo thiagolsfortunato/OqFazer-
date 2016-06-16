@@ -116,24 +116,6 @@ public class ScenarioListener implements ServletContextListener {
 	
 	@SuppressWarnings("deprecation")
 	private void insertEvent(){
-		this.event2 = new Event();
-		
-		Calendar c1 = Calendar.getInstance();
-		c1.set(Calendar.YEAR, 2016);
-		c1.set(Calendar.MONTH, Calendar.APRIL);
-		c1.set(Calendar.DAY_OF_MONTH, 21);
-		Date d1 = c1.getTime();		
-		
-		event2.setId((long) 2);
-		event2.setName("Show da Banda2");
-		event2.setDescription("Show da banda fulana2");
-		event2.setRegistration_date(new Date());
-		event2.setEvent_date(d1);
-		event2.setLocal("Rua joão");
-		event2.setImageURL(null);
-		event2.setRegion(region2);
-		event2.setOwner(u2);
-		
 		this.event1 = new Event();
 		
 		Calendar c2 = Calendar.getInstance();
@@ -151,12 +133,30 @@ public class ScenarioListener implements ServletContextListener {
 		event1.setImageURL(null);
 		event1.setRegion(region1);
 		event1.setOwner(u3);
+		
+		this.event2 = new Event();
+		
+		Calendar c1 = Calendar.getInstance();
+		c1.set(Calendar.YEAR, 2016);
+		c1.set(Calendar.MONTH, Calendar.APRIL);
+		c1.set(Calendar.DAY_OF_MONTH, 21);
+		Date d1 = c1.getTime();		
+		
+		event2.setId((long) 2);
+		event2.setName("Show da Banda2");
+		event2.setDescription("Show da banda fulana2");
+		event2.setRegistration_date(new Date());
+		event2.setEvent_date(d1);
+		event2.setLocal("Rua joão");
+		event2.setImageURL(null);
+		event2.setRegion(region2);
+		event2.setOwner(u2);
 					
 		long evn1 = this.eventDAO.inserEvent(event1);
 		long evn2 = this.eventDAO.inserEvent(event2);
 		
+		this.participation.insertParticipation(evn1, u1.getId());
 		this.participation.insertParticipation(evn1, u2.getId());
-		this.participation.insertParticipation(evn1, u3.getId());
 		this.participation.insertParticipation(evn2, u1.getId());
 		this.participation.insertParticipation(evn2, u3.getId());
 				

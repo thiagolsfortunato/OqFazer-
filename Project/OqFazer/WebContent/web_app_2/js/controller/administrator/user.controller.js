@@ -9,6 +9,9 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	
 	function init(){
 		$scope.user = LoginService.sendUser;
+		console.log($scope.user.myEvents);
+		UserService.sendMyEvents = $scope.user.myEvents;
+		UserService.sendMyParticipations = $scope.user.participationEvents;
 		$scope.loadUsers();
 		$scope.$applyAsync();
 	}

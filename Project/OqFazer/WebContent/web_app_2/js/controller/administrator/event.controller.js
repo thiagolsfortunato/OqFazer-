@@ -5,14 +5,8 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	TelaHelper.tela = 'event';
 	$scope.data;
 	$scope.events = [];
-	$scope.categoriesEvent = [];
 	$scope.event = {};
-	$scope.users = [];
-	$scope.user = {};
-	$scope.regions = [];
-	$scope.region = {};
-	$scope.categories = [];
-	$scope.category = {};	
+	$scope.categoriesEvent = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	$scope.insertCategory = _insertCategory;
@@ -99,7 +93,6 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		$scope.event.region = $scope.regionSelected;
 		$scope.event.categories = angular.copy($scope.categoriesEvent);
 		$scope.event.event_date = $scope.data;
-		console.log($scope.event);
 		var data = {context : {event : $scope.event}};
 		
 		EventService.insert(data).then(function(response){
@@ -142,7 +135,6 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 
 	function buildListEvent(response) {
 		$scope.events = response.data.context.events;
-		console.log($scope.events);
 		for(event in $scope.events){
 			$scope.events[event].event_date = toDate($scope.events[event].event_date);
 		}

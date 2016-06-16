@@ -48,6 +48,7 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			$scope.user = {};
 			$scope.isLogado = false;
 			$scope.$applyAsync();
+			document.location.href="/home";
 		});
 	};
 	
