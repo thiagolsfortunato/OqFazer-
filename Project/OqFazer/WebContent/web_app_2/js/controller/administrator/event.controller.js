@@ -95,14 +95,18 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	};
 	
 	$scope.insert = function() {
-		var data = {context : {
-			event : $scope.event
-		}};
+		$scope.event.owner = $scope.userSelected;
+		$scope.event.region = $scope.regionSelected;
+		$scope.event.categories = angular.copy($scope.categoriesEvent);
+		$scope.event.event_date = $scope.data;
+		console.log($scope.event);
+		var data = {context : {event : $scope.event}};
 		
 		EventService.insert(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
 			$scope.cancelModalEvent();
+			$("#agregar").datepicker('setDate', "");
 		})
 	};
 	
