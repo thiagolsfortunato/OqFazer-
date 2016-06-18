@@ -46,5 +46,4 @@ public class LoginAction extends OqFazerWebAction {
 	public void setContext(ContextLogin context) {
 		this.context = context;
 	}
-
 }

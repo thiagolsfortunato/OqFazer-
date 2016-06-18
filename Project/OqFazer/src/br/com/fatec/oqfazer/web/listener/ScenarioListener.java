@@ -102,9 +102,9 @@ public class ScenarioListener implements ServletContextListener {
 	
 	private void inserUser(){
 		this.admin = new User((long)1, "admin", "admin", "admin@user", 1111);
-		this.u1 = new User((long)1, "user1", "user01", "user1@user", 1111);
-		this.u2 = new User((long)2, "user2", "user02", "user2@user", 2222);
-		this.u3 = new User((long)3, "user3", "user03", "user3@user", 3333);
+		this.u1 = new User((long)2, "user1", "user01", "user1@user", 1111);
+		this.u2 = new User((long)3, "user2", "user02", "user2@user", 2222);
+		this.u3 = new User((long)4, "user3", "user03", "user3@user", 3333);
 		
 		this.userDAO.insertUser(admin);
 		this.userDAO.insertUser(u1);

@@ -9,9 +9,6 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	
 	function init(){
 		$scope.user = LoginService.sendUser;
-		console.log($scope.user.myEvents);
-		UserService.sendMyEvents = $scope.user.myEvents;
-		UserService.sendMyParticipations = $scope.user.participationEvents;
 		$scope.loadUsers();
 		$scope.$applyAsync();
 	}
@@ -53,7 +50,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 			$scope.user = null;
 			$scope.loadUsers();
 		})
-	};
+	};	
 	
 	$scope.update = function(id) {
 		var data = {context : {user : {id : id}}};
