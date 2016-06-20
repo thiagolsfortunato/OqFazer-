@@ -89,22 +89,37 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	};
 	
 	$scope.insert = function() {
+<<<<<<< HEAD
 		$scope.event.owner = $scope.userSelected;
 		$scope.event.region = $scope.regionSelected;
 		$scope.event.categories = angular.copy($scope.categoriesEvent);
 		$scope.event.event_date = $scope.data;
 		var data = {context : {event : $scope.event}};
+=======
+		var data = {context : {
+			event : $scope.event
+		}};
+>>>>>>> refs/remotes/origin/WilliamBranch
 		
 		EventService.insert(data).then(function(response){
 			$scope.event = null;
 			$scope.loadEvents();
 			$scope.cancelModalEvent();
+<<<<<<< HEAD
 			$("#agregar").datepicker('setDate', "");
+=======
+>>>>>>> refs/remotes/origin/WilliamBranch
 		})
 	};
 	
 	$scope.deleta = function(id) {
+<<<<<<< HEAD
 		var data = {context : {event : {id : id}}};
+=======
+		var data = {context : {
+			event : {id : id}
+		}};
+>>>>>>> refs/remotes/origin/WilliamBranch
 		
 		EventService.deleta(data).then(function(response){
 			$scope.event = null;
@@ -117,6 +132,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		var data = {context : {event : {id : id}}};
 		
 		EventService.update(data).then(function(response){
+<<<<<<< HEAD
 			$scope.event = response.context.event;			
 			$scope.data = $scope.event.event_date;
 			var date = toDate($scope.event.event_date);
@@ -125,6 +141,9 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 			$scope.categoriesEvent = $scope.event.categories;
 			$scope.userSelected = $scope.event.owner;
 			$scope.regionSelected = $scope.event.region;
+=======
+			$scope.event = response.context.event;
+>>>>>>> refs/remotes/origin/WilliamBranch
 		})
 	};
 
@@ -133,6 +152,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		closeModalEvent();
 	};
 
+<<<<<<< HEAD
 	function buildListEvent(response) {
 		$scope.events = response.data.context.events;
 		for(event in $scope.events){
@@ -156,6 +176,10 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	
 	function buildListRegion(response) {
 		$scope.regions = response.data.context.regions;
+=======
+	function buildList(response) {
+		$scope.events = response.data.context.events;
+>>>>>>> refs/remotes/origin/WilliamBranch
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	}
@@ -170,4 +194,8 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	
 	init();
 	
+<<<<<<< HEAD
 });
+=======
+});
+>>>>>>> refs/remotes/origin/WilliamBranch

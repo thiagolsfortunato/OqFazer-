@@ -51,7 +51,6 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 			$scope.loadUsers();
 		})
 	};	
-	
 	$scope.update = function(id) {
 		var data = {context : {user : {id : id}}};
 		
