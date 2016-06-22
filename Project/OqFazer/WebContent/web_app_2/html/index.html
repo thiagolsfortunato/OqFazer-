@@ -12,16 +12,10 @@
 	<link rel="stylesheet" type="text/css" href="../css/administrator/event.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/region.css"></link>
 </head>
-<body ng-app="oqfazer">
+<body ng-app="oqfazer" >
  	<div class="index">
  		<div ng-controller="LoginController">
  			<ng-include src="'login.html'"></ng-include>
- 			<div ng-if="user.isAdmin">
- 				<ng-include src="'template/menu_adm.html'"></ng-include>
- 			</div>
- 			<div ng-if="!user.isAdmin">
- 				<ng-include src="'template/menu_user.html'"></ng-include>
- 			</div>
  		</div>
  		<ng-include src="'template/footer.html'"></ng-include>
  		<div ng-view></div>	
