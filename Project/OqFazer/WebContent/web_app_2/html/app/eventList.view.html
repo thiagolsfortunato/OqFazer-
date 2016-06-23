@@ -1,18 +1,19 @@
 <div class="page-header" align="center">
    	<h2>Event List</h2>
 </div>
-<div class="container" align="center">
+<div class="container">
 	<div class="row text-center">
 		<div ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="event.length != 0">
 			<div class="col-md-3 col-sm-6 hero-feature">
 				<div class="thumbnail">
-					<img src={{event.imageURL}} alt="">
+					<div class="figure-image"><img ng-src="{{event.imageURL}}" alt=""></div>
 						<div class="caption">
 							<h3>{{event.name}}</h3>
 		              		<p>{{event.event_date}}</p>
 		              		<p>{{event.local}}</p>
 		              		<p>
-		              			<div ng-if="isLogado"> <a href="insertParticipation(user.id, event.id)" class="btn btn-primary">Participate!</a></div><a href="descriptionEvent(event.id)" class="btn btn-default">More Info</a>
+		              			<a href="insertParticipation(user.id, event.id)" class="btn btn-primary">Participate!</a> 
+		              			<a href="descriptionEvent(event.id)" class="btn btn-default">More Info</a>
 		              		</p>
 			            </div>
 			    </div>

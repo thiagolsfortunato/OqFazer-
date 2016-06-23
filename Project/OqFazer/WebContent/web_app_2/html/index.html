@@ -18,8 +18,9 @@
  		<div ng-controller="LoginController">
  			<ng-include src="'login.html'"></ng-include>
  		</div>
- 		<ng-include src="'template/footer.html'"></ng-include>
- 		<div ng-view></div>	
+ 		<div ng-view></div>
+ 		<hr>
+		<ng-include src="'template/footer.html'"></ng-include>
  	</div>		
 	<script type="text/javascript" src="../js/external/angular.min.js"></script>
 	<script type="text/javascript" src="../js/external/angular-route.js"></script>
@@ -41,5 +42,6 @@
 	<script type="text/javascript" src="../js/controller/administrator/category.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/region.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/user.controller.js"></script>
+	
 </body>
 </html>

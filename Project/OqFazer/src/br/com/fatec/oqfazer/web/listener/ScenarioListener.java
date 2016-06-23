@@ -130,7 +130,7 @@ public class ScenarioListener implements ServletContextListener {
 		event1.setRegistration_date(new Date());
 		event1.setEvent_date(d2);
 		event1.setLocal("Rua José");
-		event1.setImageURL(null);
+		event1.setImageURL("https://s5.postimg.org/90yx9m577/show1.jpg");
 		event1.setRegion(region1);
 		event1.setOwner(u3);
 		
@@ -148,7 +148,7 @@ public class ScenarioListener implements ServletContextListener {
 		event2.setRegistration_date(new Date());
 		event2.setEvent_date(d1);
 		event2.setLocal("Rua joão");
-		event2.setImageURL(null);
+		event2.setImageURL("https://s5.postimg.org/eqf5txbdj/show2.jpg");
 		event2.setRegion(region2);
 		event2.setOwner(u2);
 					
