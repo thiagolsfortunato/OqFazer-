@@ -6,7 +6,7 @@
 		<div ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="event.length != 0">
 			<div class="col-md-3 col-sm-6 hero-feature">
 				<div class="thumbnail">
-					<div class="figure-image"><img ng-src="{{event.imageURL}}" alt=""></div>
+					<img id="image" ng-src="{{event.imageURL}}" alt="">
 						<div class="caption">
 							<h3>{{event.name}}</h3>
 		              		<p>{{event.event_date}}</p>
