@@ -12,8 +12,8 @@
 		              		<p>{{event.event_date}}</p>
 		              		<p>{{event.local}}</p>
 		              		<p>
-		              			<a href="insertParticipation(user.id, event.id)" class="btn btn-primary">Participate!</a> 
-		              			<a href="descriptionEvent(event.id)" class="btn btn-default">More Info</a>
+		              			<div class="btn btn-primary" ng-click="insertParticipation(event.id)">Participate!</div> 
+		              			<a href="#/descriptionEvent"><div class="btn btn-default" ng-click="setDescriptionEvent(event)">More Info</div></a>
 		              		</p>
 			            </div>
 			    </div>

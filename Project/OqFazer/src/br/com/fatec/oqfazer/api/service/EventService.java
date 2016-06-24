@@ -15,4 +15,8 @@ public interface EventService {
 	List<EventDTO> searchAll();
 	
 	EventDTO searchById(Long idEventDTO);
+	
+	void insertParticipation(Long idEvent, Long idUser);
+	
+	void removeParticipation(Long idEvent, Long idUser);
 }

@@ -164,6 +164,30 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		jQuery('#modalFormEvent').modal('hide');
 	};
 	
+	$scope.setDescriptionEvent = function(event){
+		EventService.setDescriptionEvent(event);
+	}
+	
+	$scope.getDescriptionEvent = function(event){
+		$scope.event = EventService.getDescriptionEvent();
+	}
+	
+	$scope.insertParticipation = function(eventId,userId){
+		var participation = {context: {eventId : eventId, userId : userId}};
+		
+		ParticipationService.insert(participation).then(function(response){
+			
+		});
+	}
+	
+	$scope.removeParticipation = function(eventId,userId){
+		var participation = {context: {eventId : eventId, userId : userId}};
+		
+		ParticipationService.remove(participation).then(function(response){
+			
+		});
+	}
+	
 	setTimeout(function() {
 		$scope.loadEvents();
 	}, 0);
