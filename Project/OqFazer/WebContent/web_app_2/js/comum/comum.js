@@ -18,13 +18,13 @@ publication.config(function($routeProvider){
     
     .when('/myCount', {templateUrl: pathApp + 'myCount.view.html', controller: 'UserController'}) //desc user
     
-    .when('/descriptionEvent', {templateUrl: pathApp + 'descriptionEvent.view.html', controller: 'EventController'}) // desc event
+    .when('/descriptionEvent', {templateUrl: pathApp + 'descriptionEvent.view.html', controller: 'DescriptionController'}) // desc event
+    
+    .when('/newEvent', {templateUrl: pathApp + 'newEvent.view.html', controller: 'EventController'}) // set with event by owner
     
     .when('/myEvents', {templateUrl: pathApp + 'myEvents.view.html', controller: 'MyEventsController'}) // set with event by owner
     
     .when('/myParticipations', {templateUrl: pathApp + 'myParticipationEvent.view.html', controller: 'ParticipationController'}) //set with list participation
-    
-    .when('/newEvent', {templateUrl: pathApp + 'descriptionEvent.view.html', controller: 'EventController'}) // set with event by owner
     
 	.when('/login', {templateUrl: 'login.html', controller: 'LoginController'}) //login
 	

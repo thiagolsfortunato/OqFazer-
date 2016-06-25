@@ -1,10 +1,7 @@
 <div class="page-header" align="center">
-    <h2> Event </h2>
+    <h2> New Event </h2>
 </div>
-<form class="form-horizontal form-label-left" novalidate>
-	<div class="item form-group" align="center">
-		<img id="image" ng-src="{{event.imageURL}}" alt="">	
-	</div> 
+<form class="form-horizontal form-label-left" novalidate>        
     <div class="item form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Name: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">
@@ -20,7 +17,7 @@
     <div class="item form-group">
 		<label  class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Event Date: </label>
 		<div class="col-md-6 col-sm-6 col-xs-12">
-			<input name="lancamento" placeholder="dd/mm/aaaa" id="agregar" type="text" class="form-control datepicker" >
+			<input name="lancamento" placeholder="dd/mm/aaaa" id = "agregar" type="text" class="form-control datepicker" >
 		</div>
 	</div>
     <div class="item form-group">
@@ -30,9 +27,17 @@
        </div>
     </div>
     <div class="item form-group">
+       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Image: </label>
+       <div class="col-md-6 col-sm-6 col-xs-12">
+           <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.imageURL" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="URL Folder" required="required" type="text">
+       </div>
+   </div>
+   <div class="item form-group">
    	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Region: </label>
    	   		<div class="col-md-6 col-sm-6 col-xs-12">
-	   	   		<input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.region.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Region" required="required" type="text">
+	   	   		<select class="form-control" ng-model="regionSelected" width="70%" ng-options="region as region.name for region in regions">
+					<option value="region"></option>
+				</select>
 			</div>
 	</div>
 	<div class="item form-group">
@@ -41,6 +46,15 @@
             <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.owner.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
         </div>
     </div>
+	<div class="form-group">
+		<label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Category:</label>
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-xs-12">
+					<select class="form-control" ng-model="categorySelected" width="70%" ng-options="category as category.name for category in categories"></select>		
+					<button type="button" class="btn btn-success" ng-click="insertCategory(categorySelected)">Add</button>
+				</div>
+			</div>
+	</div>
 	<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" cellspacing="0" width="80%" at-table at-paginated at-list="categoriesEvent" at-config="config">
 		<thead>
 			<th>Categories</th>

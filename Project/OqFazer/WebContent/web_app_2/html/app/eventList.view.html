@@ -6,14 +6,14 @@
 		<div ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="event.length != 0">
 			<div class="col-md-3 col-sm-6 hero-feature">
 				<div class="thumbnail">
-					<img id="image" ng-src="{{event.imageURL}}" alt="">
+					<a href="#/descriptionEvent" ng-click="setDescriptionEvent(event)"><img id="image" ng-src="{{event.imageURL}}" alt=""></a>
 						<div class="caption">
 							<h3>{{event.name}}</h3>
 		              		<p>{{event.event_date}}</p>
 		              		<p>{{event.local}}</p>
 		              		<p>
-		              			<div class="btn btn-primary" ng-click="insertParticipation(event.id)">Participate!</div> 
-		              			<a href="#/descriptionEvent"><div class="btn btn-default" ng-click="setDescriptionEvent(event)">More Info</div></a>
+		              			<div ng-if="isLogado" class="btn btn-primary" ng-click="insertParticipation(event.id)">Participate!</div> 
+		              			<a href="#/descriptionEvent" class="btn btn-default" ng-click="setDescriptionEvent(event)">More Info</a>
 		              		</p>
 			            </div>
 			    </div>
