@@ -36,6 +36,7 @@ public class EventAction extends OqFazerWebAction{
 		return this.searchAll();
 	}
 	
+	
 	public String delete(){
 		this.service.delete(this.context.getEvent().getId());
 		return this.searchAll();

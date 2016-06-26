@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="../css/administrator/user.css"></link>
 <div class="conteudo">
+	<div class="page-header" align="center">
+    	<h2>User</h2>
+	</div>
 	<div id="tabela" class="tab-pane fade in active" ><br/>
 		<table id="tabelaAngular" class="table table-striped table-bordered table-responsive" 
 			cellspacing="0" width="100%" at-table at-paginated at-list="users" at-config="config">
@@ -22,14 +25,14 @@
 					<td at-implicit at-sortable>{{ user.phone }}</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="openModalUser(user.id,'update')" href="#" class="btn btn-danger btn-small">
+							<a ng-click="openModalUser(user.id,'update')" class="btn btn-danger btn-small">
 								<span class="glyphicon glyphicon-edit" title="Update"></span>
 							</a>
 						</p>
 					</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="deleta(user.id)" href="#" class="btn btn-danger btn-small">
+							<a ng-click="deleta(user.id)" class="btn btn-danger btn-small">
 								<span class="glyphicon glyphicon-remove" title="Delete"></span>
 							</a>
 						</p>
@@ -69,16 +72,18 @@
 									<input type="password" class="form-control" ng-model="user.password">
 								</div>
 								<div class="form-group">
+									<label for="nome">Confirm Password:</label>
+									<input type="password" class="form-control" ng-model="user.confirmPassword">
+								</div>
+								<div class="form-group">
 									<label for="nome">Phone:</label>
-									<input type="text" class="form-control" ng-model="user.phone">
+									<input type="number" class="form-control" ng-model="user.phone">
 								</div>
 							</form>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" 
-								ng-click="cancelModalUser()">Cancel</button>
-							<button type="button" class="btn btn-success" 
-								ng-click="insert()">Salve</button>
+							<button type="button" class="btn btn-danger" ng-click="cancelModalUser()">Cancel</button>
+							<button type="button" class="btn btn-success" ng-click="insert()">Salve</button>
 						</div>
 					</div>
 				</div>

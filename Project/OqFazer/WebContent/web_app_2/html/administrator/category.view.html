@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="../css/administrator/category.css"></link>
 <div class="conteudo category">
+	<div class="page-header" align="center">
+    	<h2>Category</h2>
+	</div>
 	<div id="table" class="tab-pane fade in active" ><br/>
 		<table id="tableAngular" class="table table-striped table-bordered table-responsive" 
 			cellspacing="0" width="100%" at-table at-paginated at-list="categories" at-config="config">
@@ -19,14 +22,14 @@
 					<td at-implicit at-sortable ng-if="category.parentDTO == null ">does not exist</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="openModalCategory(category.id,'update')" href="#" class="btn btn-danger btn-small">
+							<a ng-click="openModalCategory(category.id,'update')" class="btn btn-danger btn-small">
 								<span class="glyphicon glyphicon-edit" title="Update"></span>
 							</a>
 						</p>
 					</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="deleta(category.id)" href="#" class="btn btn-danger btn-small">
+							<a ng-click="deleta(category.id)" class="btn btn-danger btn-small">
 								<span class="glyphicon glyphicon-remove" title="Delete"></span>
 							</a>
 						</p>

@@ -1,14 +1,25 @@
 publication.factory('EventService', ['$http',function ($http) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
+	var descriptionEvent = {};
 	
     return {
+    	getDescriptionEvent : _getDescriptionEvent,
+    	setDescriptionEvent : _setDescriptionEvent,
         insert : _eventInsert,
         update : _eventUpdate,
         deleta : _eventDelete,
         searchAll : _eventSearchAll,
         searchById : _searchById
     };
+    
+    function _getDescriptionEvent(){
+		return descriptionEvent;
+	}
+	
+	function _setDescriptionEvent(event){
+		descriptionEvent = event;
+	}
     
     function _eventSearchAll(){
     	var promess;
@@ -37,9 +48,9 @@ publication.factory('EventService', ['$http',function ($http) {
     	return promess;
     }    
     
-    function _eventInsert(category){
+    function _eventInsert(event){
     	var promess;
-    	var data = JSON.stringify(category);
+    	var data = JSON.stringify(event);
     	promess = jQuery.ajax({
 				    url: urlPath + 'insert.action',
 				    data: data,

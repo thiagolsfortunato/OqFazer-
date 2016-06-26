@@ -15,6 +15,7 @@ OqFazerController.controller('CategoryController', function($scope,$http,$timeou
 	
 	$scope.loadCategories = function() {
 		CategoryService.searchAll().then(function (response){
+			CategoryService.sendCategories = response.data.context.categories;
 			$scope.buildList(response);
 		});	
 	};

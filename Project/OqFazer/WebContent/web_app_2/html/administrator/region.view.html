@@ -1,5 +1,8 @@
 <link rel="stylesheet" type="text/css" href="../css/administrator/region.css"></link>
 <div class="conteudo">
+	<div class="page-header" align="center">
+    	<h2>Region</h2>
+	</div>
 	<div id="tabela" class="tab-pane fade in active">
 		<br />
 		<table id="tabelaAngular"
@@ -19,16 +22,14 @@
 					<td at-implicit at-sortable>{{ region.name }}</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="openModalRegion(region.id,'update')" href="#"
-								class="btn btn-danger btn-small"> <span
+							<a ng-click="openModalRegion(region.id,'update')" class="btn btn-danger btn-small"> <span
 								class="glyphicon glyphicon-edit" title="Update"></span>
 							</a>
 						</p>
 					</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="deleta(region.id)" href="#"
-								class="btn btn-danger btn-small"> <span
+							<a ng-click="deleta(region.id)"	class="btn btn-danger btn-small"> <span
 								class="glyphicon glyphicon-remove" title="Delete"></span>
 							</a>
 						</p>

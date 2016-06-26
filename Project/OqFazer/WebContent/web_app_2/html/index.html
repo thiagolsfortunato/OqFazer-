@@ -3,35 +3,32 @@
 	<META http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>OqFazer</title>
 	<link rel="stylesheet" href="../css/external/bootstrap/bootstrap.min.css" ></link>
+	<link rel="stylesheet" href="../css/external/bootstrap/heroic-features.css" >
 	<link rel="stylesheet" type="text/css" href="../css/app/comum/comum.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/app/login/login.css"></link>
-	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>	
+	<link rel="stylesheet" type="text/css" href="../css/app/index/index.css"></link>
+	<link rel="stylesheet" type="text/css" href="../css/app/filter/filter.css"></link>	
 	<link rel="stylesheet" type="text/css" href="../css/administrator/user.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/category.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/event.css"></link>
 	<link rel="stylesheet" type="text/css" href="../css/administrator/region.css"></link>
 </head>
-<body ng-app="oqfazer">
+<body ng-app="oqfazer" >
  	<div class="index">
  		<div ng-controller="LoginController">
  			<ng-include src="'login.html'"></ng-include>
- 			<div ng-if="user.isAdmin">
- 				<ng-include src="'template/menu_adm.html'"></ng-include>
- 			</div>
- 			<div ng-if="!user.isAdmin">
- 				<ng-include src="'template/menu_user.html'"></ng-include>
- 			</div>
- 		</div>
- 		<ng-include src="'template/footer.html'"></ng-include>
- 		<div ng-view></div>	
- 	</div>	
-	
+ 		<div ng-view></div>
+ 		<hr>
+		<ng-include src="'template/footer.html'"></ng-include>
+		</div>
+ 	</div>		
 	<script type="text/javascript" src="../js/external/angular.min.js"></script>
 	<script type="text/javascript" src="../js/external/angular-route.js"></script>
 	<script type="text/javascript" src="../js/external/angular-local-storage.min.js"></script>
 	<script type="text/javascript" src="../js/external/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/comum/comum.js"></script>
 	<script type="text/javascript" src="../js/external/ui-bootstrap.js"></script>
+	<script type="text/javascript" src="../js/external/bootstrap-datepicker.js"></script>
 	<script type="text/javascript" src="../js/external/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/service/category.service.js"></script>
 	<script type="text/javascript" src="../js/service/event.service.js"></script>
@@ -39,9 +36,13 @@
 	<script type="text/javascript" src="../js/service/user.service.js"></script>
 	<script type="text/javascript" src="../js/service/login.service.js"></script>
 	<script type="text/javascript" src="../js/controller/login/login.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/app/descriptionEvent.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/app/myEvents.controller.js"></script>
+	<script type="text/javascript" src="../js/controller/app/participationEvent.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/event.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/category.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/region.controller.js"></script>
 	<script type="text/javascript" src="../js/controller/administrator/user.controller.js"></script>
+	
 </body>
 </html>

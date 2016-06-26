@@ -14,19 +14,17 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 	$scope.doLogin = function() {
 		$scope.showMessageError = false;
 		
-		var data = {context : {
-			user : $scope.user
-		}};
+		var data = {context : {user : $scope.user}};
 		
 		LoginService.doLogin(data).then(function(response){
 			var user = response.context.user
-	    	console.log(user);
 	    	if (user == null) {
     			$scope.showMessageError = true;
     			$scope.$applyAsync();
     			return;
 	    	}
 	    	$scope.user = user;
+	    	LoginService.sendUser = $scope.user;
 	    	StorageHelper.setItem(CHAVE_STORAGE, user);
 	    	$scope.isLogado = true;
 	    	closeModalLogin();
@@ -48,6 +46,8 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 			$scope.user = {};
 			$scope.isLogado = false;
 			$scope.$applyAsync();
+			document.location.href="/OqFazer/web_app_2/html/index.html";
+
 		});
 	};
 	

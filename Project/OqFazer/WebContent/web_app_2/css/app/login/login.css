@@ -1,7 +1,19 @@
 @import url("../comum/comum.css");
 
 .formLogin {
+	position: fixed;
 	margin-left: 0%;
 	margin-right: 0%;
     margin-top: 5%;
+}
+
+.navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+}
+    
+/* Add a gray background color and some padding to the footer */
+footer {
+  background-color: #f2f2f2;
+  padding: 25px;
 }

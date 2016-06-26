@@ -53,8 +53,10 @@ public class EventDTOConverter implements DTOConverter<Event, EventDTO>{
 			eventDTO.setCategories(this.categoryDTOConverter.toDTO(categories));	
 			
 			List<Long> idsParticipation = this.participation.searchUsers(id);
-			List<User> participation = this.userDAO.searchUsersByIds(idsParticipation);
-			eventDTO.setParticipation(this.userDTOConverter.toDTO(participation));					
+			if(!idsParticipation.isEmpty()){
+				List<User> participation = this.userDAO.searchUsersByIds(idsParticipation);
+				eventDTO.setParticipation(this.userDTOConverter.toDTO(participation));
+			}								
 		}		
 		
 		eventDTO.setDescription(event.getDescription());

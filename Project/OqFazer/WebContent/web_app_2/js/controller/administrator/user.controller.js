@@ -1,4 +1,4 @@
-OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce,UserService) {
+OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce, UserService, LoginService ) {
 
 	TelaHelper.tela = 'user';
 	$scope.user = {};
@@ -6,13 +6,17 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	$scope.buildList = _buildList;
-
+	$scope.showMessageError = false;
+	
 	function init(){
+		$scope.user = LoginService.sendUser;
 		$scope.loadUsers();
+		$scope.$applyAsync();
 	}
 	
 	$scope.loadUsers = function() {
 		UserService.searchAll().then(function (response){
+			UserService.sendUsers = response.data.context.users
 			$scope.buildList(response);
 		});
 	};
@@ -26,14 +30,23 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 		jQuery('#modalFormUser').modal('show');
 	};
 	
-	$scope.insert = function() {
-		var data = {context : {user : $scope.user}};
-		
-		UserService.insert(data).then(function(response){
-			$scope.user = null;
-			$scope.loadUsers();
-			$scope.cancelModal();
-		})
+	$scope.insert = function(){
+		$scope.showMessageError = false;
+		if($scope.user.password == $scope.user.confirmPassword){
+			if($scope.user.name != null){
+				var data = {context : {user : $scope.user}};
+				UserService.insert(data).then(function(response){
+					$scope.user = null;
+					$scope.loadUsers();
+					$scope.cancelModalUser();
+					$scope.$applyAsync();
+				})
+			}else{
+				alert("Fail Operation");
+			}
+		}else{
+			$scope.showMessageError = true;
+		}
 	};
 	
 	$scope.deleta = function(id) {
@@ -43,8 +56,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 			$scope.user = null;
 			$scope.loadUsers();
 		})
-	};
-	
+	};	
 	$scope.update = function(id) {
 		var data = {context : {user : {id : id}}};
 		

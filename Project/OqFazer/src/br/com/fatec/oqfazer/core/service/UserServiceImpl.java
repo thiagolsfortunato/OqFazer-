@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 		User user = this.userDAO.searchUserByEmailAndPassword(email, password);
 		UserDTO userDTO = null;
 		if (user != null) {
-			userDTO = this.userConverter.toDTOSimple(user);
+			userDTO = this.searchById(user.getId());
 		}
 		return userDTO;
 	}

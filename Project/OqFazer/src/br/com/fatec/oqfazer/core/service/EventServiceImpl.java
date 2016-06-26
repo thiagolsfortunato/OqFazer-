@@ -62,6 +62,14 @@ public class EventServiceImpl implements EventService{
 		List<User> participation = this.userConverter.toEntity(participationDTO);
 		this.participation.updateUserParticipations(idEvent, participation);
 	}
+	
+	public void insertParticipation(Long idEvent, Long idUser){
+		this.participation.insertParticipation(idEvent, idUser);		
+	}
+	
+	public void removeParticipation(Long idEvent, Long idUser){
+		this.participation.deleteParticipation(idEvent, idUser);
+	}	
 
 	@Override
 	public void update(EventDTO eventDTO) {
@@ -93,5 +101,4 @@ public class EventServiceImpl implements EventService{
 		Event event = this.eventDao.searchEventById(idEvent);
 		return this.eventConverter.toDTO(event);
 	}
-
 }
