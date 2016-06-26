@@ -14,6 +14,11 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	
 	function init(){
 		$scope.loadEvents();
+		$scope.data = new Date();
+		$scope.event = null;
+		$scope.loadUsers();
+		$scope.loadCategories();
+		$scope.loadRegions();
 	}
 	
 	$(document).ready(function () {
@@ -79,11 +84,6 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		if(flag == "update"){
 			$scope.update(id);
 		}else{
-			$scope.data = new Date();
-			$scope.event = null;
-			$scope.loadUsers();
-			$scope.loadCategories();
-			$scope.loadRegions();
 		}
 		jQuery('#modalFormEvent').modal('show');
 	};

@@ -86,6 +86,7 @@ OqFazerController.controller('RegionController', function($scope,$http,$timeout,
 		}else{
 			$scope.region = {};
 			$scope.cities = [];
+			$scope.citiesRegion = [];
 			$scope.loadCities();
 		}
 		jQuery('#modalFormRegion').modal('show');

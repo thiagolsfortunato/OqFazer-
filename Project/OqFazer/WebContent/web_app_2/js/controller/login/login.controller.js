@@ -14,9 +14,7 @@ OqFazerController.controller('LoginController', function($scope,$http,$timeout,$
 	$scope.doLogin = function() {
 		$scope.showMessageError = false;
 		
-		var data = {context : {
-			user : $scope.user
-		}};
+		var data = {context : {user : $scope.user}};
 		
 		LoginService.doLogin(data).then(function(response){
 			var user = response.context.user

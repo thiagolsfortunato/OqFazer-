@@ -66,10 +66,9 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger" 
-							ng-click="cancelModal()">Cancel</button>
-						<button type="button" class="btn btn-success" 
-							ng-click="doLogin()">Login</button>
+						<button type="button" class="btn btn-danger" ng-click="closeModalLogin()">Cancel</button>
+						<button type="button" class="btn btn-success" ng-click="doLogin()">Login</button>
+						<a href="#/myCount" type="button" ng-click="closeModalLogin()" class="btn btn-primary pull-right">Register</a>
 					</div>
 				</div>
 			</div>

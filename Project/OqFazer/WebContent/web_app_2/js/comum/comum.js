@@ -20,7 +20,7 @@ publication.config(function($routeProvider){
     
     .when('/descriptionEvent', {templateUrl: pathApp + 'descriptionEvent.view.html', controller: 'DescriptionController'}) // desc event
     
-    .when('/newEvent', {templateUrl: pathApp + 'newEvent.view.html', controller: 'EventController'}) // set with event by owner
+    .when('/newEvent', {templateUrl: pathApp + 'newEvent.view.html', controller: 'EventController'}) // new event
     
     .when('/myEvents', {templateUrl: pathApp + 'myEvents.view.html', controller: 'MyEventsController'}) // set with event by owner
     

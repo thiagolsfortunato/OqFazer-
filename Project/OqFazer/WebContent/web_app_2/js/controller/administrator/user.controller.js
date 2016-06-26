@@ -6,6 +6,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	$scope.buildList = _buildList;
+	$scope.showMessageError = false;
 	
 	function init(){
 		$scope.user = LoginService.sendUser;
@@ -29,17 +30,22 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 		jQuery('#modalFormUser').modal('show');
 	};
 	
-	$scope.insert = function() {
-		if($scope.user.name != null){
-			var data = {context : {user : $scope.user}};
-			UserService.insert(data).then(function(response){
-				$scope.user = null;
-				$scope.loadUsers();
-				$scope.cancelModalUser();
-				$scope.$applyAsync();
-			})
+	$scope.insert = function(){
+		$scope.showMessageError = false;
+		if($scope.user.password == $scope.user.confirmPassword){
+			if($scope.user.name != null){
+				var data = {context : {user : $scope.user}};
+				UserService.insert(data).then(function(response){
+					$scope.user = null;
+					$scope.loadUsers();
+					$scope.cancelModalUser();
+					$scope.$applyAsync();
+				})
+			}else{
+				alert("Fail Operation");
+			}
 		}else{
-			alert("Fail Operation");
+			$scope.showMessageError = true;
 		}
 	};
 	
