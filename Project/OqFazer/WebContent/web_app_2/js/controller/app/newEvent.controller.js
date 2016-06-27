@@ -1,5 +1,6 @@
 OqFazerController.controller("NewEventController",  function($scope, EventService, LoginService, UserService, CategoryService, RegionService) {
 	
+	var CHAVE_STORAGE = 'user';
 	$scope.event = {};
 	$scope.user = {};
 	$scope.regionSelected = {};
@@ -10,7 +11,7 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 	
 	function init(){
 		$scope.loadEvents();
-		$scope.user = LoginService.sendUser;
+		$scope.user = StorageHelper.getItem(CHAVE_STORAGE);
 		$scope.data = new Date();
 		$scope.event = null;
 		$scope.loadCategories();
@@ -27,9 +28,8 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 		
 		EventService.insert(data).then(function(response){
 			$scope.event = null;
-			
+			searchUser($scope.user.id);
 			$("#agregar").datepicker('setDate', "");
-			document.location()
 		})
 	};
 
@@ -63,8 +63,10 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 	});
 	
 	function searchUser(id){
-		UserService.update(id).then(function(response){
-			LoginService.sendUser = response.data.context.user;
+		var data = {context : {user : {id : id}}};
+		UserService.update(data).then(function(response){
+			console.log(response);
+			StorageHelper.setItem(CHAVE_STORAGE, response.context.user);
 		});
 	}
 	

@@ -1,5 +1,6 @@
 OqFazerController.controller('ParticipationController', function($scope,$http,$timeout,$sce, LoginService, EventService) {
 	
+	var CHAVE_STORAGE = 'user';
 	$scope.participationEvents = [];
 	$scope.user = {};
 	$scope.event = {};
@@ -7,7 +8,7 @@ OqFazerController.controller('ParticipationController', function($scope,$http,$t
 	$scope.itemsPerPage = 5;
 	
 	function init(){
-		$scope.user = LoginService.sendUser;
+		$scope.user = StorageHelper.getItem(CHAVE_STORAGE);
 		$scope.loadEvents();		
 	}	
 	

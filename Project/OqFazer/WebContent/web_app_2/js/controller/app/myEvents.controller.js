@@ -1,5 +1,6 @@
 OqFazerController.controller('MyEventsController', function($scope,$http,$timeout,$sce, EventService, UserService, LoginService) {
 	
+	var CHAVE_STORAGE = 'user';
 	$scope.myEvents = [];
 	$scope.event = {};
 	$scope.user = {}
@@ -7,7 +8,7 @@ OqFazerController.controller('MyEventsController', function($scope,$http,$timeou
 	$scope.itemsPerPage = 5;
 	
 	function init(){
-		$scope.user = LoginService.sendUser;
+		$scope.user = StorageHelper.getItem(CHAVE_STORAGE);
 		console.log($scope.user);
 		$scope.loadEvents();
 	}	
