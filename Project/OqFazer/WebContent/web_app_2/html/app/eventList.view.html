@@ -2,8 +2,27 @@
    	<h2>Event List</h2>
 </div>
 <div class="container">
+	<div class="row">
+		<div class="col-md-3">
+			<label class="control-label">Event Name</label>
+			<input class="optional form-control" type="text" ng-model="event.name">
+		</div>
+		<div class="col-md-3">
+			<label class="control-label">Event Date</label>
+			<input class="optional form-control" type="text" ng-model="event.event_date">
+		</div>
+		<div class="col-md-3">
+			<label class="control-label">Category Name</label>
+			<input class="optional form-control" type="text" ng-model="event.categories.name">
+		</div>
+		<div class="col-md-3">
+			<label class="control-label">Region Name</label>
+			<input class="optional form-control" type="text" ng-model="event.region.name">
+		</div>
+	</div>
+	<br>
 	<div class="row text-center">
-		<div ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))" ng-if="event.length != 0">
+		<div ng-repeat="event in events.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter: event" ng-if="event.length != 0">
 			<div class="col-md-3 col-sm-6 hero-feature">
 				<div class="thumbnail">
 					<a href="#/descriptionEvent" ng-click="setDescriptionEvent(event)"><img id="image" ng-src="{{event.imageURL}}" alt=""></a>
