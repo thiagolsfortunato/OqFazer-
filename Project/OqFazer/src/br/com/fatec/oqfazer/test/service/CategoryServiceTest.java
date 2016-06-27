@@ -80,7 +80,7 @@ public class CategoryServiceTest extends TestScenario {
 		
 		Assert.assertEquals(new Long(1), dto.getId());
 		Assert.assertEquals("Show", dto.getName());
-		Assert.assertEquals(new Long(0), dto.getParentDTO());
+		Assert.assertEquals(new Long(0), dto.getParentDTO().getId());
 	}
 	
 	@Test

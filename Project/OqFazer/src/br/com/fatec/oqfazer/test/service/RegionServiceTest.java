@@ -81,11 +81,11 @@ public class RegionServiceTest extends TestScenario {
 		
 		Assert.assertEquals(new Long(1), dto.getId());
 		Assert.assertEquals("Region1", dto.getName());
-		Assert.assertEquals("Caraguatatuba", dto.getCities().get(0));
-		Assert.assertEquals("Ilhabela", dto.getCities().get(1));
-		Assert.assertEquals("São Sebastião", dto.getCities().get(2));
-		Assert.assertEquals("Ubatuba", dto.getCities().get(3));
-		Assert.assertEquals("Pindamonhangaba", dto.getCities().get(4));
+		Assert.assertEquals("Caraguatatuba", dto.getCities().get(0).getNome());
+		Assert.assertEquals("Ilhabela", dto.getCities().get(1).getName());
+		Assert.assertEquals("São Sebastião", dto.getCities().get(2).getNome());
+		Assert.assertEquals("Ubatuba", dto.getCities().get(3).getNome());
+		Assert.assertEquals("Pindamonhangaba", dto.getCities().get(4).getNome());
 	}
 	
 	@Test
