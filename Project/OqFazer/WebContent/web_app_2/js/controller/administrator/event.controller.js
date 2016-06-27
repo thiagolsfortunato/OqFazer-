@@ -1,7 +1,7 @@
 OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, EventService, UserService, CategoryService, RegionService, LoginService, ParticipationService) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
-	
+	var CHAVE_STORAGE = 'user';
 	TelaHelper.tela = 'event';
 	$scope.data;
 	$scope.events = [];
@@ -179,7 +179,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		var participation = {context : {participation : $scope.participation}};
 		
 		ParticipationService.insert(participation).then(function(response){
-			alert("Ok");
+			searchUser($scope.user.id);
 		});
 	}
 	
@@ -189,9 +189,17 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		var participation = {context : {participation : $scope.participation}};
 		
 		ParticipationService.remove(participation).then(function(response){
-			alert("Remove Ok");
+			searchUser($scope.user.id);
 		});
 	}
+	
+	function searchUser(id){
+		var data = {context : {user : {id : id}}};
+		UserService.update(data).then(function(response){
+			StorageHelper.setItem(CHAVE_STORAGE, response.context.user);
+		});
+	}
+	
 	
 	setTimeout(function() {
 		$scope.loadEvents();

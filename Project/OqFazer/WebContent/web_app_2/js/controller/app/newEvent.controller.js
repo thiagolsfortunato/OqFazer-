@@ -1,4 +1,4 @@
-OqFazerController.controller("NewEventController",  function($scope, EventService, LoginService, UserService, CategoryService, RegionService) {
+OqFazerController.controller("NewEventController",  function($scope, EventService, UserService, CategoryService, RegionService) {
 	
 	var CHAVE_STORAGE = 'user';
 	$scope.event = {};
@@ -65,7 +65,6 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 	function searchUser(id){
 		var data = {context : {user : {id : id}}};
 		UserService.update(data).then(function(response){
-			console.log(response);
 			StorageHelper.setItem(CHAVE_STORAGE, response.context.user);
 		});
 	}
