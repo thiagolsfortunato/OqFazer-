@@ -187,7 +187,6 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	$scope.removeParticipation = function(eventId){
 		$scope.participation.userId = LoginService.sendUser.id;
 		$scope.participation.eventId = eventId;
-		console.log($scope.participation);
 		var participation = {context : {participation : $scope.participation}};
 		
 		ParticipationService.remove(participation).then(function(response){

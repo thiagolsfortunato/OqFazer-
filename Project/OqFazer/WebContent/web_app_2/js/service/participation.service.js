@@ -18,6 +18,7 @@ publication.factory('ParticipationService', ['$http',function ($http) {
 				    type: 'POST',
 				    async: true,
 				    success: function (response) {
+				    	console.log("aqui");
 				        return promess;
 				    }
 				});

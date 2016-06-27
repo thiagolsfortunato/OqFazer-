@@ -1,7 +1,8 @@
-OqFazerController.controller('ParticipationController', function($scope,$http,$timeout,$sce, LoginService) {
+OqFazerController.controller('ParticipationController', function($scope,$http,$timeout,$sce, LoginService, EventService) {
 	
 	$scope.participationEvents = [];
 	$scope.user = {};
+	$scope.event = {};
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	
@@ -15,6 +16,14 @@ OqFazerController.controller('ParticipationController', function($scope,$http,$t
 		$scope.currentPage = 1;
 		$scope.$applyAsync();
 	};
+	
+	$scope.setDescriptionEvent = function(event){
+		EventService.setDescriptionEvent(event);
+	}
+	
+	$scope.getDescriptionEvent = function(event){
+		$scope.event = EventService.getDescriptionEvent();
+	}
 	
 	init();
 });

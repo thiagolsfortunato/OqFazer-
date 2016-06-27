@@ -18,5 +18,13 @@ OqFazerController.controller('MyEventsController', function($scope,$http,$timeou
 		$scope.$applyAsync();
 	};
 	
+	$scope.setDescriptionEvent = function(event){
+		EventService.setDescriptionEvent(event);
+	}
+	
+	$scope.getDescriptionEvent = function(event){
+		$scope.event = EventService.getDescriptionEvent();
+	}
+	
 	init();
 });
