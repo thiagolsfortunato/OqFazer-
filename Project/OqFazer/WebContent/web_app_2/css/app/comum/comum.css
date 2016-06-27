@@ -14,7 +14,13 @@ ul.pagination {
 }
 
 #tabelaAngular {
-    margin-bottom: 200px;
+    margin-bottom: 20px;
+}
+
+#tabelaAngularCategory {
+	width: 75.5%;
+ +	margin-left: 40%;
+    margin-bottom: 20px;
 }
 
 .btn.focus, .btn:focus {
