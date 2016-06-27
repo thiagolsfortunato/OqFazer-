@@ -12,8 +12,7 @@ public class ContextUser implements Serializable{
 
 	private UserDTO user;
 	private List<UserDTO> users;
-	
-	
+		
 	public List<UserDTO> getUsers() {
 		return users;
 	}

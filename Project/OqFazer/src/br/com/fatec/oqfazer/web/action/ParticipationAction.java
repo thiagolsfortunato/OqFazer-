@@ -12,18 +12,25 @@ public class ParticipationAction extends OqFazerWebAction{
 	private ContextParticipation context = new ContextParticipation();
 	private EventService service;
 	
-	
 	public ParticipationAction(EventService service) {
 		this.service = ImplFinder.getImpl(EventService.class);
 	}
 	
 	public String insert(){
-		this.service.insertParticipation(context.getParticipation().getEventId(), context.getParticipation().getUserId());
+		this.service.insertParticipation(this.context.getParticipation().getEventId(), this.context.getParticipation().getUserId());
 		return IT_WORKED;
 	}
 	
 	public String remove(){
-		this.service.removeParticipation(context.getParticipation().getEventId(), context.getParticipation().getUserId());
+		this.service.removeParticipation(this.context.getParticipation().getEventId(), this.context.getParticipation().getUserId());
 		return IT_WORKED;		
+	}
+
+	public ContextParticipation getContext() {
+		return context;
+	}
+
+	public void setContext(ContextParticipation context) {
+		this.context = context;
 	}
 }
