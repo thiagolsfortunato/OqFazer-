@@ -12,7 +12,7 @@ public class ParticipationAction extends OqFazerWebAction{
 	private ContextParticipation context = new ContextParticipation();
 	private EventService service;
 	
-	public ParticipationAction(EventService service) {
+	public ParticipationAction() {
 		this.service = ImplFinder.getImpl(EventService.class);
 	}
 	
