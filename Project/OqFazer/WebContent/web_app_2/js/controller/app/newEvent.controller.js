@@ -27,6 +27,7 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 		
 		EventService.insert(data).then(function(response){
 			$scope.event = null;
+			
 			$("#agregar").datepicker('setDate', "");
 			document.location()
 		})

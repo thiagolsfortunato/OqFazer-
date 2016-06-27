@@ -1,14 +1,12 @@
-OqFazerController.controller('ParticipationController', function($scope,$http,$timeout,$sce, EventService, UserService, LoginService) {
+OqFazerController.controller('ParticipationController', function($scope,$http,$timeout,$sce, LoginService) {
 	
 	$scope.participationEvents = [];
-	$scope.event = {};
-	$scope.user = [];
+	$scope.user = {};
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
 	
 	function init(){
 		$scope.user = LoginService.sendUser;
-		console.log($scope.user);
 		$scope.loadEvents();		
 	}	
 	

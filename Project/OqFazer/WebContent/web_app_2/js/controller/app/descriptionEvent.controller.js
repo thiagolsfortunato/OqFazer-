@@ -1,9 +1,12 @@
-OqFazerController.controller("DescriptionController",  function($scope, EventService) {
+OqFazerController.controller("DescriptionController",  function($scope, EventService, LoginService) {
 		
 	$scope.event = {};
 	$scope.data;
+	$scope.user = {};
+	
 	function init(){
 		loadEvent();
+		$scope.user = LoginService.sendUser;
 	}
 	
 	init();

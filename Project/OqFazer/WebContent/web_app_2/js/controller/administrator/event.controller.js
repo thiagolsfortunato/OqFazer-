@@ -1,4 +1,4 @@
-OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, EventService, UserService, CategoryService, RegionService) {
+OqFazerController.controller('EventController', function($scope,$http,$timeout,$sce, EventService, UserService, CategoryService, RegionService, LoginService, ParticipationService) {
 
 	var urlPath = "http://localhost:8085/OqFazer/Event!";
 	
@@ -6,6 +6,7 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 	$scope.data;
 	$scope.events = [];
 	$scope.event = {};
+	$scope.participation = {};
 	$scope.categoriesEvent = [];
 	$scope.currentPage = 1;
 	$scope.itemsPerPage = 5;
@@ -172,19 +173,25 @@ OqFazerController.controller('EventController', function($scope,$http,$timeout,$
 		$scope.event = EventService.getDescriptionEvent();
 	}
 	
-	$scope.insertParticipation = function(eventId,userId){
-		var participation = {context: {eventId : eventId, userId : userId}};
+	$scope.insertParticipation = function(eventId){
+		$scope.participation.userId = LoginService.sendUser.id;
+		$scope.participation.eventId = eventId;
+		console.log($scope.participation);
+		var participation = {context : {participation : $scope.participation}};
 		
 		ParticipationService.insert(participation).then(function(response){
-			
+			alert("Ok");
 		});
 	}
 	
-	$scope.removeParticipation = function(eventId,userId){
-		var participation = {context: {eventId : eventId, userId : userId}};
+	$scope.removeParticipation = function(eventId){
+		$scope.participation.userId = LoginService.sendUser.id;
+		$scope.participation.eventId = eventId;
+		console.log($scope.participation);
+		var participation = {context : {participation : $scope.participation}};
 		
 		ParticipationService.remove(participation).then(function(response){
-			
+			alert("Remove Ok");
 		});
 	}
 	

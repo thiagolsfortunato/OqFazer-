@@ -18,12 +18,12 @@ public class ParticipationAction extends OqFazerWebAction{
 	}
 	
 	public String insert(){
-		this.service.insertParticipation(context.getIdEvent(), context.getIdUser());
+		this.service.insertParticipation(context.getParticipation().getEventId(), context.getParticipation().getUserId());
 		return IT_WORKED;
 	}
 	
 	public String remove(){
-		this.service.removeParticipation(context.getIdEvent(), context.getIdUser());
+		this.service.removeParticipation(context.getParticipation().getEventId(), context.getParticipation().getUserId());
 		return IT_WORKED;		
 	}
 }

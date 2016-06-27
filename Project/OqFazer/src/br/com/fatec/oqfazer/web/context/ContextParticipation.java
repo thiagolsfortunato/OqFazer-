@@ -1,24 +1,17 @@
 package br.com.fatec.oqfazer.web.context;
 
+import br.com.fatec.oqfazer.api.dto.ParticipationDTO;
+
 public class ContextParticipation {
 	
-	private Long idEvent;
-	private Long idUser;
-	
-	
-	public Long getIdUser() {
-		return idUser;
+	private ParticipationDTO participation;
+
+	public ParticipationDTO getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(ParticipationDTO participation) {
+		this.participation = participation;
 	}
 	
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
-	
-	public Long getIdEvent() {
-		return idEvent;
-	}
-	
-	public void setIdEvent(Long idEvent) {
-		this.idEvent = idEvent;
-	}
 }
