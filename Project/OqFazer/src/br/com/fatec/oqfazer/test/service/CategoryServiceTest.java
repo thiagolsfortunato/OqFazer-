@@ -13,11 +13,12 @@ public class CategoryServiceTest extends TestScenario {
 	public void insertCategoryWithoutChildren(){
 		CategoryDTO dto = new CategoryDTO(null, "Sertanejo", null);
 		CategoryDTO saved = this.categoryService.insert(dto);
+		
 		saved = this.categoryService.searchById(saved.getId());
 		
 		Assert.assertEquals(new Long(4), saved.getId());
 		Assert.assertEquals("Sertanejo", saved.getName());
-		Assert.assertEquals(new Long(1), saved.getParentDTO());
+		Assert.assertNull(saved.getParentDTO());
 		
 		Assert.assertEquals(0, saved.getCategoriesChildren().size());
 	}
@@ -36,7 +37,7 @@ public class CategoryServiceTest extends TestScenario {
 		Assert.assertEquals(1, sertanejoEntidade.getCategoriesChildren().size());
 		Assert.assertEquals(new Long(5), universitarioEntidade.getId());
 		Assert.assertEquals("Universitario", universitarioEntidade.getName());
-		Assert.assertEquals(new Long(4), universitarioEntidade.getParentDTO());
+		Assert.assertEquals(new Long(4), universitarioEntidade.getParentDTO().getId());
 	}
 	
 	@Test
@@ -80,7 +81,7 @@ public class CategoryServiceTest extends TestScenario {
 		
 		Assert.assertEquals(new Long(1), dto.getId());
 		Assert.assertEquals("Show", dto.getName());
-		Assert.assertEquals(new Long(0), dto.getParentDTO().getId());
+		Assert.assertNull(dto.getParentDTO());
 	}
 	
 	@Test
