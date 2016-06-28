@@ -8,6 +8,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.itemsPerPage = 5;
 	$scope.buildList = _buildList;
 	$scope.showMessageError = false;
+	$scope.showMessageSuccess = false; 
 	
 	function init(){
 		$scope.user = StorageHelper.getItem(CHAVE_STORAGE);;
@@ -41,6 +42,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 					$scope.loadUsers();
 					$scope.cancelModalUser();
 					$scope.$applyAsync();
+					$scope.showMessageSuccess = true;
 				})
 			}else{
 				alert("Fail Operation");

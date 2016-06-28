@@ -1,7 +1,13 @@
 <div class="page-header" align="center">
     <h2> New Event </h2>
 </div>
-<form class="form-horizontal form-label-left" novalidate>        
+<form class="form-horizontal form-label-left" novalidate>
+	<div class="alert alert-danger" role="alert" ng-show="showMessageError">
+		<p><strong>Warning!</strong> Problems with Insertion</p>
+	</div>
+	<div class="alert alert-success" role="alert" ng-show="showMessageSuccess">
+		<p><strong>Success!</strong> Event Saved !</p>
+	</div>        
     <div class="item form-group">
         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Name: </label>
         <div class="col-md-6 col-sm-6 col-xs-12">

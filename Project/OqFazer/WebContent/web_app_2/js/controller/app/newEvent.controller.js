@@ -8,6 +8,8 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 	$scope.data;
 	$scope.insertCategory = _insertCategory;
 	$scope.deleteCategory = _deleteCategory;
+	$scope.showMessageError = false;
+	$scope.showMessageSuccess = false; 
 	
 	function init(){
 		$scope.loadEvents();
@@ -27,9 +29,13 @@ OqFazerController.controller("NewEventController",  function($scope, EventServic
 		var data = {context : {event : $scope.event}};
 		
 		EventService.insert(data).then(function(response){
-			$scope.event = null;
-			searchUser($scope.user.id);
-			$("#agregar").datepicker('setDate', "");
+			if(response != null){
+				$scope.event = null;
+				searchUser($scope.user.id); 
+				$("#agregar").datepicker('setDate', "");
+				$scope.$applyAsync();
+				$scope.showMessageSuccess = true;
+			}
 		})
 	};
 
