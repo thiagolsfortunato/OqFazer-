@@ -1,6 +1,7 @@
 OqFazerController.controller('UserController', function($scope,$http,$timeout,$sce, UserService, LoginService ) {
 
 	TelaHelper.tela = 'user';
+	var CHAVE_STORAGE = 'user';
 	$scope.user = {};
 	$scope.users = [];
 	$scope.currentPage = 1;
@@ -9,7 +10,7 @@ OqFazerController.controller('UserController', function($scope,$http,$timeout,$s
 	$scope.showMessageError = false;
 	
 	function init(){
-		$scope.user = LoginService.sendUser;
+		$scope.user = StorageHelper.getItem(CHAVE_STORAGE);;
 		$scope.loadUsers();
 		$scope.$applyAsync();
 	}

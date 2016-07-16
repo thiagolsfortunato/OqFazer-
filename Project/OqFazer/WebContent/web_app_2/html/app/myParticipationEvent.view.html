@@ -1,4 +1,4 @@
-<div class="conteudo">
+<div class="conteudo participate">
 	<div class="page-header" align="center">
    		<h2>My Participations</h2>
 	</div>
@@ -8,7 +8,7 @@
 				<th>Name</th>
 				<th>Event Date</th>
 				<th>Local</th>
-				<th colspan="1"></th>
+				<th colspan="2"></th>
 			</thead>
 			<tbody>
 				<tr ng-repeat="event in participationEvents.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage))"
@@ -18,7 +18,12 @@
 						<td at-implicit at-sortable>{{ event.local }}</td>
 					<td class="btnCell">
 						<p>
-							<a ng-click="openModalEvent(event.id)" class="btn btn-warning btn-small">Details</a>
+							<a href="#/descriptionEvent" ng-click="setDescriptionEvent(event)" class="btn btn-warning btn-small">Details</a>
+						</p>
+					</td>
+					<td class="btnCell">
+						<p>
+							<a ng-click="removeParticipation(event.id)" class="btn btn-danger btn-small">Unparticipate</a>
 						</p>
 					</td>
 				</tr>

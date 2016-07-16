@@ -14,7 +14,25 @@ ul.pagination {
 }
 
 #tabelaAngular {
-    margin-bottom: 200px;
+    margin-bottom: 20px;
+}
+
+div.conteudo.categoryTable {
+	width: 50%;
+ 	margin-left: 25%;
+    margin-bottom: 20px;
+}
+
+div.conteudo.participate {
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+div.conteudo.myevent {
+    width: 40%;
+    margin-left: 30%;
+    margin-right: 20%;
 }
 
 .btn.focus, .btn:focus {

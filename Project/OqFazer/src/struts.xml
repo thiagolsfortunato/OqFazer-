@@ -21,6 +21,5 @@
 		    <interceptor-ref name="defaultStack"></interceptor-ref>
 			<result name="worked" type="json" />
 		</action>
-
 	</package>
 </struts>

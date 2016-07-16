@@ -1,24 +1,19 @@
 package br.com.fatec.oqfazer.web.context;
 
-public class ContextParticipation {
+import java.io.Serializable;
+import br.com.fatec.oqfazer.api.dto.ParticipationDTO;
+
+public class ContextParticipation implements Serializable{
 	
-	private Long idEvent;
-	private Long idUser;
-	
-	
-	public Long getIdUser() {
-		return idUser;
+	private static final long serialVersionUID = -4650843774060358681L;
+	private ParticipationDTO participation;
+
+	public ParticipationDTO getParticipation() {
+		return participation;
+	}
+
+	public void setParticipation(ParticipationDTO participation) {
+		this.participation = participation;
 	}
 	
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
-	
-	public Long getIdEvent() {
-		return idEvent;
-	}
-	
-	public void setIdEvent(Long idEvent) {
-		this.idEvent = idEvent;
-	}
 }
