@@ -1,10 +1,8 @@
 package br.com.fatec.oqfazer.core.converter;
 
 import java.util.List;
-import java.util.Set;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 
 import br.com.fatec.oqfazer.api.dao.CategoryDAO;
 import br.com.fatec.oqfazer.api.dto.CategoryDTO;

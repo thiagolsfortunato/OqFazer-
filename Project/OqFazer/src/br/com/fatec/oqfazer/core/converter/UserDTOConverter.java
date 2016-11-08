@@ -1,13 +1,13 @@
 package br.com.fatec.oqfazer.core.converter;
 
 import java.util.List;
+
 import com.google.common.collect.Lists;
+
 import br.com.fatec.oqfazer.api.dao.EventDAO;
 import br.com.fatec.oqfazer.api.dao.ParticipationDAO;
 import br.com.fatec.oqfazer.api.dao.UserDAO;
-import br.com.fatec.oqfazer.api.dto.EventDTO;
 import br.com.fatec.oqfazer.api.dto.UserDTO;
-import br.com.fatec.oqfazer.api.entity.Event;
 import br.com.fatec.oqfazer.api.entity.User;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 import br.com.spektro.minispring.dto.DTOConverter;

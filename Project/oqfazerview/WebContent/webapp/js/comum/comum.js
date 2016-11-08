@@ -2,8 +2,8 @@ window.publication =  angular.module('oqfazer', ['ui.bootstrap','LocalStorageMod
 
 publication.config(function($routeProvider){
 	
-	var pathAdministrator = '/OqFazer/web_app_2/html/administrator/';
-	var pathApp = '/OqFazer/web_app_2/html/app/';
+	var pathAdministrator = '/oqfazerview/webapp/html/administrator/';
+	var pathApp = '/oqfazerview/webapp/html/app/';
 	$routeProvider
 	  
     .when('/events', {templateUrl: pathAdministrator + 'event.view.html', controller: 'EventController'}) //adm

@@ -5,7 +5,6 @@ import java.util.List;
 
 import br.com.fatec.oqfazer.api.dto.CityDTO;
 import br.com.fatec.oqfazer.api.dto.RegionDTO;
-import br.com.fatec.oqfazer.api.entity.City;
 
 public class ContextRegion implements Serializable{
 
