@@ -1,6 +1,5 @@
 package br.com.fatec.oqfazer.test.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
@@ -11,8 +10,8 @@ import com.google.common.collect.Lists;
 
 import br.com.fatec.oqfazer.api.dao.CityDAO;
 import br.com.fatec.oqfazer.api.dao.RegionDAO;
-import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.fatec.oqfazer.api.entity.City;
+import br.com.fatec.oqfazer.api.entity.Region;
 import br.com.fatec.oqfazer.test.common.TestBase;
 import br.com.spektro.minispring.core.implfinder.ImplFinder;
 

@@ -29,10 +29,10 @@ public class RegionServiceTest extends TestScenario {
 		Assert.assertEquals("Litoral Norte", saved.getName());
 		
 		Assert.assertEquals(4, saved.getCities().size());
-		Assert.assertEquals("Caraguatatuba", saved.getCities().get(0));
-		Assert.assertEquals("Ubatuba", saved.getCities().get(1));
-		Assert.assertEquals("Ilhabela", saved.getCities().get(2));
-		Assert.assertEquals("São Sebastião", saved.getCities().get(3));
+		Assert.assertEquals("Caraguatatuba", saved.getCities().get(0).getNome());
+		Assert.assertEquals("Ilhabela", saved.getCities().get(1).getNome());
+		Assert.assertEquals("São Sebastião", saved.getCities().get(2).getNome());
+		Assert.assertEquals("Ubatuba", saved.getCities().get(3).getNome());
 
 	}
 	
@@ -82,7 +82,7 @@ public class RegionServiceTest extends TestScenario {
 		Assert.assertEquals(new Long(1), dto.getId());
 		Assert.assertEquals("Region1", dto.getName());
 		Assert.assertEquals("Caraguatatuba", dto.getCities().get(0).getNome());
-		Assert.assertEquals("Ilhabela", dto.getCities().get(1).getName());
+		Assert.assertEquals("Ilhabela", dto.getCities().get(1).getNome());
 		Assert.assertEquals("São Sebastião", dto.getCities().get(2).getNome());
 		Assert.assertEquals("Ubatuba", dto.getCities().get(3).getNome());
 		Assert.assertEquals("Pindamonhangaba", dto.getCities().get(4).getNome());

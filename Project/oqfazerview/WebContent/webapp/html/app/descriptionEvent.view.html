@@ -1,0 +1,75 @@
+<div class="page-header" align="center">
+    <h2> Event </h2>
+</div>
+<form class="form-horizontal form-label-left" novalidate>
+	<div class="item form-group" align="center">
+		<img id="image" ng-src="{{event.imageURL}}" alt="">	
+	</div> 
+    <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Name: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Name Event" required="required" type="text">
+        </div>
+    </div>
+     <div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Description: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.description" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Description Event" required="required" type="text">
+        </div>
+    </div>
+    <div class="item form-group">
+		<label  class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Event Date: </label>
+		<div class="col-md-6 col-sm-6 col-xs-12">
+			<input name="lancamento" placeholder="dd/mm/aaaa" id="agregar" type="text" class="form-control datepicker" >
+		</div>
+	</div>
+    <div class="item form-group">
+       <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Local: </label>
+       <div class="col-md-6 col-sm-6 col-xs-12">
+           <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.local" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Address" required="required" type="text">
+       </div>
+    </div>
+    <div class="item form-group">
+   	   <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Region: </label>
+   	   		<div class="col-md-6 col-sm-6 col-xs-12">
+	   	   		<input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.region.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Region" required="required" type="text">
+			</div>
+	</div>
+	<div class="item form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name"> Onwer: </label>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <input id="name" class="form-control col-md-7 col-xs-12" data-ng-model="event.owner.name" data-validate-length-range="6" data-validate-words="2" name="name" placeholder="Nome completo" required="required" type="text">
+        </div>
+    </div>
+    <div class="conteudo categoryTable">
+		<table id="tabelaAngular" class="table table-striped table-bordered table-responsive margin-left='40%'"  cellspacing="0" width="50%" at-table at-paginated at-list="categoriesEvent" at-config="config">
+			<thead>
+				<th>Categories</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="category in event.categories track by $index" ng-if="event.categories.length != 0">
+					<td at-implicit at-sortable>{{category.name}}</td>
+				</tr>
+				<tr ng-if="event.categories.length == 0">
+					<td colspan="5" class="semRegistros">
+						<p>No Categories</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>       
+    <div class="ln_solid">
+	    <div class="form-group">
+	        <div class="col-md-6 col-md-offset-3" ng-if="isLogado">
+	            <button ng-show="!event.owner.name == user.name" type="button" class="btn btn-success" ng-click="insertParticipation(event.id)">Participate</button>
+	        </div>
+	    </div>
+    </div>
+    <div class="ln_solid">
+	    <div class="form-group">
+	        <div class="col-md-6 col-md-offset-3" ng-if="isLogado">
+	            <button ng-show="event.owner.name == user.name" type="button" class="btn btn-success" ng-click="insert(event)">Save</button>
+	        </div>
+	    </div>
+    </div>
+</form>
