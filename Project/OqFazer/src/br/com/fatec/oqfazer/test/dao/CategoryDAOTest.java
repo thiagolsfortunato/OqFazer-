@@ -42,9 +42,9 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertNotNull(savedCategory);
 		Assert.assertEquals(new Long (1), savedCategory.getId());
 		Assert.assertEquals("Show", savedCategory.getName());
-		Assert.assertEquals(null, savedCategory.getParent());
+		Assert.assertEquals(0, savedCategory.getParent().longValue());
 		
-		Assert.assertNotNull(savedCategory);
+		Assert.assertNotNull(savedCategory1);
 		Assert.assertEquals(new Long (2), savedCategory1.getId());
 		Assert.assertEquals("Show de Rock", savedCategory1.getName());
 		Assert.assertEquals(new Long (1), savedCategory1.getParent());
@@ -69,7 +69,7 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertNotNull(category);
 		Assert.assertEquals(new Long (1), updateCategory.getId());
 		Assert.assertEquals("Teatro", updatedCatedory.getName());
-		Assert.assertEquals(null, updatedCatedory.getParent());
+		Assert.assertEquals(0, updatedCatedory.getParent().longValue());
 	}
 
 	@Test
@@ -108,7 +108,7 @@ public class CategoryDAOTest extends TestBase {
 		Assert.assertEquals(2, listCategories.size());
 		Assert.assertEquals(new Long (1), listCategories.get(0).getId());
 		Assert.assertEquals("Show", listCategories.get(0).getName());
-		Assert.assertEquals(null, listCategories.get(0).getParent());
+		Assert.assertEquals(0, listCategories.get(0).getParent().longValue());
 		
 		Assert.assertEquals(new Long (2), listCategories.get(1).getId());
 		Assert.assertEquals("Show Rock", listCategories.get(1).getName());
